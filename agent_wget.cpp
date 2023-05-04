@@ -104,6 +104,7 @@ retry_write:
 		wget_args.push_back("--save-headers");
 		wget_args.push_back("--content-on-error");
 		wget_args.push_back("--no-http-keep-alive");
+		wget_args.push_back("--no-check-certificate");
 
 		arg= conn->proxy_server();
 		// Override environment

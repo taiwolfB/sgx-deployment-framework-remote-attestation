@@ -274,13 +274,13 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/azureuser/sgx-ra-sample/missing aclocal-1.16
+ACLOCAL = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing aclocal-1.16
 AGENT_CURL_SRC = 
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/azureuser/sgx-ra-sample/missing autoconf
-AUTOHEADER = ${SHELL} /home/azureuser/sgx-ra-sample/missing autoheader
-AUTOMAKE = ${SHELL} /home/azureuser/sgx-ra-sample/missing automake-1.16
+AUTOCONF = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing autoconf
+AUTOHEADER = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing autoheader
+AUTOMAKE = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -311,15 +311,15 @@ INSTALL_SCRIPT = ${INSTALL}
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
 LDFLAGS = 
 LIBOBJS = 
-LIBS = -lcrypto 
+LIBS = 
 LIBS_HW_SIMU = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/azureuser/sgx-ra-sample/missing makeinfo
+MAKEINFO = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
-OPENSSL_CPPFLAGS = 
-OPENSSL_LDFLAGS = 
-OPENSSL_LIBDIR = 
+OPENSSL_CPPFLAGS = -I/opt/openssl/1.1.1i/include
+OPENSSL_LDFLAGS = -L/opt/openssl/1.1.1i/lib
+OPENSSL_LIBDIR = /opt/openssl/1.1.1i/lib
 PACKAGE = sgxautosample
 PACKAGE_BUGREPORT = john.p.mechalas@intel.com
 PACKAGE_NAME = sgxautosample
@@ -352,10 +352,10 @@ SGX_URTS_LIB = sgx_urts
 SHELL = /bin/bash
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/azureuser/sgx-ra-sample
-abs_srcdir = /home/azureuser/sgx-ra-sample
-abs_top_builddir = /home/azureuser/sgx-ra-sample
-abs_top_srcdir = /home/azureuser/sgx-ra-sample
+abs_builddir = /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_
+abs_srcdir = /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_
+abs_top_builddir = /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_
+abs_top_srcdir = /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -377,7 +377,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/azureuser/sgx-ra-sample/install-sh
+install_sh = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -402,9 +402,9 @@ SGX_EDGER8R = $(SGXSDK_BINDIR)/sgx_edger8r
 SGX_SIGN = $(SGXSDK_BINDIR)/sgx_sign
 SGXSSL_BINDIR = @SGXSSL_BINDIR@
 #AM_CPPFLAGS = -fno-builtin-memset \
-#	 $(am__empty)
+#	-I/opt/openssl/1.1.1i/include $(am__empty)
 AM_CPPFLAGS = -I$(SGXSDK_INCDIR) -fno-builtin-memset \
-	 $(am__empty)
+	-I/opt/openssl/1.1.1i/include $(am__empty)
 #AM_LDFLAGS = 
 AM_LDFLAGS = -L$(SGXSDK_LIBDIR)
 SUBDIRS = Enclave 
@@ -421,13 +421,13 @@ client_SOURCES = client.cpp sgx_detect_linux.c sgx_stub.c quote_size.c \
 nodist_client_SOURCES = Enclave_u.c Enclave_u.h
 EXTRA_client_DEPENDENCIES = Enclave.signed.so
 BUILT_SOURCES = Enclave_u.c Enclave_u.h policy
-client_LDFLAGS = $(AM_LDFLAGS) 
+client_LDFLAGS = $(AM_LDFLAGS) -L/opt/openssl/1.1.1i/lib
 sp_SOURCES = sp.cpp agent_wget.cpp iasrequest.cpp enclave_verify.c \
 	$(common) $(am__append_1)
 EXTRA_sp_DEPENDENCIES = Enclave.signed.so
 mrsigner_SOURCES = mrsigner.cpp crypto.c hexutil.c
-sp_LDFLAGS = $(AM_LDFLAGS)  
-mrsigner_LDFLAGS = $(AM_LDFLAGS) 
+sp_LDFLAGS = $(AM_LDFLAGS) -L/opt/openssl/1.1.1i/lib 
+mrsigner_LDFLAGS = $(AM_LDFLAGS) -L/opt/openssl/1.1.1i/lib
 client_LDADD = -l$(SGX_URTS_LIB) -lsgx_ukey_exchange -lcrypto \
 	-l:libsgx_capable.a -lpthread -ldl
 

@@ -22,7 +22,7 @@ SPID=BEF0C192CA3FA550B40A660E9765E1A8
 # quotes. If you change this, you'll need to change SPID,
 # IAS_PRIMARY_SUBSCRIPTION_KEY and IAS_SECONDARY_SUBSCRIPTION_KEY too.
 
-LINKABLE=0
+LINKABLE=1
 
 
 #======================================================================

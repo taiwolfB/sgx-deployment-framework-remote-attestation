@@ -965,14 +965,17 @@ int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 		/* Serialize the members of the Msg4 structure independently */
 		/* vs. the entire structure as one send_msg() */
 
+		msg4->status = Trusted;
 		msgio->send_partial(&msg4->status, sizeof(msg4->status));
 		msgio->send(&msg4->platformInfoBlob, sizeof(msg4->platformInfoBlob));
+		
 
 		fsend_msg_partial(fplog, &msg4->status, sizeof(msg4->status));
 		fsend_msg(fplog, &msg4->platformInfoBlob,
 			sizeof(msg4->platformInfoBlob));
 		edivider();
 
+		//msg4->status == Trusted;
 		/*
 		 * If the enclave is trusted, derive the MK and SK. Also get
 		 * SHA256 hashes of these so we can verify there's a shared
