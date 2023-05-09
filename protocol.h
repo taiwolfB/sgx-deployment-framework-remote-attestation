@@ -47,5 +47,16 @@ typedef struct _ra_msg4_struct {
 	sgx_platform_info_t platformInfoBlob;
 } ra_msg4_t;
 
+typedef struct ra_msg5_to_be_encrypted_struct
+{
+    unsigned char* data;
+} ra_msg5_to_be_encrypted_t;
+
+typedef struct _ra_msg6_encrypted_struct
+{
+    sample_aes_gcm_128bit_tag_t mac;
+    unsigned char* encrypted_data;
+} ra_msg6_encrypted_struct;
+
 #endif
 

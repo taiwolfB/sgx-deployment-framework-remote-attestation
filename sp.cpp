@@ -118,6 +118,8 @@ int process_msg01 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 int process_msg3 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 	ra_msg4_t *msg4, config_t *config, ra_session_t *session);
 
+int process_msg5(MsgIO *msg, ra_session_t *session);
+
 int get_sigrl (IAS_Connection *ias, int version, sgx_epid_group_id_t gid,
 	char **sigrl, uint32_t *msg2);
 
@@ -687,6 +689,11 @@ int main(int argc, char *argv[])
 			goto disconnect;
 		}
 
+		if (!process_msg5(msgio, &session)) {
+            eprintf("error processing msg5\n");
+            goto disconnect;
+        }
+
 disconnect:
 		msgio->disconnect();
 	}
@@ -694,6 +701,65 @@ disconnect:
 	crypto_destroy();
 
 	return 0;
+}
+
+int process_msg5(MsgIO *msg, ra_session_t *session)
+{
+    ra_msg5_to_be_encrypted_t* msg5;
+    size_t msg5_size;
+
+    int rv = msgio->read((void**)&msg5, &msg5_size);
+    if (rv == -1)
+    {
+        eprintf("system error reading msg5\n");
+        return 0;
+    }
+    else if (rv == 0)
+    {
+        eprintf("protocol error reading msg5\n");
+        return 0;
+    }
+
+    // message size is half of what is given by read, due to supreme intelligence....
+    msg5_size /= 2;
+
+    int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_struct);
+    ra_msg6_encrypted_struct* msg6 = (ra_msg6_encrypted_struct*)malloc(msg6_size);
+    if (!msg6)
+    {
+        return 0;
+    }
+
+    if (!aes_encrypt_gcm(&session->sk[0], &msg5->data_to_encrypt[0], msg5_size, &msg6->encrypted_data[0], &msg6->mac))
+    {
+        free(msg6);
+        return 0;
+    }
+
+    eprintf("sk = %s\n",
+        hexstring(&session->sk[0], sizeof(session->sk)));
+
+    eprintf("data_to_encrypt = %s\n",
+        hexstring(&msg5->data_to_encrypt[0], msg5_size));
+
+    eprintf("msg5_size = 0x%x\n",
+        msg5_size);
+
+    eprintf("ecrypted_data = %s\n",
+        hexstring(&msg6->encrypted_data[0], msg6_size));
+
+    eprintf("msg6_size = 0x%x\n",
+        msg6_size);
+
+    eprintf("mac = %s\n",
+        hexstring(msg6->mac, sizeof(msg6->mac)));
+
+    msgio->send(msg6, msg6_size);
+    fsend_msg(fplog, &msg6, msg6_size);
+    edivider();
+
+    free(msg6);
+    return 1;
 }
 
 int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
