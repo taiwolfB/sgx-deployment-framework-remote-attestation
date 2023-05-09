@@ -731,7 +731,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
         return 0;
     }
 
-    if (!aes_encrypt_gcm(&session->sk[0], &msg5->data_to_encrypt[0], msg5_size, &msg6->encrypted_data[0], &msg6->mac))
+    if (!aes_encrypt_gcm(&session->sk[0], &msg5->data[0], msg5_size, &msg6->data[0], &msg6->mac))
     {
         free(msg6);
         return 0;
@@ -741,13 +741,13 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
         hexstring(&session->sk[0], sizeof(session->sk)));
 
     eprintf("data_to_encrypt = %s\n",
-        hexstring(&msg5->data_to_encrypt[0], msg5_size));
+        hexstring(&msg5->data[0], msg5_size));
 
     eprintf("msg5_size = 0x%x\n",
         msg5_size);
 
     eprintf("ecrypted_data = %s\n",
-        hexstring(&msg6->encrypted_data[0], msg6_size));
+        hexstring(&msg6->data[0], msg6_size));
 
     eprintf("msg6_size = 0x%x\n",
         msg6_size);

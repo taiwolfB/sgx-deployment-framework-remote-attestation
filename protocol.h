@@ -20,6 +20,7 @@ in the License.
 
 #include <inttypes.h>
 #include <sgx_quote.h>
+#include "sample_libcrypto/sample_libcrypto.h"
 
 /*
  * Define a structure to be used to transfer the Attestation Status 
@@ -54,7 +55,7 @@ typedef struct ra_msg5_to_be_encrypted_struct
 
 typedef struct _ra_msg6_encrypted_struct
 {
-    // sample_aes_gcm_128bit_tag_t mac;
+    sample_aes_gcm_128bit_tag_t mac;
     unsigned char* encrypted_data;
 } ra_msg6_encrypted_struct;
 
