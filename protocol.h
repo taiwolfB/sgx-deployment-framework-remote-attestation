@@ -20,7 +20,7 @@ in the License.
 
 #include <inttypes.h>
 #include <sgx_quote.h>
-#include "sample_libcrypto/sample_libcrypto.h"
+#include "sample_libcrypto.h"
 
 /*
  * Define a structure to be used to transfer the Attestation Status 
