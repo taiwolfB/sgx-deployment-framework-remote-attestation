@@ -762,7 +762,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// the client will be instantiated with ./run-client -a FILE_NAME from the java backend. In the MSG5 we should add the file location.
 		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
 		msg5_encryption_request->isRequested = true;
-		//msg5_encryption_request->deploymentFileLocation = (char*)malloc((sizeof(deploymentFileLocation) + 1) * sizeof(char));
 		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
 		printf("FILE BEFORE = %s\n", msg5_encryption_request->deploymentFileLocation);
 		printf("Size before = %ld\n", sizeof(msg5_encryption_request->deploymentFileLocation));
@@ -770,8 +769,8 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		size_t msg5_sz = 10;
 		dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
 		// msgio->send(msg5_encryption_request, msg5_sz);
-		msgio->send_partial(&msg5_encryption_request->isRequested, sizeof(msg5_encryption_request->isRequested) + 1);
-        msgio->send(&msg5_encryption_request->deploymentFileLocation, sizeof(msg5_encryption_request->deploymentFileLocation) + 1);
+		msgio->send_partial(&msg5_encryption_request->isRequested, sizeof(msg5_encryption_request->isRequested));
+        msgio->send(&msg5_encryption_request->deploymentFileLocation, sizeof(msg5_encryption_request->deploymentFileLocation));
 		divider(stderr);
 
 		// dividerWithText(fplog, "Msg5 ==> SP");
