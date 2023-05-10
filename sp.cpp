@@ -812,7 +812,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 		fclose(fp);
-		const unsigned char* tmpData = (const unsigned char*)malloc(fileDataSize * sizeof(const unsigned char));
+		unsigned char* tmpData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
 		if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, tmpData, &msg6->mac))
 		{
 			free(msg6);
@@ -820,7 +820,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 
 		printf("ENCRYPTED DATA = %s", tmpData);
-		printf("STRLEN(ENCRYTPED) = %d", strlen(tmpData));
+		printf("STRLEN(ENCRYTPED) = %d", sizeof(tmpData));
 		// eprintf("sk = %s\n",
 		//     hexstring(&session->sk[0], sizeof(session->sk)));
 
