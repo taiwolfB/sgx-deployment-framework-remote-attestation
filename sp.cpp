@@ -803,7 +803,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		fseek(fp, 0L, SEEK_END);
 		const int fileSizeInBytes = ftell(fp);
 		unsigned char* fileData = (unsigned char*)malloc(fileSizeInBytes * sizeof(unsigned char));
-		int fileDataSize = 0;
+		size_t fileDataSize = 0;
 		fseek(fp, 0L, SEEK_SET);
 		uint8_t byte;
 		while (fscanf(fp, "%c", &byte) != EOF) {
@@ -812,7 +812,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 		fclose(fp);
 
-		if (!aes_encrypt_gcm(&session->sk[0], fileData, 100, &msg6->data[0], &msg6->mac))
+		if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, &msg6->data[0], &msg6->mac))
 		{
 			free(msg6);
 			return 0;
