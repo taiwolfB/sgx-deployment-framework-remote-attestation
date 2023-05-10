@@ -723,7 +723,7 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
         0,
         mac
     );
-
+	printf("status = %d\n", status);
     return status == SAMPLE_SUCCESS;
     //    error_type = e_none;
     //
@@ -815,7 +815,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, &msg6->data[0], &msg6->mac))
 		{
 			free(msg6);
-			printf("EUIU\n");
 			return 0;
 		}
 
