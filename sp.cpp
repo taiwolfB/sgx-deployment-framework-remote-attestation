@@ -786,16 +786,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
         return 0;
     }
 
-	printf("Sizeof msg5 = %d\n", sizeof(msg5));
-	printf("MSG 5 FILe = %s\n", msg5->deploymentFileLocation);
-	eprintf("BOOL = %d\n", msg5->isRequested);
-
-    msg5_size /= 2;
-
 	if (msg5->isRequested) {
-
-		int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
-		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
+		msg5_size /= 2;
+		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg5_size + sizeof(ra_msg6_encrypted_t));
 		if (!msg6)
 		{
 		return 0;
@@ -808,7 +801,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		fseek(fp, 0L, SEEK_END);
 		const int fileSizeInBytes = ftell(fp);
-		uint8_t* fileData = (uint8_t*)malloc(fileSizeInBytes * sizeof(uint8_t));
+		unsigned char* fileData = (unsigned char*)malloc(fileSizeInBytes * sizeof(unsigned char));
 		int fileDataSize = 0;
 		fseek(fp, 0L, SEEK_SET);
 		uint8_t byte;
