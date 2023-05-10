@@ -724,48 +724,6 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
         mac
     );
 	
-    return status == SAMPLE_SUCCESS;
-    //    error_type = e_none;
-    //
-    //    EVP_CIPHER_CTX* ctx = EVP_CIPHER_CTX_new();
-    //    if (!ctx)
-    //    {
-    //        error_type = e_crypto;
-    //        goto cleanup;
-    //    }
-    //
-    //    if (!EVP_CIPHER_CTX_init(ctx))
-    //    {
-    //        error_type = e_crypto;
-    //        goto cleanup;
-    //    }
-    //
-    //    unsigned char iv[16] = { 0 };
-    //    if (!EVP_EncryptInit(ctx, EVP_aes_128_gcm(), &key[0], &iv[0]))
-    //    {
-    //        error_type = e_crypto;
-    //        goto cleanup;
-    //    }
-    //
-    //    *out_len = 0;
-    //    if (!EVP_EncryptUpdate(ctx, encrypted_message, out_len, message, (int)mlen))
-    //    {
-    //        error_type = e_crypto;
-    //        goto cleanup;
-    //    }
-    //
-    //    int tmpOut;
-    //    if (!EVP_EncryptFinal(ctx, encrypted_message + *out_len, &tmpOut))
-    //    {
-    //        error_type = e_crypto;
-    //        goto cleanup;
-    //    }
-    //
-    //    *out_len += tmpOut;
-    //
-    //cleanup:
-    //    if (ctx != NULL) EVP_CIPHER_CTX_free(ctx);
-    //    return (error_type == e_none);
 }
 
 
