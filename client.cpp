@@ -774,7 +774,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// fsend_msg(fplog, msg5_encryption_request, msg5_sz);
 		// divider(fplog);
 
-		ra_msg6_encrypted_t* msg6_encrypted  = NULL;
+		ra_msg6_encrypted_t* msg6_encrypted;
 		size_t msg6_sz;
 
 		rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
