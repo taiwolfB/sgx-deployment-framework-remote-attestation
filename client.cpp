@@ -825,6 +825,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// 	return 0;
 		// }
 		// printf("DECRYPTED DATA = %s\n", tmpData);
+		
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
 		eprintf("Enclave NOT TRUSTED\n");
