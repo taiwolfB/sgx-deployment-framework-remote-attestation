@@ -450,7 +450,7 @@ int main(int argc, char *argv[])
 			flag_stdio= 1;
 			break;
 		case 'a':
-			printf("%s", optarg);
+			if (optarg == NULL) usage();
 			break;
 		case '?':
 		default:
@@ -1864,7 +1864,9 @@ void usage ()
 "  -x, --no-proxy           Do not use a proxy (force a direct connection), " NL
 "                           overriding environment." NNL
 "  -z  --stdio              Read from stdin and write to stdout instead of" NL
-"                           running as a network server." <<endl;
+"                           running as a network server." NL
+"  -a  --stdio              Input the file name for deployment purposes " NL
+"                           - Bogdan Tailup Thesis Usage." <<endl;
 
 	::exit(1);
 }
