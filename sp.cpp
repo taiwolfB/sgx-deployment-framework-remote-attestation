@@ -1873,7 +1873,7 @@ void usage ()
 "  -x, --no-proxy           Do not use a proxy (force a direct connection), " NL
 "                           overriding environment." NNL
 "  -z  --stdio              Read from stdin and write to stdout instead of" NL
-"                           running as a network server." NL
+"                           running as a network server." << endl;
 
 	::exit(1);
 }
