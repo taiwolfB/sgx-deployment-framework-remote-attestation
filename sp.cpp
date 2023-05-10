@@ -711,7 +711,7 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
     unsigned char* encrypted_message, sample_aes_gcm_128bit_tag_t* mac)
 {
 
-    unsigned char iv[12] = { 0 };
+    unsigned char iv[16] = { 0 };
     sample_status_t status = sample_rijndael128GCM_encrypt(
         (sample_aes_gcm_128bit_key_t*)key,
         message,
@@ -817,19 +817,35 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 		fclose(fp);
-			eprintf("sk = %s\n",
-		    hexstring(&session->sk[0], sizeof(session->sk)));
-		
+// 		*   Return: sample_status_t  - SAMPLE_SUCCESS on success, error code otherwise.
+// *   Inputs: --sample_aes_gcm_128bit_key_t *p_key - Pointer to key used in encryption/decryption operation
+// *           -- uint8_t *p_src - Pointer to input stream to be encrypted/decrypted
+// *           -- uint32_t src_len - Length of input stream to be encrypted/decrypted
+// *           -- uint8_t *p_iv - Pointer to initialization vector to use
+// *           -- uint32_t iv_len - Length of initialization vector
+// *           -- uint8_t *p_aad - Pointer to input stream of additional authentication data
+// *           -- uint32_t aad_len - Length of additional authentication data stream
+// *           sample_aes_gcm_128bit_tag_t *p_in_mac - Pointer to expected MAC in decryption process
+// *   Output: -- uint8_t *p_dst - Pointer to cipher text. Size of buffer should be >= src_len.
+// *           -- sample_aes_gcm_128bit_tag_t *p_out_mac - Pointer to MAC generated from encryption process
+// * NOTE: Wrapper is responsible for confirming decryption tag matches encryption tag */
+// SAMPLE_LIBCRYPTO_API sample_status_t sample_rijndael128GCM_encrypt(const sample_aes_gcm_128bit_key_t *p_key, const uint8_t *p_src, uint32_t src_len,
+//                                         uint8_t *p_dst, const uint8_t *p_iv, uint32_t iv_len, const uint8_t *p_aad, uint32_t aad_len,
+//                                         sample_aes_gcm_128bit_tag_t *p_out_mac);
+		uint32_t iv_len = 32;
+		uint8_t* p_iv = (uint8_t*)malloc(iv_len * sizeof(uint8_t));
+
 		if (!aes_encrypt_gcm(&session->sk[0], fileData, msg5_size, &msg6->data[0], &msg6->mac))
 		{
 			free(msg6);
 			return 0;
 		}
+
 		eprintf("sk = %s\n",
 		    hexstring(&session->sk[0], sizeof(session->sk)));
 
-		// eprintf("data_to_encrypt = %s\n",
-		//     hexstring(&msg5->data[0], msg5_size));
+		eprintf("data_to_encrypt = %s\n",
+		    hexstring(&msg5->data[0], msg5_size));
 
 		eprintf("msg5_size = 0x%x\n",
 		    msg5_size);
