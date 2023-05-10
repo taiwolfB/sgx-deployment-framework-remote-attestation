@@ -800,12 +800,13 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
   //  }
 
 	// const uint8_t *readBytes = 
-//	FILE* fp;
-//	if ( (fp = fopen("Makefile", "w")) == NULL ) {
-//		fprintf(stderr, "fopen: ");
-//	}
-//
-//	printf("AICI FRT %ld", ftell(fp));
+	FILE* fp;
+	if ( (fp = fopen("Makefile", "r")) == NULL ) {
+		fprintf(stderr, "fopen: ");
+	}
+
+	printf("AICI FRT %ld", ftell(fp));
+	fclose(fp);
 	
 	
     // if (!aes_encrypt_gcm(&session->sk[0], &msg5->data[0], msg5_size, &msg6->data[0], &msg6->mac))
