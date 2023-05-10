@@ -802,7 +802,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 
 		FILE* fp;
-		if ( (fp = fopen(deploymentFileLocation, "r")) == NULL ) {
+		if ( (fp = fopen(msg5->deploymentFileLocation, "r")) == NULL ) {
 			fprintf(stderr, "fopen: ");
 		}
 
