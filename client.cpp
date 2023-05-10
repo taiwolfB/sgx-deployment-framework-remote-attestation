@@ -1238,7 +1238,7 @@ void usage ()
 	fprintf(stderr, "  -s, --spid=HEXSTRING     Set the SPID from a 32-byte ASCII hex string\n");
 	fprintf(stderr, "  -v, --verbose            Print decoded RA messages to stderr\n");
 	fprintf(stderr, "  -z                       Read from stdin and write to stdout instead\n");
-	fprintf(stderr, "  -a,  --stdio             Input the file name for deployment purposes " NL
+	fprintf(stderr, "  -a,  --stdio             Input the file name for deployment purposes \n"
 	"                                            - Bogdan Tailup Thesis Usage.");
 	fprintf(stderr, "\nOne of --spid OR --spid-file is required for generating a quote or doing\nremote attestation.\n");
 	exit(1);
