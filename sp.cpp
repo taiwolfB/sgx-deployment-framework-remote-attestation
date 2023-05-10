@@ -820,7 +820,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 
 		printf("ENCRYPTED DATA = %s", tmpData);
-		printf("STRLEN(ENCRYTPED) = %d", sizeof(tmpData));
+		printf("SIZE = %d\n", strlen((char*) tmpData));
 		// eprintf("sk = %s\n",
 		//     hexstring(&session->sk[0], sizeof(session->sk)));
 
