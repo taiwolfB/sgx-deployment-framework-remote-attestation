@@ -762,9 +762,10 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// the client will be instantiated with ./run-client -a FILE_NAME from the java backend. In the MSG5 we should add the file location.
 		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
 		msg5_encryption_request->isRequested = true;
-		msg5_encryption_request->deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
+		msg5_encryption_request->deploymentFileLocation = (char*)malloc(sizeof(deploymentFileLocation) * sizeof(char));
 		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
 		printf("FILE BEFORE = %s\n", msg5_encryption_request->deploymentFileLocation);
+		printf("Size before = %ld\n", sizeof(msg5_encryption_request));
 		size_t msg5_sz = sizeof(msg5_encryption_request) / 2;
 		dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
 		// msgio->send(msg5_encryption_request, msg5_sz);
