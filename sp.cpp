@@ -779,19 +779,18 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("ENCRYPTED DATA1 = %s\n", tmpData);
 		printf("ENCRYPTED DATA2 = %s\n", tmpData);
 		printf("SIZE = %d\n", strlen((char*) tmpData));
-		// size_t encryptedDataSize = 
-		// msg6->encryptedDataSize = strlen((char*)tmpData);
-		// // memcpy(msg6->session_sk, session->sk, 16);
-		// // printf("SESSION SK = %s\n",  &session->sk[0]);
+		msg6->encryptedDataSize = strlen((char*)tmpData);
+		memcpy(msg6->session_sk, session->sk, 16);
+		printf("SESSION SK = %s\n",  &session->sk[0]);
 
-		// //printf("Session in msg6 = %s, and in session = %s\n", msg6->session_sk, session->sk);
-		// // msg6->data = (char*)malloc(encryptedDataSize * sizeof(char));
-		// //strcpy(msg6->data, tmpData);
-		// // msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		// memcpy(msg6->data, tmpData, msg6->encryptedDataSize * sizeof(unsigned char));
-		// printf("ENCRYPTED DATA3 = %s\n", msg6->data);
-		// // eprintf("sk = %s\n",
-		//     hexstring(&session->sk[0], sizeof(session->sk)));
+		printf("Session in msg6 = %s, and in session = %s\n", msg6->session_sk, session->sk);
+		// msg6->data = (char*)malloc(encryptedDataSize * sizeof(char));
+		//strcpy(msg6->data, tmpData);
+		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
+		memcpy(msg6->data, tmpData, msg6->encryptedDataSize * sizeof(unsigned char));
+		printf("ENCRYPTED DATA3 = %s\n", msg6->data);
+		eprintf("sk = %s\n",
+		    hexstring(&session->sk[0], sizeof(session->sk)));
 
 		// eprintf("msg5_size = 0x%x\n",
 		//     msg5_size);
@@ -810,7 +809,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
         // msgio->send(&msg6->data, sizeof(msg6->data));
 		// fsend_msg(fplog, &msg6, msg6_size);
 		// edivider();
-
 		// free(msg6);
 	}
 
