@@ -104,7 +104,7 @@ sgx_status_t sgx_create_enclave_search (
 
 void usage();
 int do_quote(sgx_enclave_id_t eid, config_t *config);
-int do_attestation(sgx_enclave_id_t eid, config_t *config);
+int do_attestation(sgx_enclave_id_t eid, config_t *config, char* deploymentFileLocation);
 
 char debug= 0;
 char verbose= 0;
@@ -142,7 +142,7 @@ int main (int argc, char *argv[])
 	EVP_PKEY *service_public_key= NULL;
 	char have_spid= 0;
 	char flag_stdio= 0;
-
+	char* deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
 	/* Create a logfile to capture debug output and actual msg data */
 	fplog = create_logfile("client.log");
 	dividerWithText(fplog, "Client Log Timestamp");
@@ -420,7 +420,7 @@ int main (int argc, char *argv[])
 	/* Are we attesting, or just spitting out a quote? */
 
 	if ( config.mode == MODE_ATTEST ) {
-		do_attestation(eid, &config);
+		do_attestation(eid, &config, deploymentFileLocation);
 	} else if ( config.mode == MODE_EPID || config.mode == MODE_QUOTE ) {
 		do_quote(eid, &config);
 	} else {
@@ -434,7 +434,7 @@ int main (int argc, char *argv[])
 	return 0;
 }
 
-int do_attestation (sgx_enclave_id_t eid, config_t *config)
+int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFileLocation)
 {
 	sgx_status_t status, sgxrv, pse_status;
 	sgx_ra_msg1_t msg1;
@@ -450,7 +450,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 	size_t msg4sz = 0;
 	int enclaveTrusted = NotTrusted; // Not Trusted
 	int b_pse= OPT_ISSET(flags, OPT_PSE);
-	char* deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
 
 	if ( config->server == NULL ) {
 		msgio = new MsgIO();
