@@ -782,7 +782,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		msg6->encryptedDataSize = strlen((char*)tmpData);
 		memcpy(msg6->session_sk, session->sk, 16);
 		printf("SESSION SK = %s\n",  &session->sk[0]);
-		
+
 		printf("Session in msg6 = %s, and in session = %s\n", msg6->session_sk, session->sk);
 		// msg6->data = (char*)malloc(encryptedDataSize * sizeof(char));
 		//strcpy(msg6->data, tmpData);
@@ -804,7 +804,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// eprintf("mac = %s\n",
 		//     hexstring(msg6->mac, sizeof(msg6->mac)));
 
-		msgio->send(msg6, msg6_size);
+		//msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
 		// fsend_msg(fplog, &msg6, msg6_size);
