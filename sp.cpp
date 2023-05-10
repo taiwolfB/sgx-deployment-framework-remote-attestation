@@ -810,7 +810,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
 	}
 
 	fseek(fp, 0L, SEEK_END);
-	const fileSizeInBytes = ftell(fp);
+	const int fileSizeInBytes = ftell(fp);
 	uint8_t* fileData = (uint8_t*)malloc(fileSizeInBytes * sizeof(uint8_t));
 	int fileDataSize = 0;
 	fseek(fp, 0L, SEEK_SET);
