@@ -187,6 +187,7 @@ int main(int argc, char *argv[])
 		{"verbose",					no_argument,		0, 'v'},
 		{"no-proxy",				no_argument,		0, 'x'},
 		{"stdio",					no_argument,		0, 'z'},
+		{"app-file",				required_argument	0, 'a'},
 		{ 0, 0, 0, 0 }
 	};
 
@@ -448,9 +449,9 @@ int main(int argc, char *argv[])
 		case 'z':
 			flag_stdio= 1;
 			break;
-
-		case 'h':
-		case '?':
+		case 'a':
+			printf("EUUUUUUUUUU\n");
+1		case '?':
 		default:
 			usage();
 		}
