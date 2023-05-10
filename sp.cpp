@@ -817,7 +817,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 		fclose(fp);
-		
+			eprintf("sk = %s\n",
+		    hexstring(&session->sk[0], sizeof(session->sk)));
 		
 		if (!aes_encrypt_gcm(&session->sk[0], fileData, msg5_size, &msg6->data[0], &msg6->mac))
 		{
