@@ -756,11 +756,11 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
 		msg5_encryption_request->isRequested = true;
 		size_t msg5_sz = sizeof(msg5_encryption_request);
-		dividerWithText(stderr, "Copy/Paste Msg3 Below to SP");
+		dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
 		msgio->send(msg5_encryption_request, msg5_sz);
 		divider(stderr);
 
-		dividerWithText(fplog, "Msg3 ==> SP");
+		dividerWithText(fplog, "Msg5 ==> SP");
 		fsend_msg(fplog, msg5_encryption_request, msg5_sz);
 		divider(fplog);
 
