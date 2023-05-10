@@ -302,8 +302,8 @@ configure:5059: checking for openssl/pem.h
 configure:5059: result: yes
 configure:5074: checking for library containing ECDSA_SIG_set0
 configure:5105: gcc -o conftest -g -O2   -L/opt/openssl/1.1.1i/lib conftest.c  >&5
-/usr/bin/ld: /tmp/ccJP7PSN.o: in function `main':
-/home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/conftest.c:36: undefined reference to `ECDSA_SIG_set0'
+/usr/bin/ld: /tmp/ccXitS7P.o: in function `main':
+/home/azureuser/sgx-deployment-framework-remote-attestation/conftest.c:36: undefined reference to `ECDSA_SIG_set0'
 collect2: error: ld returned 1 exit status
 configure:5105: $? = 1
 configure: failed program was:
@@ -569,7 +569,7 @@ am_cv_prog_cc_c_o=yes
 ## Output variables. ##
 ## ----------------- ##
 
-ACLOCAL='${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing aclocal-1.16'
+ACLOCAL='${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing aclocal-1.16'
 AGENT_CURL_FALSE=''
 AGENT_CURL_SRC=''
 AGENT_CURL_TRUE='#'
@@ -581,9 +581,9 @@ AM_BACKSLASH='\'
 AM_DEFAULT_V='$(AM_DEFAULT_VERBOSITY)'
 AM_DEFAULT_VERBOSITY='1'
 AM_V='$(V)'
-AUTOCONF='${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing autoconf'
-AUTOHEADER='${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing autoheader'
-AUTOMAKE='${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing automake-1.16'
+AUTOCONF='${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing autoconf'
+AUTOHEADER='${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing autoheader'
+AUTOMAKE='${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing automake-1.16'
 AWK='gawk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
@@ -618,7 +618,7 @@ LIBOBJS=''
 LIBS=''
 LIBS_HW_SIMU=''
 LTLIBOBJS=''
-MAKEINFO='${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing makeinfo'
+MAKEINFO='${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing makeinfo'
 MKDIR_P='/usr/bin/mkdir -p'
 OBJEXT='o'
 OPENSSL_CPPFLAGS='-I/opt/openssl/1.1.1i/include'
@@ -688,7 +688,7 @@ host_alias=''
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/install-sh'
+install_sh='${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'

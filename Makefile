@@ -274,13 +274,13 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing aclocal-1.16
+ACLOCAL = ${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing aclocal-1.16
 AGENT_CURL_SRC = 
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing autoconf
-AUTOHEADER = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing autoheader
-AUTOMAKE = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing automake-1.16
+AUTOCONF = ${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing autoconf
+AUTOHEADER = ${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing autoheader
+AUTOMAKE = ${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -314,7 +314,7 @@ LIBOBJS =
 LIBS = 
 LIBS_HW_SIMU = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/missing makeinfo
+MAKEINFO = ${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/missing makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 OBJEXT = o
 OPENSSL_CPPFLAGS = -I/opt/openssl/1.1.1i/include
@@ -352,10 +352,10 @@ SGX_URTS_LIB = sgx_urts
 SHELL = /bin/bash
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_
-abs_srcdir = /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_
-abs_top_builddir = /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_
-abs_top_srcdir = /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_
+abs_builddir = /home/azureuser/sgx-deployment-framework-remote-attestation
+abs_srcdir = /home/azureuser/sgx-deployment-framework-remote-attestation
+abs_top_builddir = /home/azureuser/sgx-deployment-framework-remote-attestation
+abs_top_srcdir = /home/azureuser/sgx-deployment-framework-remote-attestation
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -377,7 +377,7 @@ host_alias =
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/azureuser/INTEL_SGX_RA_SAMPLE_UPDATED_/install-sh
+install_sh = ${SHELL} /home/azureuser/sgx-deployment-framework-remote-attestation/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -426,13 +426,13 @@ sp_SOURCES = sp.cpp agent_wget.cpp iasrequest.cpp enclave_verify.c \
 	$(common) $(am__append_1)
 EXTRA_sp_DEPENDENCIES = Enclave.signed.so
 mrsigner_SOURCES = mrsigner.cpp crypto.c hexutil.c
-sp_LDFLAGS = $(AM_LDFLAGS) -L/opt/openssl/1.1.1i/lib 
+sp_LDFLAGS = $(AM_LDFLAGS) -L/opt/openssl/1.1.1i/lib  -Lsample_libcrypto  -Isample_libcrypto
 mrsigner_LDFLAGS = $(AM_LDFLAGS) -L/opt/openssl/1.1.1i/lib
 client_LDADD = -l$(SGX_URTS_LIB) -lsgx_ukey_exchange -lcrypto \
 	-l:libsgx_capable.a -lpthread -ldl
 
-mrsigner_LDADD = -lcrypto
-sp_LDADD = -lcrypto 
+mrsigner_LDADD = -lcrypto -Wl,-rpath=$(CURDIR)/sample_libcrypto -Wl,-rpath=$(CURDIR)
+sp_LDADD = -lcrypto -lsample_libcrypto -Wl,-rpath=$(CURDIR)/sample_libcrypto -Wl,-rpath=$(CURDIR)
 all: $(BUILT_SOURCES) config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
