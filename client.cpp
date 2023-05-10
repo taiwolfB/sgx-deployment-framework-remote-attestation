@@ -814,8 +814,8 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
-		printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
-		printf("Received message = %s \n", msg6_encrypted->data);
+		// printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
+		// printf("Received message = %s \n", msg6_encrypted->data);
 
 		// unsigned char* tmpData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
 		// char
@@ -825,7 +825,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// 	return 0;
 		// }
 		// printf("DECRYPTED DATA = %s\n", tmpData);
-		
+
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
 		eprintf("Enclave NOT TRUSTED\n");
