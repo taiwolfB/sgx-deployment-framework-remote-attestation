@@ -819,11 +819,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		fclose(fp);
 		
 		
-		if (!aes_encrypt_gcm(&session->sk[0], &fileData[0], msg5_size, &msg6->data[0], &msg6->mac))
-		{
-			free(msg6);
-			return 0;
-		}
+		// if (!aes_encrypt_gcm(&session->sk[0], &fileData[0], msg5_size, &msg6->data[0], &msg6->mac))
+		// {
+		// 	free(msg6);
+		// 	return 0;
+		// }
 		// eprintf("sk = %s\n",
 		//     hexstring(&session->sk[0], sizeof(session->sk)));
 
