@@ -724,7 +724,6 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
         mac
     );
 	
-	printf("STATUS = %d\n", status);
     return status == SAMPLE_SUCCESS;
     //    error_type = e_none;
     //
@@ -824,6 +823,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		size_t encryptedDataSize = strlen((char*)tmpData);
 		// msg6->data = (char*)malloc(encryptedDataSize * sizeof(char));
 		//strcpy(msg6->data, tmpData);
+		printf("AICI");
 		memcpy(msg6->data, tmpData, encryptedDataSize);
 		printf("ENCRYPTED DATA = %s\n", msg6->data);
 		// eprintf("sk = %s\n",
