@@ -711,19 +711,20 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
     unsigned char* encrypted_message, sample_aes_gcm_128bit_tag_t* mac)
 {
 
-    unsigned char iv[16] = { 0 };
+    unsigned char iv[12] = { 0 };
     sample_status_t status = sample_rijndael128GCM_encrypt(
         (sample_aes_gcm_128bit_key_t*)key,
         message,
         mlen,
         encrypted_message,
         &iv[0],
-        16,
+        12,
         NULL,
         0,
         mac
     );
-	printf("status = %d\n", status);
+	
+	printf("STATUS = %d\n", status);
     return status == SAMPLE_SUCCESS;
     //    error_type = e_none;
     //
