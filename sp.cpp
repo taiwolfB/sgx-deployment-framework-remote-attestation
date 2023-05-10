@@ -804,6 +804,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	if ( (fp = fopen("Makefile", "r")) == NULL ) {
 		fprintf(stderr, "fopen: ");
 	}
+	fseek(fp, 0L, SEEK_END);
 
 	printf("AICI FRT %ld", ftell(fp));
 	fclose(fp);
