@@ -450,9 +450,9 @@ int main(int argc, char *argv[])
 			flag_stdio= 1;
 			break;
 		case 'a':
-			printf("EUUUUUUUUUU\n");
+			printf("EUUUUUUUUUU");
 			break;
-1		case '?':
+		case '?':
 		default:
 			usage();
 		}
