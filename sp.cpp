@@ -119,7 +119,7 @@ int process_msg01 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 int process_msg3 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 	ra_msg4_t *msg4, config_t *config, ra_session_t *session);
 
-int process_msg5(MsgIO *msg, ra_session_t *session);
+int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation);
 
 int get_sigrl (IAS_Connection *ias, int version, sgx_epid_group_id_t gid,
 	char **sigrl, uint32_t *msg2);
@@ -649,7 +649,6 @@ int main(int argc, char *argv[])
  	/* If we're running in server mode, we'll block here.  */
 
 	while ( msgio->server_loop() ) {
-		printf("FILE LOCATION = %s", deploymentFileLocation);
 		ra_session_t session;
 		sgx_ra_msg1_t msg1;
 		sgx_ra_msg2_t msg2;
@@ -695,7 +694,7 @@ int main(int argc, char *argv[])
 			goto disconnect;
 		}
 
-		if (!process_msg5(msgio, &session)) {
+		if (!process_msg5(msgio, &session, deploymentFileLocation)) {
             eprintf("error processing msg5\n");
             goto disconnect;
         }
@@ -775,7 +774,7 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
 }
 
 
-int process_msg5(MsgIO *msg, ra_session_t *session)
+int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation)
 {
     ra_msg5_encryption_request_t* msg5;
     size_t msg5_size;
@@ -809,9 +808,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	if ( (fp = fopen("Makefile", "r")) == NULL ) {
 		fprintf(stderr, "fopen: ");
 	}
-	fseek(fp, 0L, SEEK_END);
 
-	printf("AICI FRT %ld", ftell(fp));
 	fclose(fp);
 	
 	
