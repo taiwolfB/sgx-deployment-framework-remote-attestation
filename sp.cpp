@@ -815,7 +815,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, &msg6->data[0], &msg6->mac))
 		{
 			free(msg6);
-			printf("EUIU\n")
+			printf("EUIU\n");
 			return 0;
 		}
 
