@@ -823,7 +823,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		size_t encryptedDataSize = strlen((char*)tmpData);
 		// msg6->data = (char*)malloc(encryptedDataSize * sizeof(char));
 		//strcpy(msg6->data, tmpData);
-		printf("AICI");
+		msg6->data = (unsigned char*)malloc(encryptedDataSize * sizeof(unsigned char));
 		memcpy(msg6->data, tmpData, encryptedDataSize);
 		printf("ENCRYPTED DATA = %s\n", msg6->data);
 		// eprintf("sk = %s\n",
