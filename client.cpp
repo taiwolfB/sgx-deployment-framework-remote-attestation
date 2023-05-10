@@ -770,9 +770,9 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		msgio->send(&msg5_encryption_request, msg5_sz);
 		divider(stderr);
 
-		dividerWithText(fplog, "Msg5 ==> SP");
-		fsend_msg(fplog, msg5_encryption_request, msg5_sz);
-		divider(fplog);
+		// dividerWithText(fplog, "Msg5 ==> SP");
+		// fsend_msg(fplog, msg5_encryption_request, msg5_sz);
+		// divider(fplog);
 
 		ra_msg6_encrypted_t* msg6_encrypted  = NULL;
 		size_t msg6_sz;
