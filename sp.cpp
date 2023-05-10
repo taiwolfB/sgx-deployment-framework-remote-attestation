@@ -787,7 +787,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
     }
 
 	printf("MSG 5  = %d, MSG5 SIZE = %d\n",msg5->isRequested, msg5_size);
-	printf("MSG 5 FILe = %s\n", *msg5->deploymentFileLocation);
+	printf("MSG 5 FILe = %s\n", msg5->deploymentFileLocation);
 
     // // message size is half of what is given by read, due to supreme intelligence....
     msg5_size /= 2;
