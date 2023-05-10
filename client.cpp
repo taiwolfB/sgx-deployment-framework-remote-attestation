@@ -770,12 +770,12 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 		rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
 		if ( rv == 0 ) {
 			enclave_ra_close(eid, &sgxrv, ra_ctx);
-			fprintf(stderr, "protocol error reading msg4\n");
+			fprintf(stderr, "protocol error while reading encrypted msg6\n");
 			delete msgio;
 			exit(1);
 		} else if ( rv == -1 ) {
 			enclave_ra_close(eid, &sgxrv, ra_ctx);
-			fprintf(stderr, "system error occurred while reading msg4\n");
+			fprintf(stderr, "system error occurred while reading encrypted msg6\n");
 			delete msgio;
 			exit(1);
 		}

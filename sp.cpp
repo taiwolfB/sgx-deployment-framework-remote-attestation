@@ -790,15 +790,24 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	printf("MSG 5  = %d, MSG5 SIZE = %d\n",msg5->isRequested, msg5_size);
 
     // // message size is half of what is given by read, due to supreme intelligence....
-    // msg5_size /= 2;
+    msg5_size /= 2;
 
-    // int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_struct);
-    // ra_msg6_encrypted_struct* msg6 = (ra_msg6_encrypted_struct*)malloc(msg6_size);
-    // if (!msg6)
-    // {
-    //     return 0;
-    // }
+    int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
+    ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
+    if (!msg6)
+    {
+        return 0;
+    }
 
+	// const uint8_t *readBytes = 
+	FILE* fp;
+	if ( (fp = fopen("Makefile", "w")) == NULL ) {
+		fprintf(stderr, "fopen: ");
+	}
+
+	printf("%d", ftell(fp));
+	
+	
     // if (!aes_encrypt_gcm(&session->sk[0], &msg5->data[0], msg5_size, &msg6->data[0], &msg6->mac))
     // {
     //     free(msg6);
@@ -823,9 +832,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
     // eprintf("mac = %s\n",
     //     hexstring(msg6->mac, sizeof(msg6->mac)));
 
-    // msgio->send(msg6, msg6_size);
-    // fsend_msg(fplog, &msg6, msg6_size);
-    // edivider();
+    msgio->send(msg6, msg6_size);
+    fsend_msg(fplog, &msg6, msg6_size);
+    edivider();
 
     // free(msg6);
     return 1;
