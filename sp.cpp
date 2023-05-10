@@ -793,8 +793,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		eprintf("sk = %s\n",
 		    hexstring(&session->sk[0], sizeof(session->sk)));
 
+		unsigned char[100] test;
 		eprintf("skx2 = %s\n",
-			from_hexstring( (unsigned char *)hexstring(&session->sk[0], sizeof(session->sk)), 32));
+			from_hexstring( test, hexstring(&session->sk[0], sizeof(session->sk)), 32));
 
 		// eprintf("msg5_size = 0x%x\n",
 		//     msg5_size);
