@@ -789,66 +789,65 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	printf("Sizeof msg5 = %d\n", sizeof(msg5));
 	printf("MSG 5 FILe = %s\n", msg5->deploymentFileLocation);
 	eprintf("BOOL = %d\n", msg5->isRequested);
-    // // message size is half of what is given by read, due to supreme intelligence....
+
     msg5_size /= 2;
 
-	// printf("DECODE = %s", (char*)base64_decode(msg5->deploymentFileLocation, &msg5_size));
-	// if (msg5->isRequested) {
+	if (msg5->isRequested) {
 
-	// 	int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
-	// 	ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
-	// 	if (!msg6)
-	// 	{
-	// 	return 0;
-	// 	}
+		int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
+		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
+		if (!msg6)
+		{
+		return 0;
+		}
 
-	// 	FILE* fp;
-	// 	if ( (fp = fopen(msg5->deploymentFileLocation, "r")) == NULL ) {
-	// 		fprintf(stderr, "fopen: ");
-	// 	}
+		FILE* fp;
+		if ( (fp = fopen(msg5->deploymentFileLocation, "r")) == NULL ) {
+			fprintf(stderr, "fopen: ");
+		}
 
-	// 	fseek(fp, 0L, SEEK_END);
-	// 	const int fileSizeInBytes = ftell(fp);
-	// 	uint8_t* fileData = (uint8_t*)malloc(fileSizeInBytes * sizeof(uint8_t));
-	// 	int fileDataSize = 0;
-	// 	fseek(fp, 0L, SEEK_SET);
-	// 	uint8_t byte;
-	// 	while (fscanf(fp, "%c", &byte) != EOF) {
-	// 		fileData[fileDataSize++] = byte;
-	// 	}
-	// 	printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
-	// 	fclose(fp);
+		fseek(fp, 0L, SEEK_END);
+		const int fileSizeInBytes = ftell(fp);
+		uint8_t* fileData = (uint8_t*)malloc(fileSizeInBytes * sizeof(uint8_t));
+		int fileDataSize = 0;
+		fseek(fp, 0L, SEEK_SET);
+		uint8_t byte;
+		while (fscanf(fp, "%c", &byte) != EOF) {
+			fileData[fileDataSize++] = byte;
+		}
+		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
+		fclose(fp);
 		
 		
-	// 	// if (!aes_encrypt_gcm(&session->sk[0], &fileData[0], msg5_size, &msg6->data[0], &msg6->mac))
-	// 	// {
-	// 	// 	free(msg6);
-	// 	// 	return 0;
-	// 	// }
-	// 	// eprintf("sk = %s\n",
-	// 	//     hexstring(&session->sk[0], sizeof(session->sk)));
+		if (!aes_encrypt_gcm(&session->sk[0], &fileData[0], msg5_size, &msg6->data[0], &msg6->mac))
+		{
+			free(msg6);
+			return 0;
+		}
+		eprintf("sk = %s\n",
+		    hexstring(&session->sk[0], sizeof(session->sk)));
 
-	// 	// // eprintf("data_to_encrypt = %s\n",
-	// 	// //     hexstring(&msg5->data[0], msg5_size));
+		// eprintf("data_to_encrypt = %s\n",
+		//     hexstring(&msg5->data[0], msg5_size));
 
-	// 	// eprintf("msg5_size = 0x%x\n",
-	// 	//     msg5_size);
+		eprintf("msg5_size = 0x%x\n",
+		    msg5_size);
 
-	// 	// eprintf("ecrypted_data = %s\n",
-	// 	//     hexstring(&msg6->data[0], msg6_size));
+		eprintf("ecrypted_data = %s\n",
+		    hexstring(&msg6->data[0], msg6_size));
 
-	// 	// eprintf("msg6_size = 0x%x\n",
-	// 	//     msg6_size);
+		eprintf("msg6_size = 0x%x\n",
+		    msg6_size);
 
-	// 	// eprintf("mac = %s\n",
-	// 	//     hexstring(msg6->mac, sizeof(msg6->mac)));
+		eprintf("mac = %s\n",
+		    hexstring(msg6->mac, sizeof(msg6->mac)));
 
-	// 	// msgio->send(msg6, msg6_size);
-	// 	// fsend_msg(fplog, &msg6, msg6_size);
-	// 	// edivider();
+		msgio->send(msg6, msg6_size);
+		fsend_msg(fplog, &msg6, msg6_size);
+		edivider();
 
-	// 	free(msg6);
-	// }
+		free(msg6);
+	}
 
    
     return 1;
