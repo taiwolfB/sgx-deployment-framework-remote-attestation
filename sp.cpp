@@ -796,14 +796,15 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
     // // message size is half of what is given by read, due to supreme intelligence....
     msg5_size /= 2;
 
-    int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
-    ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
-    if (!msg6)
-    {
-       return 0;
-    }
-
 	if (msg5->isRequested) {
+
+		int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
+		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
+		if (!msg6)
+		{
+		return 0;
+		}
+		
 		FILE* fp;
 		if ( (fp = fopen(deploymentFileLocation, "r")) == NULL ) {
 			fprintf(stderr, "fopen: ");
@@ -822,7 +823,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
 		fclose(fp);
 		
 		
-		if (!aes_encrypt_gcm(&session->sk[0], fileData, msg5_size, &msg6->data[0], &msg6->mac))
+		if (!aes_encrypt_gcm(&session->sk[0], fileData[0], msg5_size, &msg6->data[0], &msg6->mac))
 		{
 			free(msg6);
 			return 0;
