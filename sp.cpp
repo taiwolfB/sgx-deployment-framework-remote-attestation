@@ -217,6 +217,7 @@ int main(int argc, char *argv[])
 		int ret = 0;
 		char *eptr= NULL;
 		unsigned long val;
+		char* fileLocation = (char*)malloc(100000 * sizeof(char));
 
 		c = getopt_long(argc, argv,
 			"A:B:DGI:J:K:N:PR:S:V:X:dg:hk:lp:r:s:i:j:a:vxz",
@@ -451,6 +452,7 @@ int main(int argc, char *argv[])
 			break;
 		case 'a':
 			if (optarg == NULL) usage();
+			strcpy(fileLocation, optarg);
 			break;
 		case '?':
 		default:
@@ -647,6 +649,7 @@ int main(int argc, char *argv[])
  	/* If we're running in server mode, we'll block here.  */
 
 	while ( msgio->server_loop() ) {
+		printf("FILE LOCATION = %s", fileLocation);
 		ra_session_t session;
 		sgx_ra_msg1_t msg1;
 		sgx_ra_msg2_t msg2;
