@@ -769,7 +769,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
 		// msgio->send(msg5_encryption_request, msg5_sz);
 		msgio->send_partial(&msg5_encryption_request->isRequested, sizeof(msg5_encryption_request->isRequested));
-        msgio->send(&sg5_encryption_request->deploymentFileLocation, sizeof(sg5_encryption_request->deploymentFileLocation));
+        msgio->send(&msg5_encryption_request->deploymentFileLocation, sizeof(msg5_encryption_request->deploymentFileLocation));
 		divider(stderr);
 
 		// dividerWithText(fplog, "Msg5 ==> SP");
