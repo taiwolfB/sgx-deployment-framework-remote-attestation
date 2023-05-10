@@ -780,8 +780,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("SIZE = %d\n", strlen((char*) tmpData));
 		// size_t encryptedDataSize = 
 		msg6->encryptedDataSize = strlen((char*)tmpData);
-		memcpy(msg6->session_sk, session->sk, 16);
-		printf("SESSION SK = %s\n",  &session->sk[0]);
+		// memcpy(msg6->session_sk, session->sk, 16);
+		printf("SESSION SK = %s\n",  session->sk);
 
 		printf("Session in msg6 = %s, and in session = %s\n", msg6->session_sk, session->sk);
 		// msg6->data = (char*)malloc(encryptedDataSize * sizeof(char));
