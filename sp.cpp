@@ -784,13 +784,13 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			i++;
 		}
 		printf("i = %d, encryptedDataSize = %d\n", i, encryptedDataSize);
-		// unsigned char* decryptedData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
-		// if (!aes_encrypt_gcm(&session->sk[0], tmpData, encryptedDataSize, decryptedData, &msg6->mac))
-		// {
-		// 	free(msg6);
-		// 	return 0;
-		// }
-		// printf("DECRYPTED DATA = %s\n", decryptedData);
+		unsigned char* decryptedData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
+		if (!aes_encrypt_gcm(&session->sk[0], tmpData, encryptedDataSize, decryptedData, &msg6->mac))
+		{
+			free(msg6);
+			return 0;
+		}
+		printf("DECRYPTED DATA = %s\n", decryptedData);
 
 
 		// printf("SIZE = %d\n", strlen((char*) tmpData));
