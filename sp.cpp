@@ -772,7 +772,7 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
 
 int process_msg5(MsgIO *msg, ra_session_t *session)
 {
-    ra_msg5_to_be_encrypted_t* msg5;
+    ra_msg5_encryption_request_t* msg5;
     size_t msg5_size;
 
     int rv = msgio->read((void**)&msg5, &msg5_size);
