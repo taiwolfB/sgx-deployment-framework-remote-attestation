@@ -804,53 +804,56 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
   //  }
 
 	// const uint8_t *readBytes = 
-	FILE* fp;
-	if ( (fp = fopen("Makefile", "r")) == NULL ) {
-		fprintf(stderr, "fopen: ");
+	if (msg5->isRequested) {
+		FILE* fp;
+		if ( (fp = fopen("Makefile", "r")) == NULL ) {
+			fprintf(stderr, "fopen: ");
+		}
+
+		fseek(fp, 0L, SEEK_END);
+		const int fileSizeInBytes = ftell(fp);
+		uint8_t* fileData = (uint8_t*)malloc(fileSizeInBytes * sizeof(uint8_t));
+		int fileDataSize = 0;
+		fseek(fp, 0L, SEEK_SET);
+		uint8_t byte;
+		while (fscanf(fp, "%c", &byte) != EOF) {
+			fileData[fileDataSize++] = byte;
+		}
+		printf("Size from ftell = %d\n Size after read = %d", fileSizeInBytes, fileDataSize);
+		fclose(fp);
+		
+		
+		if (!aes_encrypt_gcm(&session->sk[0], &fileData, msg5_size, &msg6->data[0], &msg6->mac))
+		{
+			free(msg6);
+			return 0;
+		}
+		eprintf("sk = %s\n",
+		    hexstring(&session->sk[0], sizeof(session->sk)));
+
+		eprintf("data_to_encrypt = %s\n",
+		    hexstring(&msg5->data[0], msg5_size));
+
+		eprintf("msg5_size = 0x%x\n",
+		    msg5_size);
+
+		eprintf("ecrypted_data = %s\n",
+		    hexstring(&msg6->data[0], msg6_size));
+
+		eprintf("msg6_size = 0x%x\n",
+		    msg6_size);
+
+		eprintf("mac = %s\n",
+		    hexstring(msg6->mac, sizeof(msg6->mac)));
+
+		msgio->send(msg6, msg6_size);
+		fsend_msg(fplog, &msg6, msg6_size);
+		edivider();
+
+		free(msg6);
 	}
 
-	fseek(fp, 0L, SEEK_END);
-	const int fileSizeInBytes = ftell(fp);
-	uint8_t* fileData = (uint8_t*)malloc(fileSizeInBytes * sizeof(uint8_t));
-	int fileDataSize = 0;
-	fseek(fp, 0L, SEEK_SET);
-	uint8_t byte;
-	while (fscanf(fp, "%c", &byte) != EOF) {
-		fileData[fileDataSize++] = byte;
-	}
-	printf("Size from ftell = %d\n Size after read = %d", fileSizeInBytes, fileDataSize);
-	fclose(fp);
-	
-	
-    // if (!aes_encrypt_gcm(&session->sk[0], &msg5->data[0], msg5_size, &msg6->data[0], &msg6->mac))
-    // {
-    //     free(msg6);
-    //     return 0;
-    // }
-
-    // eprintf("sk = %s\n",
-    //     hexstring(&session->sk[0], sizeof(session->sk)));
-
-    // eprintf("data_to_encrypt = %s\n",
-    //     hexstring(&msg5->data[0], msg5_size));
-
-    // eprintf("msg5_size = 0x%x\n",
-    //     msg5_size);
-
-    // eprintf("ecrypted_data = %s\n",
-    //     hexstring(&msg6->data[0], msg6_size));
-
-    // eprintf("msg6_size = 0x%x\n",
-    //     msg6_size);
-
-    // eprintf("mac = %s\n",
-    //     hexstring(msg6->mac, sizeof(msg6->mac)));
-
-   // msgio->send(msg6, msg6_size);
-   // fsend_msg(fplog, &msg6, msg6_size);
-    //edivider();
-
-    // free(msg6);
+   
     return 1;
 }
 
