@@ -142,7 +142,6 @@ int main (int argc, char *argv[])
 	EVP_PKEY *service_public_key= NULL;
 	char have_spid= 0;
 	char flag_stdio= 0;
-	char* deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
 
 	/* Create a logfile to capture debug output and actual msg data */
 	fplog = create_logfile("client.log");
@@ -451,6 +450,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 	size_t msg4sz = 0;
 	int enclaveTrusted = NotTrusted; // Not Trusted
 	int b_pse= OPT_ISSET(flags, OPT_PSE);
+	char* deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
 
 	if ( config->server == NULL ) {
 		msgio = new MsgIO();
