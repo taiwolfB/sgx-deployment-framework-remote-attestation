@@ -809,6 +809,16 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
 		fprintf(stderr, "fopen: ");
 	}
 
+	fseek(fp, 0L, SEEK_END);
+	const fileSizeInBytes = ftell(fp);
+	uint8_t* fileData = (uint8_t*)malloc(fileSizeInBytes * sizeof(uint8_t));
+	int fileDataSize = 0;
+	fseek(fp, 0L, SEEK_SET);
+	uint8_t byte;
+	while (fscanf(fp, "%c", &byte) != EOF) {
+		fileData[fileDataSize++] = byte;
+	}
+	printf("Size from ftell = %d\n Size after read = %d", fileSizeInBytes, fileDataSize);
 	fclose(fp);
 	
 	
