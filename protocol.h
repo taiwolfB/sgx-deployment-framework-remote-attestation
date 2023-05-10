@@ -51,6 +51,7 @@ typedef struct _ra_msg4_struct {
 typedef struct ra_msg5_encryption_request_t
 {
     bool isRequested;
+	char* deploymentFileLocation;
 } ra_msg5_encryption_request_t;
 
 typedef struct _ra_msg6_encrypted_struct

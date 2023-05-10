@@ -119,7 +119,7 @@ int process_msg01 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 int process_msg3 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 	ra_msg4_t *msg4, config_t *config, ra_session_t *session);
 
-int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation);
+int process_msg5(MsgIO *msg, ra_session_t *session);
 
 int get_sigrl (IAS_Connection *ias, int version, sgx_epid_group_id_t gid,
 	char **sigrl, uint32_t *msg2);
@@ -153,7 +153,6 @@ int main(int argc, char *argv[])
 	int oops;
 	IAS_Connection *ias= NULL;
 	char *port= NULL;
-	char* deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
 #ifndef _WIN32
 	struct sigaction sact;
 #endif
@@ -450,10 +449,6 @@ int main(int argc, char *argv[])
 		case 'z':
 			flag_stdio= 1;
 			break;
-		case 'a':
-			if (optarg == NULL) usage();
-			strcpy(deploymentFileLocation, optarg);
-			break;
 		case '?':
 		default:
 			usage();
@@ -694,7 +689,7 @@ int main(int argc, char *argv[])
 			goto disconnect;
 		}
 
-		if (!process_msg5(msgio, &session, deploymentFileLocation)) {
+		if (!process_msg5(msgio, &session)) {
             eprintf("error processing msg5\n");
             goto disconnect;
         }
@@ -774,7 +769,7 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
 }
 
 
-int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation)
+int process_msg5(MsgIO *msg, ra_session_t *session)
 {
     ra_msg5_encryption_request_t* msg5;
     size_t msg5_size;
@@ -792,6 +787,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
     }
 
 	printf("MSG 5  = %d, MSG5 SIZE = %d\n",msg5->isRequested, msg5_size);
+	printf("MSG 5 FILe = %s\n", msg5->deploymentFileLocation);
 
     // // message size is half of what is given by read, due to supreme intelligence....
     msg5_size /= 2;
@@ -1878,8 +1874,6 @@ void usage ()
 "                           overriding environment." NNL
 "  -z  --stdio              Read from stdin and write to stdout instead of" NL
 "                           running as a network server." NL
-"  -a  --stdio              Input the file name for deployment purposes " NL
-"                           - Bogdan Tailup Thesis Usage." <<endl;
 
 	::exit(1);
 }

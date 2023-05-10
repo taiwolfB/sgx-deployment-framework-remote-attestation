@@ -142,6 +142,7 @@ int main (int argc, char *argv[])
 	EVP_PKEY *service_public_key= NULL;
 	char have_spid= 0;
 	char flag_stdio= 0;
+	char* deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
 
 	/* Create a logfile to capture debug output and actual msg data */
 	fplog = create_logfile("client.log");
@@ -194,6 +195,7 @@ int main (int argc, char *argv[])
 		{"quote",		no_argument,		0, 'q'},
 		{"verbose",		no_argument,		0, 'v'},
 		{"stdio",		no_argument,		0, 'z'},
+		{"deploy-file", required_argument,  0, 'a'},
 		{ 0, 0, 0, 0 }
 	};
 
@@ -204,7 +206,7 @@ int main (int argc, char *argv[])
 		int opt_index= 0;
 		unsigned char keyin[64];
 
-		c= getopt_long(argc, argv, "N:P:S:dehlmn:p:qrs:vz", long_opt,
+		c= getopt_long(argc, argv, "N:P:S:dehlmn:p:qrs:a:vz", long_opt,
 			&opt_index);
 		if ( c == -1 ) break;
 
@@ -323,6 +325,10 @@ int main (int argc, char *argv[])
 			break;
 		case 'z':
 			flag_stdio= 1;
+			break;
+		case 'a':
+			if (optarg == NULL) usage();
+			strcpy(deploymentFileLocation, optarg);
 			break;
 		case 'h':
 		case '?':
@@ -753,8 +759,11 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 		eprintf("Enclave TRUSTED\n");
 		// HERE, create MSG 5 with the request to get an encrypted secret
 		// the app is getting pushed in  /(root) of the docker container, so we should read from / 
+		// THE SERVER SHOULD RECEIVE FROM THE CLIENT, the location of the app to be deployed because the server will run always in the docker
+		// the client will be instantiated with ./run-client -a FILE_NAME from the java backend. In the MSG5 we should add the file location.
 		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
 		msg5_encryption_request->isRequested = true;
+		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
 		size_t msg5_sz = sizeof(msg5_encryption_request);
 		dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
 		msgio->send(msg5_encryption_request, msg5_sz);
@@ -1230,7 +1239,8 @@ void usage ()
 	fprintf(stderr, "  -s, --spid=HEXSTRING     Set the SPID from a 32-byte ASCII hex string\n");
 	fprintf(stderr, "  -v, --verbose            Print decoded RA messages to stderr\n");
 	fprintf(stderr, "  -z                       Read from stdin and write to stdout instead\n");
-	fprintf(stderr, "                             connecting to a server.\n");
+	fprintf(stderr, "  -a,  --stdio             Input the file name for deployment purposes " NL
+	"                                            - Bogdan Tailup Thesis Usage.");
 	fprintf(stderr, "\nOne of --spid OR --spid-file is required for generating a quote or doing\nremote attestation.\n");
 	exit(1);
 }
