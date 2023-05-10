@@ -65,6 +65,7 @@ using namespace std;
 #include "msgio.h"
 #include "logfile.h"
 #include "quote_size.h"
+#include "sample_libcrypto/sample_libcrypto.h"
 
 #define MAX_LEN 80
 
