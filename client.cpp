@@ -328,6 +328,7 @@ int main (int argc, char *argv[])
 		case 'a':
 			if (optarg == NULL) usage();
 			strcpy(deploymentFileLocation, optarg);
+			printf("DEPLOOOYMENT = %s", deploymentFileLocation);
 			break;
 		case 'h':
 		case '?':
