@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
 		unsigned long val;
 
 		c = getopt_long(argc, argv,
-			"A:B:DGI:J:K:N:PR:S:V:X:dg:hk:lp:r:s:i:j:vxz",
+			"A:B:DGI:J:K:N:PR:S:V:X:dg:hk:lp:r:s:i:j:a:vxz",
 			long_opt, &opt_index);
 		if (c == -1) break;
 
@@ -450,7 +450,7 @@ int main(int argc, char *argv[])
 			flag_stdio= 1;
 			break;
 		case 'a':
-			printf("EUUUUUUUUUU");
+			printf("%s", optarg);
 			break;
 		case '?':
 		default:
