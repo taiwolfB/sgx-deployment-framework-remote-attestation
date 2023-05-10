@@ -761,10 +761,10 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// THE SERVER SHOULD RECEIVE FROM THE CLIENT, the location of the app to be deployed because the server will run always in the docker
 		// the client will be instantiated with ./run-client -a FILE_NAME from the java backend. In the MSG5 we should add the file location.
 		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
-		msg5_encryption_request->isRequested = true;
+		msg5_encryption_request->isRequested = false;
 		msg5_encryption_request->deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
 		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
-		size_t msg5_sz = sizeof(msg5_encryption_request) + 100;
+		size_t msg5_sz = sizeof(msg5_encryption_request);
 		dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
 		msgio->send(msg5_encryption_request, msg5_sz);
 		divider(stderr);
