@@ -790,6 +790,8 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
+		printf("MAC  = %s\n", msg6_encrypted->mac)
+
 		// printf("Received message = %s \n", msg6_encrypted->data);
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
