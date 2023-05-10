@@ -813,7 +813,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 		fclose(fp);
 		unsigned char* tmpData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize + 100, tmpData, &msg6->mac))
+		if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, tmpData, &msg6->mac))
 		{
 			free(msg6);
 			return 0;
