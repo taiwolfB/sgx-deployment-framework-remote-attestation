@@ -787,45 +787,47 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
         return 0;
     }
 
-    // message size is half of what is given by read, due to supreme intelligence....
-    msg5_size /= 2;
+	printf("MSG 5  = %d, MSG5 SIZE = %d\n",msg5->isRequested, msg5_size);
 
-    int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_struct);
-    ra_msg6_encrypted_struct* msg6 = (ra_msg6_encrypted_struct*)malloc(msg6_size);
-    if (!msg6)
-    {
-        return 0;
-    }
+    // // message size is half of what is given by read, due to supreme intelligence....
+    // msg5_size /= 2;
 
-    if (!aes_encrypt_gcm(&session->sk[0], &msg5->data[0], msg5_size, &msg6->data[0], &msg6->mac))
-    {
-        free(msg6);
-        return 0;
-    }
+    // int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_struct);
+    // ra_msg6_encrypted_struct* msg6 = (ra_msg6_encrypted_struct*)malloc(msg6_size);
+    // if (!msg6)
+    // {
+    //     return 0;
+    // }
 
-    eprintf("sk = %s\n",
-        hexstring(&session->sk[0], sizeof(session->sk)));
+    // if (!aes_encrypt_gcm(&session->sk[0], &msg5->data[0], msg5_size, &msg6->data[0], &msg6->mac))
+    // {
+    //     free(msg6);
+    //     return 0;
+    // }
 
-    eprintf("data_to_encrypt = %s\n",
-        hexstring(&msg5->data[0], msg5_size));
+    // eprintf("sk = %s\n",
+    //     hexstring(&session->sk[0], sizeof(session->sk)));
 
-    eprintf("msg5_size = 0x%x\n",
-        msg5_size);
+    // eprintf("data_to_encrypt = %s\n",
+    //     hexstring(&msg5->data[0], msg5_size));
 
-    eprintf("ecrypted_data = %s\n",
-        hexstring(&msg6->data[0], msg6_size));
+    // eprintf("msg5_size = 0x%x\n",
+    //     msg5_size);
 
-    eprintf("msg6_size = 0x%x\n",
-        msg6_size);
+    // eprintf("ecrypted_data = %s\n",
+    //     hexstring(&msg6->data[0], msg6_size));
 
-    eprintf("mac = %s\n",
-        hexstring(msg6->mac, sizeof(msg6->mac)));
+    // eprintf("msg6_size = 0x%x\n",
+    //     msg6_size);
 
-    msgio->send(msg6, msg6_size);
-    fsend_msg(fplog, &msg6, msg6_size);
-    edivider();
+    // eprintf("mac = %s\n",
+    //     hexstring(msg6->mac, sizeof(msg6->mac)));
 
-    free(msg6);
+    // msgio->send(msg6, msg6_size);
+    // fsend_msg(fplog, &msg6, msg6_size);
+    // edivider();
+
+    // free(msg6);
     return 1;
 }
 

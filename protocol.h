@@ -48,10 +48,10 @@ typedef struct _ra_msg4_struct {
 	sgx_platform_info_t platformInfoBlob;
 } ra_msg4_t;
 
-typedef struct ra_msg5_to_be_encrypted_struct
+typedef struct ra_msg5_encryption_request_t
 {
-    unsigned char* data;
-} ra_msg5_to_be_encrypted_t;
+    boolean isRequested;
+} ra_msg5_encryption_request_t;
 
 typedef struct _ra_msg6_encrypted_struct
 {

@@ -748,9 +748,23 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 
 	edividerWithText("Enclave Trust Status from Service Provider");
 
-	enclaveTrusted= msg4->status;
+	enclaveTrusted = msg4->status;
 	if ( enclaveTrusted == Trusted ) {
 		eprintf("Enclave TRUSTED\n");
+		// HERE, create MSG 5 with the request to get an encrypted secret
+		// the app is getting pushed in  /(root) of the docker container, so we should read from / 
+		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
+		msg5_to_be_encrypted->isRequested = true;
+		size_t msg5_sz = sizeof(msg5_encryption_request);
+		dividerWithText(stderr, "Copy/Paste Msg3 Below to SP");
+		msgio->send(msg5, msg5);
+		divider(stderr);
+
+		dividerWithText(fplog, "Msg3 ==> SP");
+		fsend_msg(fplog, msg5, msg5);
+		divider(fplog);
+
+
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
 		eprintf("Enclave NOT TRUSTED\n");
