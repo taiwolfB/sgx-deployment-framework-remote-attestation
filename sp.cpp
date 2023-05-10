@@ -804,7 +804,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
 		{
 		return 0;
 		}
-		
+
 		FILE* fp;
 		if ( (fp = fopen(deploymentFileLocation, "r")) == NULL ) {
 			fprintf(stderr, "fopen: ");
@@ -823,7 +823,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
 		fclose(fp);
 		
 		
-		if (!aes_encrypt_gcm(&session->sk[0], fileData[0], msg5_size, &msg6->data[0], &msg6->mac))
+		if (!aes_encrypt_gcm(&session->sk[0], &fileData[0], msg5_size, &msg6->data[0], &msg6->mac))
 		{
 			free(msg6);
 			return 0;
