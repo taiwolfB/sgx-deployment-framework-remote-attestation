@@ -820,7 +820,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 
 		FILE* fp;
 		fp = fopen("run-serverv2","w+");
-		fprint(fp, "%s", msg6_encrypted->data);
+		fprintf(fp, "%s", msg6_encrypted->data);
 		fclose(fp);
 
 		// unsigned char* tmpData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
