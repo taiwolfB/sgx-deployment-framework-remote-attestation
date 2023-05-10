@@ -722,7 +722,7 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
         0,
         mac
     );
-	return STATUS == SAMPLE_SUCCESS;
+	return status == SAMPLE_SUCCESS;
 }
 
 
