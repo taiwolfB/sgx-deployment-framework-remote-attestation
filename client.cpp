@@ -764,6 +764,22 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 		fsend_msg(fplog, msg5_encryption_request, msg5_sz);
 		divider(fplog);
 
+		ra_msg6_encrypted_t msg6_encrypted  = NULL;
+		size_t msg6_sz;
+
+		rv= msgio->read((void **)&msg6, &msg6_sz);
+		if ( rv == 0 ) {
+			enclave_ra_close(eid, &sgxrv, ra_ctx);
+			fprintf(stderr, "protocol error reading msg4\n");
+			delete msgio;
+			exit(1);
+		} else if ( rv == -1 ) {
+			enclave_ra_close(eid, &sgxrv, ra_ctx);
+			fprintf(stderr, "system error occurred while reading msg4\n");
+			delete msgio;
+			exit(1);
+		}
+
 
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
