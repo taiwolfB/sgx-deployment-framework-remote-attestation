@@ -822,7 +822,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
 		fclose(fp);
 		
 		
-		if (!aes_encrypt_gcm(&session->sk[0], &fileData, msg5_size, &msg6->data[0], &msg6->mac))
+		if (!aes_encrypt_gcm(&session->sk[0], fileData, msg5_size, &msg6->data[0], &msg6->mac))
 		{
 			free(msg6);
 			return 0;
