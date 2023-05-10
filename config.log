@@ -302,7 +302,7 @@ configure:5059: checking for openssl/pem.h
 configure:5059: result: yes
 configure:5074: checking for library containing ECDSA_SIG_set0
 configure:5105: gcc -o conftest -g -O2   -L/opt/openssl/1.1.1i/lib conftest.c  >&5
-/usr/bin/ld: /tmp/ccXitS7P.o: in function `main':
+/usr/bin/ld: /tmp/ccCnQXDy.o: in function `main':
 /home/azureuser/sgx-deployment-framework-remote-attestation/conftest.c:36: undefined reference to `ECDSA_SIG_set0'
 collect2: error: ld returned 1 exit status
 configure:5105: $? = 1
