@@ -152,6 +152,7 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
         mac
     );
 	
+	return status == SAMPLE_SUCCESS;
 }
 
 int main (int argc, char *argv[])
