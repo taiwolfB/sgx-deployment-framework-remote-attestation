@@ -787,14 +787,14 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
     }
 
 	printf("MSG 5  = %d, MSG5 SIZE = %d\n",msg5->isRequested, msg5_size);
-	printf("Sizeof msg5 = %d", sizeof(msg5));
+	printf("Sizeof msg5 = %d\n", sizeof(msg5));
 	printf("MSG 5 FILe = %s\n", msg5->deploymentFileLocation);
-	printf("MSG 5 = %s", msg5);
+	printf("MSG 5 = %s\n", msg5);
 	eprintf("FILE = %s\n", hexstring(&msg5->deploymentFileLocation, sizeof(msg5->deploymentFileLocation)));
     // // message size is half of what is given by read, due to supreme intelligence....
     msg5_size /= 2;
 
-	printf("DECODE = %s", (char*)base64_decode(msg5->deploymentFileLocation, &msg5_size));
+	// printf("DECODE = %s", (char*)base64_decode(msg5->deploymentFileLocation, &msg5_size));
 	// if (msg5->isRequested) {
 
 	// 	int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
