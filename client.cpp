@@ -798,21 +798,21 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// fsend_msg(fplog, msg5_encryption_request, msg5_sz);
 		// divider(fplog);
 
-		ra_msg6_encrypted_t* msg6_encrypted;
-		size_t msg6_sz;
+		// ra_msg6_encrypted_t* msg6_encrypted;
+		// size_t msg6_sz;
 
-		rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
-		if ( rv == 0 ) {
-			enclave_ra_close(eid, &sgxrv, ra_ctx);
-			fprintf(stderr, "protocol error while reading encrypted msg6\n");
-			delete msgio;
-			exit(1);
-		} else if ( rv == -1 ) {
-			enclave_ra_close(eid, &sgxrv, ra_ctx);
-			fprintf(stderr, "system error occurred while reading encrypted msg6\n");
-			delete msgio;
-			exit(1);
-		}
+		// rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
+		// if ( rv == 0 ) {
+		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
+		// 	fprintf(stderr, "protocol error while reading encrypted msg6\n");
+		// 	delete msgio;
+		// 	exit(1);
+		// } else if ( rv == -1 ) {
+		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
+		// 	fprintf(stderr, "system error occurred while reading encrypted msg6\n");
+		// 	delete msgio;
+		// 	exit(1);
+		// }
 
 		// printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
 		// printf("Received message = %s \n", msg6_encrypted->data);
