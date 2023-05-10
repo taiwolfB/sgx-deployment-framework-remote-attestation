@@ -769,33 +769,34 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
 		fclose(fp);
-		printf("PRE ENCRYPTION DATA = %s\n", fileData);
-		unsigned char* tmpData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, tmpData, &msg6->mac))
-		{
-			free(msg6);
-			return 0;
-		}
+		// printf("PRE ENCRYPTION DATA = %s\n", fileData);
+		// unsigned char* tmpData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
+		// if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, tmpData, &msg6->mac))
+		// {
+		// 	free(msg6);
+		// 	return 0;
+		// }
 
-		printf("ENCRYPTED DATA1 = %s\n", tmpData);
-		size_t encryptedDataSize = strlen((char*)tmpData);
-		int i = 0 ;
-		while(tmpData[i] != '\0') {
-			i++;
-		}
-		printf("i = %d, encryptedDataSize = %d\n", i, encryptedDataSize);
-		unsigned char* decryptedData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
-		sample_aes_gcm_128bit_tag_t macOut;
-		if (!aes_encrypt_gcm(&session->sk[0], tmpData, fileDataSize, decryptedData, &macOut))
-		{
-			free(msg6);
-			return 0;
-		}
-		printf("DECRYPTED DATA = %s\n", decryptedData);
+		// printf("ENCRYPTED DATA1 = %s\n", tmpData);
+		// size_t encryptedDataSize = strlen((char*)tmpData);
+		// int i = 0 ;
+		// while(tmpData[i] != '\0') {
+		// 	i++;
+		// }
+		// printf("i = %d, encryptedDataSize = %d\n", i, encryptedDataSize);
+		// unsigned char* decryptedData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
+		// sample_aes_gcm_128bit_tag_t macOut;
+		// if (!aes_encrypt_gcm(&session->sk[0], tmpData, fileDataSize, decryptedData, &macOut))
+		// {
+		// 	free(msg6);
+		// 	return 0;
+		// }
+		// printf("DECRYPTED DATA = %s\n", decryptedData);
 
 
 		// printf("SIZE = %d\n", strlen((char*) tmpData));
-		// msg6->encryptedDataSize = strlen((char*)tmpData);
+		msg6->encryptedDataSize = fileDataSize;
+		memcpy(msg6->data, fileData, fileDataSize);
 		// memcpy(msg6->session_sk, hexstring(&session->sk[0], 16), 16);
 		// printf("SESSION SK = %s\n",  &session->sk[0]);
 
@@ -825,12 +826,12 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// eprintf("mac = %s\n",
 		//     hexstring(msg6->mac, sizeof(msg6->mac)));
 
-		// msgio->send(msg6, msg6_size);
+		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
 		// fsend_msg(fplog, &msg6, msg6_size);
-		// edivider();
-		// free(msg6);
+		edivider();
+		free(msg6);
 	}
 
    
