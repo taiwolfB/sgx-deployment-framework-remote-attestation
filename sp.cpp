@@ -826,7 +826,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// msg6->data = (char*)malloc(encryptedDataSize * sizeof(char));
 		//strcpy(msg6->data, tmpData);
 		msg6->data = (unsigned char*)malloc(encryptedDataSize * sizeof(unsigned char));
-		memcpy(msg6->data, tmpData, encryptedDataSize);
+		memcpy(msg6->data, tmpData, encryptedDataSize * sizeof(unsigned char));
 		printf("ENCRYPTED DATA3 = %s\n", msg6->data);
 		// eprintf("sk = %s\n",
 		//     hexstring(&session->sk[0], sizeof(session->sk)));
