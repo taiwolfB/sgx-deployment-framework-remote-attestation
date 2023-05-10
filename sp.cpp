@@ -769,6 +769,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
 		fclose(fp);
+		printf("PRE ENCRYPTION DATA = %s\n", fileData);
 		unsigned char* tmpData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
 		if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, tmpData, &msg6->mac))
 		{
@@ -777,13 +778,22 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 
 		printf("ENCRYPTED DATA1 = %s\n", tmpData);
-		printf("ENCRYPTED DATA2 = %s\n", tmpData);
-		printf("SIZE = %d\n", strlen((char*) tmpData));
-		msg6->encryptedDataSize = strlen((char*)tmpData);
-		memcpy(msg6->session_sk, &session->sk[0], 16);
-		printf("SESSION SK = %s\n",  &session->sk[0]);
+		size_t encryptedDataSize = strlen((char*)tmpData);
+		unsigned char* decryptedData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
+		if (!aes_encrypt_gcm(&session->sk[0], tmpData, encryptedDataSize, decryptedData, &msg6->mac))
+		{
+			free(msg6);
+			return 0;
+		}
+		printf("DECRYPTED DATA = %s\n", decryptedData);
 
-		printf("Session in msg6 = %s, and in session = %s\n", msg6->session_sk, session->sk);
+
+		// printf("SIZE = %d\n", strlen((char*) tmpData));
+		// msg6->encryptedDataSize = strlen((char*)tmpData);
+		// memcpy(msg6->session_sk, hexstring(&session->sk[0], 16), 16);
+		// printf("SESSION SK = %s\n",  &session->sk[0]);
+
+		// printf("Session in msg6 = %s, and in session = %s\n", msg6->session_sk, session->sk);
 		// msg6->data = (char*)malloc(encryptedDataSize * sizeof(char));
 		//strcpy(msg6->data, tmpData);
 		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
