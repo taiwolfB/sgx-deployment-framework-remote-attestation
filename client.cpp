@@ -763,7 +763,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
 		msg5_encryption_request->isRequested = true;
 		printf("size of deployment file  = %d", deploymentFileLocation);
-		msg5_encryption_request->deploymentFileLocation = (char*)malloc(sizeof(deploymentFileLocation) * sizeof(char));
+		msg5_encryption_request->deploymentFileLocation = (char*)malloc(sizeof(100) * sizeof(char));
 		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
 		printf("FILE BEFORE = %s\n", msg5_encryption_request->deploymentFileLocation);
 		printf("Size before = %ld\n", sizeof(msg5_encryption_request));
