@@ -830,8 +830,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
 		eprintf("sk = %s\n",
 		    hexstring(&session->sk[0], sizeof(session->sk)));
 
-		eprintf("data_to_encrypt = %s\n",
-		    hexstring(&msg5->data[0], msg5_size));
+		// eprintf("data_to_encrypt = %s\n",
+		//     hexstring(&msg5->data[0], msg5_size));
 
 		eprintf("msg5_size = 0x%x\n",
 		    msg5_size);
