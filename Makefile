@@ -429,7 +429,7 @@ mrsigner_SOURCES = mrsigner.cpp crypto.c hexutil.c
 sp_LDFLAGS = $(AM_LDFLAGS) -L/opt/openssl/1.1.1i/lib -Lsample_libcrypto  -Isample_libcrypto 
 mrsigner_LDFLAGS = $(AM_LDFLAGS) -L/opt/openssl/1.1.1i/lib
 client_LDADD = -l$(SGX_URTS_LIB) -lsgx_ukey_exchange -lcrypto \
-	-l:libsgx_capable.a -lpthread -ldl
+	-l:libsgx_capable.a -lpthread -ldl -lsample_libcrypto -Wl,-rpath=$(CURDIR)/sample_libcrypto -Wl,-rpath=$(CURDIR)
 
 mrsigner_LDADD = -lcrypto -lsample_libcrypto -Wl,-rpath=$(CURDIR)/sample_libcrypto -Wl,-rpath=$(CURDIR)
 sp_LDADD = -lcrypto -lsample_libcrypto -Wl,-rpath=$(CURDIR)/sample_libcrypto -Wl,-rpath=$(CURDIR)
