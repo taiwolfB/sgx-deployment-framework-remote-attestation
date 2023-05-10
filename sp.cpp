@@ -788,7 +788,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 	if (msg5->isRequested) {
 		msg5_size /= 2;
-		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg5_size + sizeof(ra_msg6_encrypted_t));
+		int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
+		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
 		if (!msg6)
 		{
 		return 0;
