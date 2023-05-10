@@ -789,6 +789,8 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			delete msgio;
 			exit(1);
 		}
+
+		printf("Received message = %s \n", msg6->data);
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
 		eprintf("Enclave NOT TRUSTED\n");
