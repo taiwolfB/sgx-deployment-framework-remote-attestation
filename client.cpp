@@ -760,10 +760,9 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// the app is getting pushed in  /(root) of the docker container, so we should read from / 
 		// THE SERVER SHOULD RECEIVE FROM THE CLIENT, the location of the app to be deployed because the server will run always in the docker
 		// the client will be instantiated with ./run-client -a FILE_NAME from the java backend. In the MSG5 we should add the file location.
-		printf("%s FILE\n", deploymentFileLocation);
-		// ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
-		// msg5_encryption_request->isRequested = true;
-		// printf("size of deployment file  = %d", sizeof(deploymentFileLocation));
+		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
+		msg5_encryption_request->isRequested = true;
+		printf("size of deployment file  = %d", sizeof(deploymentFileLocation));
 		// msg5_encryption_request->deploymentFileLocation = (char*)malloc(sizeof(100) * sizeof(char));
 		// strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
 		// printf("FILE BEFORE = %s\n", msg5_encryption_request->deploymentFileLocation);
