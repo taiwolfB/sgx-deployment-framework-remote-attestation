@@ -796,17 +796,16 @@ int process_msg5(MsgIO *msg, ra_session_t *session, char* deploymentFileLocation
     // // message size is half of what is given by read, due to supreme intelligence....
     msg5_size /= 2;
 
-    //int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
-    //ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
-    //if (!msg6)
-    //{
-    //    return 0;
-  //  }
+    int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
+    ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
+    if (!msg6)
+    {
+       return 0;
+    }
 
-	// const uint8_t *readBytes = 
 	if (msg5->isRequested) {
 		FILE* fp;
-		if ( (fp = fopen("Makefile", "r")) == NULL ) {
+		if ( (fp = fopen(deploymentFileLocation, "r")) == NULL ) {
 			fprintf(stderr, "fopen: ");
 		}
 
