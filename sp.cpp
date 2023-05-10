@@ -805,7 +805,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		fprintf(stderr, "fopen: ");
 	}
 
-	printf("%d", ftell(fp));
+	printf("AICI FRT %ld", ftell(fp));
 	
 	
     // if (!aes_encrypt_gcm(&session->sk[0], &msg5->data[0], msg5_size, &msg6->data[0], &msg6->mac))
