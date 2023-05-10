@@ -763,35 +763,31 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
 		msg5_encryption_request->isRequested = true;
 		msg5_encryption_request->deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
-		printf("DEPLOYMENT FILE = %s\n", deploymentFileLocation);
 		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
-		printf("DEP %s\n", msg5_encryption_request->deploymentFileLocation);
-		// size_t msg5_sz = sizeof(msg5_encryption_request);
-		// dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
-		// msgio->send(msg5_encryption_request, msg5_sz);
-		// divider(stderr);
+		size_t msg5_sz = sizeof(msg5_encryption_request);
+		dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
+		msgio->send(msg5_encryption_request, msg5_sz);
+		divider(stderr);
 
-		// dividerWithText(fplog, "Msg5 ==> SP");
-		// fsend_msg(fplog, msg5_encryption_request, msg5_sz);
-		// divider(fplog);
+		dividerWithText(fplog, "Msg5 ==> SP");
+		fsend_msg(fplog, msg5_encryption_request, msg5_sz);
+		divider(fplog);
 
-		// ra_msg6_encrypted_t* msg6_encrypted  = NULL;
-		// size_t msg6_sz;
+		ra_msg6_encrypted_t* msg6_encrypted  = NULL;
+		size_t msg6_sz;
 
-		// rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
-		// if ( rv == 0 ) {
-		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
-		// 	fprintf(stderr, "protocol error while reading encrypted msg6\n");
-		// 	delete msgio;
-		// 	exit(1);
-		// } else if ( rv == -1 ) {
-		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
-		// 	fprintf(stderr, "system error occurred while reading encrypted msg6\n");
-		// 	delete msgio;
-		// 	exit(1);
-		// }
-
-
+		rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
+		if ( rv == 0 ) {
+			enclave_ra_close(eid, &sgxrv, ra_ctx);
+			fprintf(stderr, "protocol error while reading encrypted msg6\n");
+			delete msgio;
+			exit(1);
+		} else if ( rv == -1 ) {
+			enclave_ra_close(eid, &sgxrv, ra_ctx);
+			fprintf(stderr, "system error occurred while reading encrypted msg6\n");
+			delete msgio;
+			exit(1);
+		}
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
 		eprintf("Enclave NOT TRUSTED\n");
