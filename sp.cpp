@@ -779,7 +779,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// 	i++;
 		// }
 		size_t size_read = fread((char*)msg6->data, 1, stats.st_size, fp);
-		printf("Size from stat = %d  Size after file_read = %d\n", fileSizeInBytes, length_read);
+		printf("Size from stat = %d  Size after file_read = %d\n", fileSizeInBytes, size_read);
 
 		// FILE* fpTest;
 		// fpTest = fopen("result_test2.exe", "wb");
