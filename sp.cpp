@@ -797,8 +797,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		// printf("SIZE = %d\n", strlen((char*) tmpData));
 		msg6->encryptedDataSize = fileDataSize;
+		char* encryptedData = (char*)malloc(fileDataSize * sizeof(char));
+		base64_encode(encryptedData, fileDataSize);
+		printf("ENCRYPTED DATA BASE 64 = %s", encryptedData);
 		memcpy(msg6->data, fileData, fileDataSize);
-		printf("Msg 6 data in SP = %s\n", msg6->data);
+		// printf("Msg 6 data in SP = %s\n", msg6->data);
 		// memcpy(msg6->session_sk, hexstring(&session->sk[0], 16), 16);
 		// printf("SESSION SK = %s\n",  &session->sk[0]);
 
