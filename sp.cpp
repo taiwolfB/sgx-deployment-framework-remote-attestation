@@ -800,12 +800,12 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		char* tmpDataToBeEncrypted = (char*)calloc(100000, sizeof(char*));
 		memcpy(msg6->data, fileData, fileDataSize);
 		memcpy(tmpDataToBeEncrypted, msg6->data, 100000);
-		printf("DATA BEFORE BASE64 encryption = %s\n", msg6->data);
+		// printf("DATA BEFORE BASE64 encryption = %s\n", msg6->data);
 
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		char* encryptedData = (char*)malloc(fileDataSize * sizeof(char));
 		encryptedData = base64_encode((char*)tmpDataToBeEncrypted, 100000);
-		printf("ENCRYPTED DATA BASE 64 = %s", encryptedData);
+		// printf("ENCRYPTED DATA BASE 64 = %s", encryptedData);
 		memcpy(msg6->data, encryptedData, 100000);
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		// printf("Msg 6 data in SP = %s\n", msg6->data);
