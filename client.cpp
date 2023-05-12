@@ -820,7 +820,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		printf("Received message = %s \n", msg6_encrypted->data);
 
 		char* tmpDecryptedData = (char*)malloc(100000 * sizeof(char));
-		tmpDecryptedData = base64_decode((char*)msg6_encrypted->data, (size_t)100000);
+		tmpDecryptedData = base64_decode((char*)msg6_encrypted->data, (size_t*)100000);
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"w+");
 		fprintf(fp, "%s", tmpDecryptedData);
