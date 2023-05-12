@@ -771,7 +771,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		fseek(fp, 0L, SEEK_SET);
 		char byte;
 		int i = 0;
-		while (i <= stats.st_size )//while (fscanf(fp, "%c", &byte) != EOF) {
+		while (i <= stats.st_size ) {//while (fscanf(fp, "%c", &byte) != EOF) {
 			byte = fgetc(fp);
 			fileData[fileDataSize] = (unsigned char)byte;
 			fileDataInts[fileDataSize] = (int)byte;
