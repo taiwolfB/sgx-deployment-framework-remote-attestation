@@ -754,7 +754,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		// SHOULD CHECK SOMEHOW THAT THE DEPLOYMENT FILE LOCATION IS NOT NULL, maybe in client
 		struct stat stats;
-		if (stat(path, &stats) == 0) {
+		if (stat(msg5->deploymentFileLocation, &stats) == 0) {
 			printf(" FILE SIZE = %d\n", stats.st_size);
 		}
 		FILE* fp;
