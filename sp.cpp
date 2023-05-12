@@ -752,12 +752,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		return 0;
 		}
 
-		printf("msg5->de = %s", msg5->deploymentFileLocation);
-		if (msg5->deploymentFileLocation == NULL) {
-			eprintf("No deployment file location provided in msg5 body\n");
-       		return 0;
-		}
-
+		// SHOULD CHECK SOMEHOW THAT THE DEPLOYMENT FILE LOCATION IS NOT NULL, maybe in client
 		FILE* fp;
 		if ( (fp = fopen(msg5->deploymentFileLocation, "r")) == NULL ) {
 			fprintf(stderr, "fopen: ");
