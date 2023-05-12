@@ -766,7 +766,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		uint8_t byte;
 		while (fscanf(fp, "%c", &byte) != EOF) {
 			fileData[fileDataSize++] = byte;
-			printf("%c", byte);
+			printf("BYTE = %c\n", byte);
 		}
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
