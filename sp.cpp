@@ -771,23 +771,23 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		fseek(fp, 0L, SEEK_SET);
 		char byte;
 		int i = 0;
-		while (i <= stats.st_size ) {//while (fscanf(fp, "%c", &byte) != EOF) {
-			byte = fgetc(fp);
-			fileData[fileDataSize] = (char)byte;
-			fileDataInts[fileDataSize] = (int)byte;
-			if (fileDataSize < 5) {
-				printf("READ byte = %c  = %d\n", byte, (int)byte);
-				printf("IN VECTOR READ  byte = %c  = %d\n", fileData[fileDataSize], (int)fileDataInts[fileDataSize]);
-			}
-			fileDataSize++;
-			i++;
-		}
-		// fread((char*)fileData, stats.st_size, 1, fp );
+		// while (i <= stats.st_size ) {//while (fscanf(fp, "%c", &byte) != EOF) {
+		// 	byte = fgetc(fp);
+		// 	fileData[fileDataSize] = (char)byte;
+		// 	fileDataInts[fileDataSize] = (int)byte;
+		// 	if (fileDataSize < 5) {
+		// 		printf("READ byte = %c  = %d\n", byte, (int)byte);
+		// 		printf("IN VECTOR READ  byte = %c  = %d\n", fileData[fileDataSize], (int)fileDataInts[fileDataSize]);
+		// 	}
+		// 	fileDataSize++;
+		// 	i++;
+		// }
+		size_t length_read = fread((char*)fileData, 1, stats.st_size, fp );
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
 		FILE* fpTest;
-		fpTest = fopen("result_test.exe", "wb");
-		fwrite(fileData , 1 , fileDataSize , fpTest );
+		fpTest = fopen("result_test2.exe", "wb");
+		fwrite(fileData , 1 , length_read , fpTest );
 		fclose(fpTest);
 		fclose(fp);
 		// printf("PRE ENCRYPTION DATA = %s\n", fileData);
