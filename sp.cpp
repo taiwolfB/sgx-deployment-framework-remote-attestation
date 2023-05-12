@@ -752,6 +752,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		return 0;
 		}
 
+		if (msg5->deploymentFileLocation == NULL) {
+			eprintf("No deployment file location provided in msg5 body\n");
+       		return 0;
+		}
+		
 		FILE* fp;
 		if ( (fp = fopen(msg5->deploymentFileLocation, "r")) == NULL ) {
 			fprintf(stderr, "fopen: ");
