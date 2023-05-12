@@ -827,6 +827,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		int i = 0 ;
 		while (i < msg6_encrypted->encryptedDataSize) {
 			fprintf(fp, "%c", (char)msg6_encrypted->dataInts[i]);
+			//vezi ce inturi se citesc cu un vector de aparitie si dupa ce se primeste in service provider
 			i++;
 		}
 		fclose(fp);
