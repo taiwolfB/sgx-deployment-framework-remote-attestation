@@ -782,7 +782,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			fileDataSize++;
 			i++;
 		}
-		fread((char*)fileData, stats.st_size, 1, fp );
+		// fread((char*)fileData, stats.st_size, 1, fp );
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
 		fclose(fp);
