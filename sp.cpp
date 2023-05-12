@@ -764,7 +764,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		
 
 		fseek(fp, 0L, SEEK_END);
-		const int fileSizeInBytes = ftell(fp);
+		const int fileSizeInBytes = stats.st_size;
 		unsigned char* fileData = (unsigned char*)malloc(fileSizeInBytes * sizeof(unsigned char));
 		unsigned int* fileDataInts = (unsigned int*)malloc(fileSizeInBytes * sizeof(unsigned int));
 		size_t fileDataSize = 0;
