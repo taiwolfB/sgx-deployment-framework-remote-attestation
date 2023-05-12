@@ -770,15 +770,16 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		size_t fileDataSize = 0;
 		fseek(fp, 0L, SEEK_SET);
 		unsigned char byte;
-		while (fscanf(fp, "%c", &byte) != EOF) {
-			fileData[fileDataSize] = byte;
-			fileDataInts[fileDataSize] = (int)byte;
-			if (fileDataSize < 5) {
-				printf("READ byte = %c  = %d\n", byte, (int)byte);
-				printf("IN VECTOR READ  byte = %c  = %d\n", fileData[fileDataSize], (int)fileDataInts[fileDataSize]);
-			}
-			fileDataSize++;
-		}
+		// while (fscanf(fp, "%c", &byte) != EOF) {
+		// 	fileData[fileDataSize] = byte;
+		// 	fileDataInts[fileDataSize] = (int)byte;
+		// 	if (fileDataSize < 5) {
+		// 		printf("READ byte = %c  = %d\n", byte, (int)byte);
+		// 		printf("IN VECTOR READ  byte = %c  = %d\n", fileData[fileDataSize], (int)fileDataInts[fileDataSize]);
+		// 	}
+		// 	fileDataSize++;
+		// }
+		fread((char*)fileData, stats.st_size, 1, fp );
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
 		fclose(fp);
@@ -815,6 +816,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// memcpy(tmpDataToBeEncrypted, msg6->data, 100000);
 		// printf("DATA BEFORE BASE64 encryption = %s\n", msg6->data);
 		
+		printf("FILEDATA = %s\n", fileData);
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		
