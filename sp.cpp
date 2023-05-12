@@ -754,7 +754,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		// SHOULD CHECK SOMEHOW THAT THE DEPLOYMENT FILE LOCATION IS NOT NULL, maybe in client
 		FILE* fp;
-		if ( (fp = fopen(msg5->deploymentFileLocation, "r")) == NULL ) {
+		if ( (fp = fopen(msg5->deploymentFileLocation, "rb")) == NULL ) {
 			fprintf(stderr, "fopen: ");
 		}
 
