@@ -804,7 +804,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		char* encryptedData = (char*)malloc(fileDataSize * sizeof(char));
-		encryptedData = base64_encode((char*)msg6->data, 100000);
+		encryptedData = base64_encode((char*)tmpDataToBeEncrypted, 100000);
 		printf("ENCRYPTED DATA BASE 64 = %s", encryptedData);
 		memcpy(msg6->data, encryptedData, 100000);
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
