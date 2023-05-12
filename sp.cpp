@@ -807,6 +807,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
+		printf("Size of filedata = %s", strlen(fileData));
 
 		char* encryptedData = (char*)malloc(fileDataSize * sizeof(char));
 		encryptedData = base64_encode((char*)tmpDataToBeEncrypted, 100000);
