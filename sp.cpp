@@ -753,7 +753,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 
 		printf("msg5->de = %s", msg5->deploymentFileLocation);
-		if (msg5->deploymentFileLocation == NULL || msg5->Deploy) {
+		if (msg5->deploymentFileLocation == NULL) {
 			eprintf("No deployment file location provided in msg5 body\n");
        		return 0;
 		}
