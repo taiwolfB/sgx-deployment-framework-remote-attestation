@@ -765,8 +765,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		fseek(fp, 0L, SEEK_SET);
 		uint8_t byte;
 		while (fscanf(fp, "%c", &byte) != EOF) {
-			printf("A CITIT 1\n");
 			fileData[fileDataSize++] = byte;
+			printf("%c", byte);
 		}
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
