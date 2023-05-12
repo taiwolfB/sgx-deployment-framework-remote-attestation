@@ -768,6 +768,10 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		while (fscanf(fp, "%c", &byte) != EOF) {
 			fileData[fileDataSize] = byte;
 			fileDataInts[fileDataSize] = (int)byte;
+			if (fileDataSize < 5) {
+				printf("READ byte = %c  = %d", byte, (int)byte);
+				printf("IN VECTOR READ  byte = %c  = %d", fileData[fileDataSize], (int)fileDataInts[fileDataSize]);
+			}
 			fileDataSize++;
 		}
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
