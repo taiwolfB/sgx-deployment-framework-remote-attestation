@@ -821,7 +821,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// char* tmpDecryptedData = (char*)malloc(100000 * sizeof(char));
 		// size_t decryptedSize = 100000;
 		// tmpDecryptedData = base64_decode((char*)msg6_encrypted->data, &decryptedSize);
-		strcat(deploymentFileLocation, "test");
+		// strcat(deploymentFileLocation, "test");
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
 		// int i = 0 ;
