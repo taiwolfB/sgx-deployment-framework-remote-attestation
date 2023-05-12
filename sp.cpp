@@ -761,11 +761,14 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		fseek(fp, 0L, SEEK_END);
 		const int fileSizeInBytes = ftell(fp);
 		unsigned char* fileData = (unsigned char*)malloc(fileSizeInBytes * sizeof(unsigned char));
+		unsigned int* fileDataInts = (unsigned int*)malloc(fileSizeInBytes * sizeof(unsigned int));
 		size_t fileDataSize = 0;
 		fseek(fp, 0L, SEEK_SET);
 		unsigned char byte;
 		while (fscanf(fp, "%c", &byte) != EOF) {
-			fileData[fileDataSize++] = byte;
+			fileData[fileDataSize] = byte;
+			fileDataInts[fileDataSize] = (int)byte;
+			fileDataSize++;
 		}
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
@@ -808,6 +811,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
 		printf("Size of filedata = %d", strlen((const char*)fileData));
+
+		printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
+		for (int i = 0 ; i < fileDataSize; i++) {
+			printf("Int = %d\n", fileDataInts[i]);
+		}
 
 		char* encryptedData = (char*)malloc(fileDataSize * sizeof(char));
 		encryptedData = base64_encode((char*)tmpDataToBeEncrypted, 100000);
