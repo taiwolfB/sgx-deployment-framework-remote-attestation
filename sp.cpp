@@ -752,25 +752,21 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		return 0;
 		}
 
-		// SHOULD CHECK SOMEHOW THAT THE DEPLOYMENT FILE LOCATION IS NOT NULL, maybe in client
 		struct stat stats;
 		if (stat(msg5->deploymentFileLocation, &stats) == 0) {
 			printf(" FILE SIZE = %d\n", stats.st_size);
 		}
+
 		FILE* fp;
 		if ( (fp = fopen(msg5->deploymentFileLocation, "rb")) == NULL ) {
 			fprintf(stderr, "fopen: ");
 		}
 		
-
-		fseek(fp, 0L, SEEK_END);
 		const int fileSizeInBytes = stats.st_size;
-		char* fileData = (char*)malloc(fileSizeInBytes * sizeof(char));
-		int* fileDataInts = (int*)malloc(fileSizeInBytes * sizeof(int));
-		size_t fileDataSize = 0;
-		fseek(fp, 0L, SEEK_SET);
-		char byte;
-		int i = 0;
+		// char* fileData = (char*)malloc(fileSizeInBytes * sizeof(char));
+		// int* fileDataInts = (int*)malloc(fileSizeInBytes * sizeof(int));
+		// char byte;
+		// int i = 0;
 		// while (i <= stats.st_size ) {//while (fscanf(fp, "%c", &byte) != EOF) {
 		// 	byte = fgetc(fp);
 		// 	fileData[fileDataSize] = (char)byte;
@@ -782,14 +778,14 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// 	fileDataSize++;
 		// 	i++;
 		// }
-		size_t length_read = fread((char*)fileData, 1, stats.st_size, fp );
-		printf("Size from ftell = %d\n Size after read = %d file_read = %d\n", fileSizeInBytes, fileDataSize, length_read);
+		size_t size_read = fread((char*)ms6->data, 1, stats.st_size, fp);
+		printf("Size from stat = %d  Size after file_read = %d\n", fileSizeInBytes, length_read);
 
-		FILE* fpTest;
-		fpTest = fopen("result_test2.exe", "wb");
-		fwrite(fileData , 1 , length_read , fpTest );
-		fclose(fpTest);
-		fclose(fp);
+		// FILE* fpTest;
+		// fpTest = fopen("result_test2.exe", "wb");
+		// fwrite(fileData , 1 , length_read , fpTest );
+		// fclose(fpTest);
+		// fclose(fp);
 		// printf("PRE ENCRYPTION DATA = %s\n", fileData);
 		// unsigned char* tmpData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
 		// if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, tmpData, &msg6->mac))
@@ -816,29 +812,29 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 
 		// printf("SIZE = %d\n", strlen((char*) tmpData));
-		msg6->encryptedDataSize = fileDataSize;
+		msg6->encryptedDataSize = size_read;
 		// char* tmpDataToBeEncrypted = (char*)calloc(100000, sizeof(char*));
 		// memcpy(msg6->data, fileData, fileDataSize);
-		memcpy(msg6->dataInts, fileDataInts, fileDataSize);
+		// memcpy(msg6->dataInts, fileDataInts, fileDataSize);
 		// memcpy(tmpDataToBeEncrypted, msg6->data, 100000);
 		// printf("DATA BEFORE BASE64 encryption = %s\n", msg6->data);
 		
-		// printf("FILEDATA = %s\n", fileData);
-		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+		// // printf("FILEDATA = %s\n", fileData);
+		// printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+		// printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		
-		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+		// printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		//printf("Size of filedata = %d", strlen((const char*)fileData));
 
 		//printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
 
 		// SEND IT AS INTS THEN DECODE TO BYTES AND WRITE TO FILE
 
-		char* encryptedData = (char*)malloc(fileDataSize * sizeof(char));
+		// char* encryptedData = (char*)malloc(fileDataSize * sizeof(char));
 		// encryptedData = base64_encode((char*)tmpDataToBeEncrypted, 100000);
 		// printf("ENCRYPTED DATA BASE 64 = %s", encryptedData);
 		// memcpy(msg6->data, encryptedData, 100000);
-		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
+		// printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		// printf("Msg 6 data in SP = %s\n", msg6->data);
 		// memcpy(msg6->session_sk, hexstring(&session->sk[0], 16), 16);
 		// printf("SESSION SK = %s\n",  &session->sk[0]);
