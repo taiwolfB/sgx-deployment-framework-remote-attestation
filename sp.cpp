@@ -763,7 +763,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		unsigned char* fileData = (unsigned char*)malloc(fileSizeInBytes * sizeof(unsigned char));
 		size_t fileDataSize = 0;
 		fseek(fp, 0L, SEEK_SET);
-		unsigned char* byte;
+		unsigned char byte;
 		while (fscanf(fp, "%c", &byte) != EOF) {
 			fileData[fileDataSize++] = byte;
 		}
