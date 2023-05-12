@@ -827,7 +827,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		fprintf(fp, "%s", tmpDecryptedData);
 		fclose(fp);
 	
-		printf("%d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
+		printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
 
 		// unsigned char* tmpData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
 		// char
