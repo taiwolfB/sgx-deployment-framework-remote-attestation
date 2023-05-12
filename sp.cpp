@@ -819,7 +819,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// memcpy(tmpDataToBeEncrypted, msg6->data, 100000);
 		// printf("DATA BEFORE BASE64 encryption = %s\n", msg6->data);
 		
-		printf("FILEDATA = %s\n", fileData);
+		// printf("FILEDATA = %s\n", fileData);
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		
