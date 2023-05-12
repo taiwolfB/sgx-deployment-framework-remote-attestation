@@ -753,10 +753,15 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 
 		// SHOULD CHECK SOMEHOW THAT THE DEPLOYMENT FILE LOCATION IS NOT NULL, maybe in client
+		struct stat stats;
+		if (stat(path, &stats) == 0) {
+			printf(" FILE SIZE = %d\n", stats.st_size);
+		}
 		FILE* fp;
 		if ( (fp = fopen(msg5->deploymentFileLocation, "rb")) == NULL ) {
 			fprintf(stderr, "fopen: ");
 		}
+		
 
 		fseek(fp, 0L, SEEK_END);
 		const int fileSizeInBytes = ftell(fp);
