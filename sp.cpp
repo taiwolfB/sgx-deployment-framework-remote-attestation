@@ -785,6 +785,10 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// fread((char*)fileData, stats.st_size, 1, fp );
 		printf("Size from ftell = %d\n Size after read = %d\n", fileSizeInBytes, fileDataSize);
 
+		FILE* fpTest;
+		fpTest = fopen("result_test.exe", "wb");
+		fwrite(fileData , 1 , fileDataSize , fpTest );
+		fclose(fpTest);
 		fclose(fp);
 		// printf("PRE ENCRYPTION DATA = %s\n", fileData);
 		// unsigned char* tmpData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
