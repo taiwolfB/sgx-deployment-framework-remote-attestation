@@ -769,8 +769,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			fileData[fileDataSize] = byte;
 			fileDataInts[fileDataSize] = (int)byte;
 			if (fileDataSize < 5) {
-				printf("READ byte = %c  = %d", byte, (int)byte);
-				printf("IN VECTOR READ  byte = %c  = %d", fileData[fileDataSize], (int)fileDataInts[fileDataSize]);
+				printf("READ byte = %c  = %d\n", byte, (int)byte);
+				printf("IN VECTOR READ  byte = %c  = %d\n", fileData[fileDataSize], (int)fileDataInts[fileDataSize]);
 			}
 			fileDataSize++;
 		}
@@ -814,9 +814,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-		printf("Size of filedata = %d", strlen((const char*)fileData));
+		//printf("Size of filedata = %d", strlen((const char*)fileData));
 
-		printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
+		//printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
 
 		// SEND IT AS INTS THEN DECODE TO BYTES AND WRITE TO FILE
 
