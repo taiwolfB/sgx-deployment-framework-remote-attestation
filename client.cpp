@@ -819,9 +819,11 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
 		printf("Received message = %s \n", msg6_encrypted->data);
 
+		char* tmpDecryptedData = (char*)malloc(100000 * sizeof(char));
+		tmpDecryptedData = base64_decode(msg6_encrypted->data, 100000);
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"w+");
-		fprintf(fp, "%s", msg6_encrypted->data);
+		fprintf(fp, "%s", tmpDecryptedData);
 		fclose(fp);
 	
 		printf("%d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
