@@ -810,7 +810,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
 		
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n");
-		printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
 		printf("Size of filedata = %d", strlen((const char*)fileData));
 
 		printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
