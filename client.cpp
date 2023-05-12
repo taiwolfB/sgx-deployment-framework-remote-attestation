@@ -824,7 +824,11 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		tmpDecryptedData = base64_decode((char*)msg6_encrypted->data, &decryptedSize);
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"w+");
-		fprintf(fp, "%s", tmpDecryptedData);
+		int i = 0 ;
+		while (i < msg6_encrypted->encryptedDataSize) {
+			fprintf(fp, "%c", (char)msg6_encrypted->dataInts[i]);
+			i++;
+		}
 		fclose(fp);
 	
 		printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));

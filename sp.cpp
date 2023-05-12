@@ -802,6 +802,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		msg6->encryptedDataSize = fileDataSize;
 		char* tmpDataToBeEncrypted = (char*)calloc(100000, sizeof(char*));
 		memcpy(msg6->data, fileData, fileDataSize);
+		memcpy(msg6->dataInts, fileDataInts, fileDataSize);
 		memcpy(tmpDataToBeEncrypted, msg6->data, 100000);
 		// printf("DATA BEFORE BASE64 encryption = %s\n", msg6->data);
 		
@@ -813,9 +814,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("Size of filedata = %d", strlen((const char*)fileData));
 
 		printf("MESsAGE BEFOOREEE SEND = %s\n", fileData);
-		for (int i = 0 ; i < fileDataSize; i++) {
-			printf("Int = %d\n", fileDataInts[i]);
-		}
+
+		// SEND IT AS INTS THEN DECODE TO BYTES AND WRITE TO FILE
 
 		char* encryptedData = (char*)malloc(fileDataSize * sizeof(char));
 		encryptedData = base64_encode((char*)tmpDataToBeEncrypted, 100000);
