@@ -765,15 +765,15 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		fseek(fp, 0L, SEEK_END);
 		const int fileSizeInBytes = stats.st_size;
-		unsigned char* fileData = (unsigned char*)malloc(fileSizeInBytes * sizeof(unsigned char));
-		unsigned int* fileDataInts = (unsigned int*)malloc(fileSizeInBytes * sizeof(unsigned int));
+		char* fileData = (char*)malloc(fileSizeInBytes * sizeof(char));
+		int* fileDataInts = (int*)malloc(fileSizeInBytes * sizeof(int));
 		size_t fileDataSize = 0;
 		fseek(fp, 0L, SEEK_SET);
 		char byte;
 		int i = 0;
 		while (i <= stats.st_size ) {//while (fscanf(fp, "%c", &byte) != EOF) {
 			byte = fgetc(fp);
-			fileData[fileDataSize] = (unsigned char)byte;
+			fileData[fileDataSize] = (char)byte;
 			fileDataInts[fileDataSize] = (int)byte;
 			if (fileDataSize < 5) {
 				printf("READ byte = %c  = %d\n", byte, (int)byte);
