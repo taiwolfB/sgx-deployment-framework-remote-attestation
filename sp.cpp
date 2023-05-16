@@ -766,6 +766,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		unsigned char byte;
 		//size_t size_read = fread((unsigned char*)read_data, stats.st_size, 1, fp);
 		for (int i = 0 ; i < stats.st_size; i++) {
+			printf("AICI");
 			fread(&byte, sizeof(unsigned char), 1, fp);
 			read_data[i++] = byte;
 		}
@@ -779,7 +780,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		
 		unsigned char encryptedData[100000];
 		msg6->encryptedDataSize = stats.st_size;
-				
+
 		msg6->session_sk = &(session->sk[0]);
 		
 		if (verbose) {
