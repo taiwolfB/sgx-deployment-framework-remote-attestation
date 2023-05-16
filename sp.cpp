@@ -767,7 +767,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		//size_t size_read = fread((unsigned char*)read_data, stats.st_size, 1, fp);
 		for (int i = 0 ; i < stats.st_size; i++) {
 			fread(&byte, sizeof(unsigned char), 1, fp);
-			printf("BYTE = %s\n", byte);
+			printf("BYTE = %c\n", byte);
 			read_data[i] = byte;
 		}
 		if (verbose) {
