@@ -781,7 +781,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 	edividerWithText("Enclave Trust Status from Service Provider");
 
 	enclaveTrusted = msg4->status;
-	if ( enclaveTrusted == Trusted ) {
+	if ( enclaveTrusted == Trusted && deploymentFileLocation != NULL) {
 		eprintf("Enclave TRUSTED\n");
 		// HERE, create MSG 5 with the request to get an encrypted secret
 		// the app is getting pushed in  /(root) of the docker container, so we should read from / 
