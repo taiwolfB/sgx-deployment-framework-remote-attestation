@@ -771,22 +771,21 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		
 		unsigned char encryptedData[100000];
 		msg6->encryptedDataSize = size_read;
-		// strcpy(msg6->session_sk, (char*)session->sk);
 
-		// if (verbose) {
-			
-		// }
-		printf("Encryption key = %s\n", session->sk);
+		if (verbose) {
+			printf("Encryption key = %s\n", session->sk);
+			printf("SK copied  = %s\n", msg6->session_sk);
+		}
+		
 		msg6->session_sk = &(session->sk[0]);
 		sample_aes_gcm_128bit_tag_t macOut;
-		printf("SK copied  = %s\n", msg6->session_sk);
 
-		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize, msg6->data, &macOut))
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize, &(msg6->data[0]), &macOut))
 		{
 			free(msg6);
 			return 0;
 		}
-
+		printf("DATA ENCRYTPED = %s\n", msg6->data);
 		//msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
