@@ -828,13 +828,13 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			return 0;
 		}
 
-		FILE* fp;
-		fp = fopen(deploymentFileLocation,"wb");
+		// FILE* fp;
+		// fp = fopen(deploymentFileLocation,"wb");
 
-		fwrite(tmpData, 1, msg6_encrypted->encryptedDataSize, fp);
-		fclose(fp);
+		// fwrite(tmpData, 1, msg6_encrypted->encryptedDataSize, fp);
+		// fclose(fp);
 	
-		printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
+		// printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
 
 		printf("DECRYPTED DATA = %s\n", tmpData);
 
