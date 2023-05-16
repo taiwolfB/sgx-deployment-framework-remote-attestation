@@ -764,18 +764,18 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		
 		unsigned char read_data[100000];
 		unsigned char byte;
-		//size_t size_read = fread((unsigned char*)read_data, stats.st_size, 1, fp);
-		for (int i = 0 ; i < stats.st_size; i++) {
-			fread(&byte, sizeof(unsigned char), 1, fp);
-			printf("BYTE = %c\n", byte);
-			read_data[i] = byte;
-		}
+		size_t size_read = fread((unsigned char*)read_data, stats.st_size, sizeof(unsigned char), fp);
+		// for (int i = 0 ; i < stats.st_size; i++) {
+		// 	fread(&byte, sizeof(unsigned char), 1, fp);
+		// 	printf("BYTE = %c\n", byte);
+		// 	read_data[i] = byte;
+		// }
 		if (verbose) {
-			// printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
+			printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
 			printf("READ DATA = %s\n", read_data);
 			printf("READ DATA SIZE FROM STRLEN= %d\n", strlen((const char*)read_data));
 		}
-		fclose(fp);
+		// fclose(fp);
 
 		
 		unsigned char encryptedData[100000];
