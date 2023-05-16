@@ -782,6 +782,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		msg6->encryptedDataSize = stats.st_size;
 
 		// msg6->session_sk = &(session->sk[0]);
+		printf("SIZE SK = %d\n", sizeof(session->sk));
 		memcpy(msg6->session_sk, session->sk, 16);
 		
 		if (verbose) {
