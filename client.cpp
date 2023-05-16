@@ -827,9 +827,9 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// fclose(fp);
 	
 		// printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
-
+		sample_aes_gcm_128bit_tag_t macOut;
 		unsigned char* tmpData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(msg6_encrypted->session_sk, msg6_encrypted->data, msg6_encrypted->encryptedDataSize, tmpData, &msg6->mac))
+		if (!aes_encrypt_gcm(msg6_encrypted->session_sk, msg6_encrypted->data, msg6_encrypted->encryptedDataSize, tmpData, &outMac))
 		{
 			free(msg6);
 			return 0;
