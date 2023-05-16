@@ -5133,8 +5133,11 @@ for ac_lib in '' crypto; do
   if test -z "$ac_lib"; then
     ac_res="none required"
   else
-    ac_res=-l$ac_lib -lsample_libcrypto
+    ac_res="-l$ac_lib -lsample_libcrypto"
     LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
+    echo "BODO"
+    echo $ac_res
+    echo $LIBS
   fi
   if ac_fn_c_try_link "$LINENO"; then :
   ac_cv_search_ECDSA_SIG_set0=$ac_res
