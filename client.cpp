@@ -804,29 +804,29 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		ra_msg6_encrypted_t* msg6_encrypted;
 		size_t msg6_sz;
 
-		rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
-		if ( rv == 0 ) {
-			enclave_ra_close(eid, &sgxrv, ra_ctx);
-			fprintf(stderr, "protocol error while reading encrypted msg6\n");
-			delete msgio;
-			exit(1);
-		} else if ( rv == -1 ) {
-			enclave_ra_close(eid, &sgxrv, ra_ctx);
-			fprintf(stderr, "system error occurred while reading encrypted msg6\n");
-			delete msgio;
-			exit(1);
-		}
+		// rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
+		// if ( rv == 0 ) {
+		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
+		// 	fprintf(stderr, "protocol error while reading encrypted msg6\n");
+		// 	delete msgio;
+		// 	exit(1);
+		// } else if ( rv == -1 ) {
+		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
+		// 	fprintf(stderr, "system error occurred while reading encrypted msg6\n");
+		// 	delete msgio;
+		// 	exit(1);
+		// }
 
-		printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
-		printf("Encrypted data received = %s\n", msg6_encrypted->data);
-		printf("SK RECEIVED  = %s\n", msg6_encrypted->session_sk);
-		sample_aes_gcm_128bit_tag_t macOut;
-		unsigned char* tmpData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm((unsigned char*)msg6_encrypted->session_sk, msg6_encrypted->data, msg6_encrypted->encryptedDataSize, tmpData, &macOut))
-		{
-			free(msg6_encrypted);
-			return 0;
-		}
+		// printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
+		// printf("Encrypted data received = %s\n", msg6_encrypted->data);
+		// printf("SK RECEIVED  = %s\n", msg6_encrypted->session_sk);
+		// sample_aes_gcm_128bit_tag_t macOut;
+		// unsigned char* tmpData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
+		// if (!aes_encrypt_gcm((unsigned char*)msg6_encrypted->session_sk, msg6_encrypted->data, msg6_encrypted->encryptedDataSize, tmpData, &macOut))
+		// {
+		// 	free(msg6_encrypted);
+		// 	return 0;
+		// }
 
 		// FILE* fp;
 		// fp = fopen(deploymentFileLocation,"wb");
