@@ -755,6 +755,7 @@ S["PACKAGE_NAME"]="sgxautosample"
 S["PATH_SEPARATOR"]=":"
 S["SHELL"]="/bin/bash"
 S["am__quote"]=""
+S["sp_LDDAD"]="-lcrypto -lsample_libcrypto"
 _ACAWK
 cat >>"$ac_tmp/subs1.awk" <<_ACAWK &&
   for (key in S) S_is_set[key] = 1
@@ -769,7 +770,6 @@ cat >>"$ac_tmp/subs1.awk" <<_ACAWK &&
   for (i = 2; i < nfields; i++) {
     key = field[i]
     keylen = length(key)
-    printf("%s", key)
     if (S_is_set[key]) {
       value = S[key]
       line = substr(line, 1, len) "" value "" substr(line, len + keylen + 3)
