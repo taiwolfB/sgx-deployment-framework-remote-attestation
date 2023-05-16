@@ -762,7 +762,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			fprintf(stderr, "fopen: ");
 		}
 		
-		unsigned char read_data[100000];
+		unsigned char read_data[stats.st_size];
 		unsigned char byte;
 		size_t size_read = fread((unsigned char*)read_data, sizeof(unsigned char), stats.st_size, fp);
 
