@@ -2175,6 +2175,8 @@ $as_echo "$as_me:   current value: \`$ac_new_val'" >&2;}
       fi;;
   esac
   # Pass precious variables to config.status.
+  echo "BODOO"
+  echo $ac_new_set
   if test "$ac_new_set" = set; then
     case $ac_new_val in
     *\'*) ac_arg=$ac_var=`$as_echo "$ac_new_val" | sed "s/'/'\\\\\\\\''/g"` ;;
