@@ -804,35 +804,25 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		ra_msg6_encrypted_t* msg6_encrypted;
 		size_t msg6_sz;
 
-		rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
-		if ( rv == 0 ) {
-			enclave_ra_close(eid, &sgxrv, ra_ctx);
-			fprintf(stderr, "protocol error while reading encrypted msg6\n");
-			delete msgio;
-			exit(1);
-		} else if ( rv == -1 ) {
-			enclave_ra_close(eid, &sgxrv, ra_ctx);
-			fprintf(stderr, "system error occurred while reading encrypted msg6\n");
-			delete msgio;
-			exit(1);
-		}
+		// rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
+		// if ( rv == 0 ) {
+		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
+		// 	fprintf(stderr, "protocol error while reading encrypted msg6\n");
+		// 	delete msgio;
+		// 	exit(1);
+		// } else if ( rv == -1 ) {
+		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
+		// 	fprintf(stderr, "system error occurred while reading encrypted msg6\n");
+		// 	delete msgio;
+		// 	exit(1);
+		// }
 
-		printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
-		// printf("Received message = %s \n", msg6_encrypted->data);
-		// char* tmpDecryptedData = (char*)malloc(100000 * sizeof(char));
-		// size_t decryptedSize = 100000;
-		// tmpDecryptedData = base64_decode((char*)msg6_encrypted->data, &decryptedSize);
-		// strcat(deploymentFileLocation, "test");
-		FILE* fp;
-		fp = fopen(deploymentFileLocation,"wb");
-		// int i = 0 ;
-		// while (i < msg6_encrypted->encryptedDataSize) {
-		// 	fprintf(fp, "%c", (char)msg6_encrypted->dataInts[i]);
-		// 	//vezi ce inturi se citesc cu un vector de aparitie si dupa ce se primeste in service provider
-		// 	i++;
-		// }f
-		fwrite(msg6_encrypted->data, 1, msg6_encrypted->encryptedDataSize, fp);
-		fclose(fp);
+		// printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
+		// FILE* fp;
+		// fp = fopen(deploymentFileLocation,"wb");
+
+		// fwrite(msg6_encrypted->data, 1, msg6_encrypted->encryptedDataSize, fp);
+		// fclose(fp);
 	
 		// printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
 
