@@ -804,6 +804,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		ra_msg6_encrypted_t* msg6_encrypted;
 		size_t msg6_sz;
 
+printf("DA\n");
 		// rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
 		// if ( rv == 0 ) {
 		// 	enclave_ra_close(eid, &sgxrv, ra_ctx);
