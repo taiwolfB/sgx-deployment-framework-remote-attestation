@@ -813,7 +813,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("Encrypted Data = %s\n", encryptedData);
 
 		unsigned char decryptedData[100000];
-		if (!aes_encrypt_gcm(&session->sk[0], encryptedData, msg6->encryptedDataSize, decryptedData, &msg6->mac))
+		if (!aes_encrypt_gcm(&session->sk[0], encryptedData, msg6->encryptedDataSize, decryptedData, &macOut))
 		{
 			free(msg6);
 			return 0;
