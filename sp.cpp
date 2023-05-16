@@ -766,9 +766,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		unsigned char byte;
 		//size_t size_read = fread((unsigned char*)read_data, stats.st_size, 1, fp);
 		for (int i = 0 ; i < stats.st_size; i++) {
-			printf("AICI");
 			fread(&byte, sizeof(unsigned char), 1, fp);
-			read_data[i++] = byte;
+			printf("BYTE = %s\n", byte);
+			read_data[i] = byte;
 		}
 		if (verbose) {
 			// printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
