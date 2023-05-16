@@ -52,7 +52,7 @@ in the License.
 #include "logfile.h"
 #include "settings.h"
 #include "enclave_verify.h"
-#include "sample_libcrypto/sample_libcrypto.h"
+#include "sample_libcrypto.h"
 
 using namespace json;
 using namespace std;
