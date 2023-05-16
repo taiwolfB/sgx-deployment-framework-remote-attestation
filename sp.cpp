@@ -782,11 +782,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		msg6->encryptedDataSize = stats.st_size;
 
 		// msg6->session_sk = &(session->sk[0]);
-		strcpy((char*)msg6->session_sk, (char*)session->sk);
 		int i = 0;
-		// while (session->sk[i] != '\0') {
-		// 	i++;
-		// }
+		while (session->sk[i] != '\0') {
+			msg6->session_sk[i] = session->sk[i];
+			i++;
+		}
 		msg6->session_sk_size = i;
 
 		printf("session sk size = %d\n", i);
