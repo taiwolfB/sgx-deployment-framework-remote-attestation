@@ -769,8 +769,7 @@ cat >>"$ac_tmp/subs1.awk" <<_ACAWK &&
   for (i = 2; i < nfields; i++) {
     key = field[i]
     keylen = length(key)
-    echo "BODOO"
-    echo $key
+    printf("%s", key)
     if (S_is_set[key]) {
       value = S[key]
       line = substr(line, 1, len) "" value "" substr(line, len + keylen + 3)
