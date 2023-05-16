@@ -2159,8 +2159,6 @@ $as_echo "$as_me: error: \`$ac_var' was not set in the previous run" >&2;}
 	# differences in whitespace do not lead to failure.
 	ac_old_val_w=`echo x $ac_old_val`
 	ac_new_val_w=`echo x $ac_new_val`
-  echo "BODOO" 
-  echo $ac_new_val
 	if test "$ac_old_val_w" != "$ac_new_val_w"; then
 	  { $as_echo "$as_me:${as_lineno-$LINENO}: error: \`$ac_var' has changed since the previous run:" >&5
 $as_echo "$as_me: error: \`$ac_var' has changed since the previous run:" >&2;}
@@ -2177,6 +2175,8 @@ $as_echo "$as_me:   current value: \`$ac_new_val'" >&2;}
       fi;;
   esac
   # Pass precious variables to config.status.
+  echo "BODOO" 
+  echo $ac_new_val
   if test "$ac_new_set" = set; then
     case $ac_new_val in
     *\'*) ac_arg=$ac_var=`$as_echo "$ac_new_val" | sed "s/'/'\\\\\\\\''/g"` ;;
