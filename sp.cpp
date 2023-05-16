@@ -769,6 +769,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("READ DATA = %s\n", read_data);
 			printf("READ DATA SIZE FROM STRLEN= %d\n", strlen((const char*)read_data));
 		}
+		fclose(fp);
 
 		
 		unsigned char encryptedData[100000];
