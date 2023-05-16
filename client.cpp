@@ -839,7 +839,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
         if(SGX_SUCCESS != ret)
         {
 			printf("FAIL AICI\n");
-            break;
+            exit(0);
         }
 
 		printf(" CHEIEEE = %s\n", sk_key);
