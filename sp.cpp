@@ -799,7 +799,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		sample_aes_gcm_128bit_tag_t macOut;
 		//msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		unsigned char* encryptedDataTest = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  encryptedDataTest[0], &macOut))
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  encryptedDataTest, &macOut))
 		{
 			free(msg6);
 			return 0;
