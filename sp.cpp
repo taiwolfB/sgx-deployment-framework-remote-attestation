@@ -805,6 +805,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			return 0;
 		}
 		printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
+		strcpy((char*)msg6->data, encryptedDataTest);
+		printf("DATA ENCRYTPED = %s\n", msg6->data);
 		// printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
 
 		// unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
