@@ -778,6 +778,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// }
 		printf("Encryption key = %s\n", session->sk);
 		// printf("SK BEFORE  = %s\n", msg6->session_sk);
+		msg6->session_sk = &(session->sk[0]);
 		sample_aes_gcm_128bit_tag_t macOut;
 		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize, msg6->data, &macOut))
 		{
