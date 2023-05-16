@@ -1324,10 +1324,6 @@ for ac_var in $ac_precious_vars; do
   eval ac_env_${ac_var}_value=\$${ac_var}
   eval ac_cv_env_${ac_var}_set=\${${ac_var}+set}
   eval ac_cv_env_${ac_var}_value=\$${ac_var}
-  echo "BODOOOOOO"
-  echo \$${ac_var}
-  echo \$$ac_cv_env_${ac_var}_value
-  echo \$$ac_cv_env_${ac_var}_set
 done
 
 #
@@ -2163,7 +2159,8 @@ $as_echo "$as_me: error: \`$ac_var' was not set in the previous run" >&2;}
 	# differences in whitespace do not lead to failure.
 	ac_old_val_w=`echo x $ac_old_val`
 	ac_new_val_w=`echo x $ac_new_val`
-  
+  echo "BODOO" 
+  echo $ac_new_val
 	if test "$ac_old_val_w" != "$ac_new_val_w"; then
 	  { $as_echo "$as_me:${as_lineno-$LINENO}: error: \`$ac_var' has changed since the previous run:" >&5
 $as_echo "$as_me: error: \`$ac_var' has changed since the previous run:" >&2;}
