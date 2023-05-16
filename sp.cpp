@@ -765,11 +765,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		unsigned char read_data[100000];
 		unsigned char byte;
 		size_t size_read = fread((unsigned char*)read_data, sizeof(unsigned char), stats.st_size, fp);
-		// for (int i = 0 ; i < stats.st_size; i++) {
-		// 	fread(&byte, sizeof(unsigned char), 1, fp);
-		// 	printf("BYTE = %c\n", byte);
-		// 	read_data[i] = byte;
-		// }
+
 		if (verbose) {
 			printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
 			printf("READ DATA = %s\n", read_data);
@@ -788,6 +784,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			i++;
 		}
 		msg6->session_sk[i] = '\0';
+		i++;
 		msg6->session_sk_size = i;
 
 		printf("session sk size = %d\n", i);
@@ -807,7 +804,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 		printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
 		strcpy((char*)msg6->data, (char*)encryptedDataTest);
-		printf("DATA ENCRYTPED = %s\n", msg6->data);
+		printf("DATA ENCRYTPED from data = %s\n", msg6->data);
 		// printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
 		unsigned char testData[100000];
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
