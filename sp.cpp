@@ -763,9 +763,14 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 		
 		unsigned char read_data[100000];
-		size_t size_read = fread((unsigned char*)read_data, stats.st_size, 1, fp);
+		unsigned char byte;
+		//size_t size_read = fread((unsigned char*)read_data, stats.st_size, 1, fp);
+		for (int i = 0 ; i < stats.st_size; i++) {
+			fread(&byte, sizeof(unsigned char), 1, fp);
+			read_data[i++] = byte;
+		}
 		if (verbose) {
-			printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
+			// printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
 			printf("READ DATA = %s\n", read_data);
 			printf("READ DATA SIZE FROM STRLEN= %d\n", strlen((const char*)read_data));
 		}
@@ -804,8 +809,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		FILE* fp1;
 		fp1 = fopen("test.bin","wb");
 
-		fwrite(decryptedData, 
-		msg6->encryptedDataSize, 1,fp1);
+		fwrite(decryptedData, msg6->encryptedDataSize, 1, fp1);
 		fclose(fp1);
 	
 		printf("Chmod result = %d", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
