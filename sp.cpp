@@ -880,7 +880,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
 		fsend_msg(fplog, &msg6, msg6_size);
-		edivider();
+		//edivider();
 		free(msg6);
 	}
 
