@@ -813,7 +813,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("AICI1");
 			return 0;
 		}
-		printf("AICI2");
+		printf("AICI23");
 
 		// printf("DECRYPTED DATA = %s\n", decryptedData);
 
