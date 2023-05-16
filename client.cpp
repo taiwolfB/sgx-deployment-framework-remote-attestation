@@ -836,7 +836,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 	
 		// printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
 
-		printf("DECRYPTED DATA = %s\n", tmpData);
+		// printf("DECRYPTED DATA = %s\n", tmpData);
 
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
