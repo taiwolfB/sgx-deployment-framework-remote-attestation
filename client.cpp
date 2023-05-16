@@ -821,7 +821,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// printf("Encrypted data received = %s\n", msg6_encrypted->data);
 		printf("MSG6 SZ = %d\n", msg6_sz);
 		printf("DATA RECEIEVED = %s\n", msg6_encrypted->data);
-		printf("SIZE RECEIVED  = %d\n"., msg6_encrypted->encryptedDataSize);
+		printf("SIZE RECEIVED  = %d\n", msg6_encrypted->encryptedDataSize);
 		printf("SK RECEIVED  = %s\n", msg6_encrypted->session_sk);
 		// sample_aes_gcm_128bit_tag_t macOut;
 		// unsigned char* decryptedData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
