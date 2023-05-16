@@ -798,6 +798,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 
 		printf("DATA DECRYPTED = %s\n", decryptedData);
+		printf("DATA DECRYPTED SIZE = %d\n", strlen((const char*)decryptedData));
 		//msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
