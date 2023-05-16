@@ -811,6 +811,15 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// printf("SIZE = %d\n", strlen((char*) tmpData));
 		msg6->encryptedDataSize = size_read;
 		printf("Encrypted Data = %s\n", encryptedData);
+
+		unsigned char decryptedData[100000];
+		if (!aes_encrypt_gcm(&session->sk[0], encryptedData, msg6->encryptedDataSize, decryptedData, &msg6->mac))
+		{
+			free(msg6);
+			return 0;
+		}
+
+		printf("Decrypted Data = %s\n", decryptedData);
 		// char* tmpDataToBeEncrypted = (char*)calloc(100000, sizeof(char*));
 		// memcpy(msg6->data, fileData, fileDataSize);
 		// memcpy(msg6->dataInts, fileDataInts, fileDataSize);
