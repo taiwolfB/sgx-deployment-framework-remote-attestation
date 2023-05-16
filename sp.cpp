@@ -800,6 +800,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize, msg6->dataNoInit, &macOut))
 		{
 			free(msg6);
+			printf("SI AICI\n");
 			return 0;
 		}
 		printf(":AICI\n");
