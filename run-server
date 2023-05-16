@@ -12,7 +12,6 @@ PROG=`basename $0`
 #----------------------------------------------------------------------------
 
 # Where is OpenSSL 1.1.x?
-
 OPENSSL_LIBDIR=/opt/openssl/1.1.1i/lib
 if [ "$OPENSSL_LIBDIR" != "" ]
 then
