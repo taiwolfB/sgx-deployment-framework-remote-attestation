@@ -832,7 +832,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
 
-		fwrite(tmpData, 1, msg6_encrypted->encryptedDataSize, fp);
+		fwrite(decryptedData, 1, msg6_encrypted->encryptedDataSize, fp);
 		fclose(fp);
 	
 		printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
