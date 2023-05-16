@@ -830,12 +830,12 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 
 		// unsigned char* tmpData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
 		// char
-		// if (!aes_encrypt_gcm(&session->sk[0], msg6_encrypted->data, msg6_encrypted->encryptedDataSize, tmpData, &msg6->mac))
-		// {
-		// 	free(msg6);
-		// 	return 0;
-		// }
-		// printf("DECRYPTED DATA = %s\n", tmpData);
+		if (!aes_encrypt_gcm(msg6->session_sk, msg6_encrypted->data, msg6_encrypted->encryptedDataSize, tmpData, &msg6->mac))
+		{
+			free(msg6);
+			return 0;
+		}
+		printf("DECRYPTED DATA = %s\n", tmpData);
 
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
