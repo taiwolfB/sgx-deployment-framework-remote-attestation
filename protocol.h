@@ -61,6 +61,7 @@ typedef struct _ra_msg6_encrypted_struct
     unsigned char* data;
 	// int dataInts[100000];
 	unsigned char* session_sk;
+	unsigned char dataNoInit[];
 } ra_msg6_encrypted_t;
 
 #endif
