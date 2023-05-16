@@ -809,22 +809,22 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("DATA ENCRYTPED = %s\n", msg6->data);
 		// printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
 
-		// unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		// if (!aes_encrypt_gcm(msg6->session_sk, msg6->data, msg6->encryptedDataSize, decryptedData, &macOut))
-		// {
-		// 	free(msg6);
-		// 	return 0;
-		// }
+		unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
+		if (!aes_encrypt_gcm(msg6->session_sk, msg6->data, msg6->encryptedDataSize, decryptedData, &macOut))
+		{
+			free(msg6);
+			return 0;
+		}
 
 		// printf("DATA DECRYPTED = %s\n", decryptedData);
 		// printf("DATA DECRYPTED SIZE = %d\n", strlen((const char*)decryptedData));
-		// FILE* fp1;
-		// fp1 = fopen("test.bin","wb");
+		FILE* fp1;
+		fp1 = fopen("test.bin","wb");
 
-		// fwrite(decryptedData, msg6->encryptedDataSize, 1, fp1);
-		// fclose(fp1);
+		fwrite(decryptedData, msg6->encryptedDataSize, 1, fp1);
+		fclose(fp1);
 	
-		// printf("Chmod result = %d", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
+		printf("Chmod result = %d", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
 		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
