@@ -616,7 +616,6 @@ else
   ac_cs_awk_cr=$ac_cr
 fi
 
-  echo "BODOO"
 echo 'BEGIN {' >"$ac_tmp/subs1.awk" &&
 cat >>"$ac_tmp/subs1.awk" <<\_ACAWK &&
 S["am__EXEEXT_FALSE"]=""
@@ -770,6 +769,8 @@ cat >>"$ac_tmp/subs1.awk" <<_ACAWK &&
   for (i = 2; i < nfields; i++) {
     key = field[i]
     keylen = length(key)
+    echo "BODOO"
+    echo $key
     if (S_is_set[key]) {
       value = S[key]
       line = substr(line, 1, len) "" value "" substr(line, len + keylen + 3)
