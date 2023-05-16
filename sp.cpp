@@ -782,7 +782,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		msg6->encryptedDataSize = stats.st_size;
 
 		// msg6->session_sk = &(session->sk[0]);
-		strcpy(msg6->session_sk, (char*)session->sk);
+		strcpy(char*)(msg6->session_sk, (char*)session->sk);
 		int i = 0;
 		while (session->sk[i] != '\0') {
 			i++;
