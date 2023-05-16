@@ -1326,7 +1326,7 @@ for ac_var in $ac_precious_vars; do
   eval ac_cv_env_${ac_var}_value=\$${ac_var}
   echo "BODOOOOOO"
   echo \$${ac_var}
-  echo $ac_cv_env_${ac_var}_value
+  echo \$$ac_cv_env_${ac_var}_value
 done
 
 #
