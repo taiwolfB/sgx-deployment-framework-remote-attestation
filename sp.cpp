@@ -766,6 +766,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		size_t size_read = fread((char*)read_data, 1, stats.st_size, fp);
 		if (verbose) {
 			printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
+			printf("READ DATA = %s\n", read_data);
 		}
 
 		
