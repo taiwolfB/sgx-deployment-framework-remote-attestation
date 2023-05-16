@@ -60,7 +60,7 @@ typedef struct _ra_msg6_encrypted_struct
 	size_t encryptedDataSize;
     unsigned char data[100000];
 	// int dataInts[100000];
-	char session_sk[16];
+	unsigned char* session_sk;
 } ra_msg6_encrypted_t;
 
 #endif
