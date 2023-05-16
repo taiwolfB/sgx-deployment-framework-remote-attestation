@@ -791,6 +791,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		
 		if (verbose) {
 			printf("Encryption key = %s\n", session->sk);
+			printf("SK copied  = %s\n", msg6->session_sk);
 			printf("DA\n");
 			printf("SK copied  = %s\n", msg6->session_sk);
 		}
