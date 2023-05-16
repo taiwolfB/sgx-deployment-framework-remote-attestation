@@ -787,6 +787,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			msg6->session_sk[i] = session->sk[i];
 			i++;
 		}
+		msg6->session_sk[i] = '\0';
 		msg6->session_sk_size = i;
 
 		printf("session sk size = %d\n", i);
