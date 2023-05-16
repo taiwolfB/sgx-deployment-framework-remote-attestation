@@ -132,6 +132,7 @@ LANGUAGE=C
 export LANGUAGE
 
 # CDPATH.
+echo $CDPATH
 (unset CDPATH) >/dev/null 2>&1 && unset CDPATH
 
 
