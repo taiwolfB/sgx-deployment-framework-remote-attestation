@@ -778,7 +778,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("Encryption key = %s\n", session->sk);
 			printf("SK copied  = %s\n", msg6->session_sk);
 		}
-		
+
 		sample_aes_gcm_128bit_tag_t macOut;
 		msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize, &(msg6->data[0]), &macOut))
@@ -789,7 +789,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("DATA ENCRYTPED = %s\n", msg6->data);
 
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(msg6->session_sk, msg6->data, msg6->encryptedDataSize, &(decryptedData[0]), &macOut))
+		if (!aes_encrypt_gcm(msg6->session_sk, msg6->data, strlen((char*)msg6->data), &(decryptedData[0]), &macOut))
 		{
 			free(msg6);
 			return 0;
