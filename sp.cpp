@@ -780,8 +780,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// }
 		size_t size_read = fread((char*)msg6->data, 1, stats.st_size, fp);
 		printf("Size from stat = %d  Size after file_read = %d\n", fileSizeInBytes, size_read);
-		printf("DA\n");
-
 		// FILE* fpTest;
 		// fpTest = fopen("result_test2.exe", "wb");
 		// fwrite(fileData , 1 , length_read , fpTest );
@@ -789,11 +787,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// fclose(fp);
 		// printf("PRE ENCRYPTION DATA = %s\n", fileData);
 		// unsigned char* tmpData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
-		// if (!aes_encrypt_gcm(&session->sk[0], fileData, fileDataSize, tmpData, &msg6->mac))
-		// {
-		// 	free(msg6);
-		// 	return 0;
-		// }
 
 		// printf("ENCRYPTED DATA1 = %s\n", tmpData);
 		// size_t encryptedDataSize = strlen((char*)tmpData);
@@ -817,6 +810,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		// printf("SIZE = %d\n", strlen((char*) tmpData));
 		msg6->encryptedDataSize = size_read;
+		printf("Encrypted Data = %s\n", encryptedData);
 		// char* tmpDataToBeEncrypted = (char*)calloc(100000, sizeof(char*));
 		// memcpy(msg6->data, fileData, fileDataSize);
 		// memcpy(msg6->dataInts, fileDataInts, fileDataSize);
