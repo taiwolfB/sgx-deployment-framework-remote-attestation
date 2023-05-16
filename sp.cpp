@@ -764,7 +764,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		
 		unsigned char read_data[100000];
 		unsigned char byte;
-		size_t size_read = fread((unsigned char*)read_data, stats.st_size, sizeof(unsigned char), fp);
+		size_t size_read = fread((unsigned char*)read_data, sizeof(unsigned char), stats.st_size, fp);
 		// for (int i = 0 ; i < stats.st_size; i++) {
 		// 	fread(&byte, sizeof(unsigned char), 1, fp);
 		// 	printf("BYTE = %c\n", byte);
@@ -795,8 +795,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			free(msg6);
 			return 0;
 		}
-		printf("MSG6 size data in SP = %d\n", sizeof(msg6->data));
-		printf("PRECALCULATED MSG6 size in SP = %d\n", msg6_size);
+
 		// printf("DATA ENCRYTPED = %s\n", msg6->data);
 		// printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
 
