@@ -820,6 +820,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
 		// printf("Encrypted data received = %s\n", msg6_encrypted->data);
 		// printf("SK RECEIVED  = %s\n", msg6_encrypted->session_sk);
+		printf("AICI\n");
 		sample_aes_gcm_128bit_tag_t macOut;
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
 		if (!aes_encrypt_gcm(&msg6_encrypted->session_sk[0], &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize, decryptedData, &macOut))
@@ -827,12 +828,13 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			free(msg6_encrypted);
 			return 0;
 		}
-		
+		printf("DECRYPTED DATA = %s\n", decryptedData);
+
 		strcat(deploymentFileLocation, "test");
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
 
-		fwrite(decryptedData, 1, msg6_encrypted->encryptedDataSize, fp);
+		fwrite(decryptedData, msg6_encrypted->encryptedDataSize, sizeof(unsigned char), fp);
 		fclose(fp);
 	
 		printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
