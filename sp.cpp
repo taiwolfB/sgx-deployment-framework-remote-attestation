@@ -804,7 +804,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		FILE* fp;
 		fp = fopen("test.bin","wb");
 
-		fwrite(tmpData, 1, msg6_encrypted->encryptedDataSize, fp);
+		fwrite(decryptedData, 1, msg6->encryptedDataSize, fp);
 		fclose(fp);
 	
 		printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
