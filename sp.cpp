@@ -795,6 +795,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			free(msg6);
 			return 0;
 		}
+		printf("MSG6 size in SP = %d\n", sizeof(msg6));
+		printf("PRECALCULATED MSG6 size in SP = %d\n", msg6_size);
 		// printf("DATA ENCRYTPED = %s\n", msg6->data);
 		// printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
 
