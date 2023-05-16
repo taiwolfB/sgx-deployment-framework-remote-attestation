@@ -802,7 +802,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// }
 		// printf("i = %d, encryptedDataSize = %d\n", i, encryptedDataSize);
 		// unsigned char* decryptedData = (unsigned char*)malloc(fileDataSize * sizeof(unsigned char));
-		char encryptedData[100000];
+		unsigned char encryptedData[100000];
 		msg6->encryptedDataSize = size_read;
 		sample_aes_gcm_128bit_tag_t macOut;
 		if (!aes_encrypt_gcm(&session->sk[0], msg6->data, msg6->encryptedDataSize, encryptedData, &macOut))
