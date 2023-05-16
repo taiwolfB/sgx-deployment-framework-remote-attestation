@@ -825,13 +825,24 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		printf("SK SIZE RECEIVED = %d\n", msg6_encrypted->session_sk_size);
 		sample_aes_gcm_128bit_tag_t macOut;
 		unsigned char decryptedData[100000];
-		
+
 		if (!aes_encrypt_gcm(msg6_encrypted->session_sk, &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize, &(decryptedData[0]), &macOut))
 		{
 			free(msg6_encrypted);
 			return 0;
 		}
 
+		sgx_status_t ret = SGX_SUCCESS;
+		sgx_ec_key_128bit_t sk_key;
+
+		ret = sgx_ra_get_keys(ra_ctx, SGX_RA_KEY_SK, &sk_key);
+        if(SGX_SUCCESS != ret)
+        {
+			printf("FAIL AICI\n");
+            break;
+        }
+
+		printf(" CHEIEEE = %s\n", sk_key);
 		strcat(deploymentFileLocation, "test");
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
