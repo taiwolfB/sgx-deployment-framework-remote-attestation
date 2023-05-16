@@ -824,7 +824,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
 		if (!aes_encrypt_gcm(&msg6_encrypted->session_sk[0], &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize, decryptedData, &macOut))
 		{
-			free(msg6);
+			free(msg6_encrypted);
 			return 0;
 		}
 		
