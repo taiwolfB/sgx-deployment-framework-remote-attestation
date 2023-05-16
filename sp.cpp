@@ -778,8 +778,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		
 		unsigned char encryptedData[100000];
-		msg6->encryptedDataSize = size_read;
-		
+		msg6->encryptedDataSize = stats.st_size;
+				
 		msg6->session_sk = &(session->sk[0]);
 		
 		if (verbose) {
