@@ -133,6 +133,7 @@ export LANGUAGE
 
 # CDPATH.
 echo $CDPATH
+echo "BDOOOOO"
 (unset CDPATH) >/dev/null 2>&1 && unset CDPATH
 
 
