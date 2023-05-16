@@ -808,9 +808,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		strcpy((char*)msg6->data, (char*)encryptedDataTest);
 		printf("DATA ENCRYTPED = %s\n", msg6->data);
 		// printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
-
+		unsigned char testData[100000];
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, decryptedData, &macOut))
+		if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, testData, &macOut))
 		{
 			free(msg6);
 			return 0;
