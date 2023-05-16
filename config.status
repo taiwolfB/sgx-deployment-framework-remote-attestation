@@ -784,6 +784,8 @@ cat >>"$ac_tmp/subs1.awk" <<_ACAWK &&
 _ACAWK
 if sed "s/$ac_cr//" < /dev/null > /dev/null 2>&1; then
   sed "s/$ac_cr\$//; s/$ac_cr/$ac_cs_awk_cr/g"
+  echo "BODOO"
+  echo $ac_cr
 else
   cat
 fi < "$ac_tmp/subs1.awk" > "$ac_tmp/subs.awk" \
