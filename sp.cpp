@@ -771,7 +771,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		
 		unsigned char encryptedData[100000];
 		msg6->encryptedDataSize = size_read;
-		strcpy(msg6->session_sk, session->sk);
+		strcpy(msg6->session_sk, (char*)session->sk);
 
 		// if (verbose) {
 			
