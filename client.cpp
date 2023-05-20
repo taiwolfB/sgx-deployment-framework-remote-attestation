@@ -68,7 +68,6 @@ using namespace std;
 #include "sample_libcrypto/sample_libcrypto.h"
 #include <sys/stat.h>
 // #include "sgx_tkey_exchange.h"
-#include "sgx_utils.h"
 
 #define MAX_LEN 80
 
@@ -538,7 +537,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 	}
 
 	/* Generate msg0 */
-	printf("AICI BRO\n");
 	status = sgx_get_extended_epid_group_id(&msg0_extended_epid_group_id);
 	if ( status != SGX_SUCCESS ) {
 		enclave_ra_close(eid, &sgxrv, ra_ctx); 
