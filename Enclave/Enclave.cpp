@@ -26,7 +26,6 @@ in the License.
 #endif
 #include <sgx_tkey_exchange.h>
 #include <sgx_tcrypto.h>
-#include <stdio.h>
 
 static const sgx_ec256_public_t def_service_public_key = {
     {
@@ -182,7 +181,7 @@ sgx_status_t enclave_ra_get_key_hash(sgx_status_t *get_keys_ret,
 	*get_keys_ret= sgx_ra_get_keys(ctx, type, &k);
 	if ( *get_keys_ret != SGX_SUCCESS ) return *get_keys_ret;
 
-	printf("KEY AICI = %s\n", k);
+	std::cout << "KEY HERE"<< k <<endl;
 
 	/* Now generate a SHA hash */
 
