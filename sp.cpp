@@ -796,6 +796,14 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("SK copied  = %s\n", msg6->session_sk);
 		}
 
+		sgx_sha256_hash_t hash
+		sgx_status_t sha_ret;
+		sgx_ra_key_128_t k;
+		sha_ret= sgx_sha256_msg((const uint8_t *) &k, sizeof(k), 
+		&hash); // Sigh.
+
+		printf("HASHED KEY = %s\n", hash);
+
 		sgx_status_t ret = SGX_SUCCESS;
 		sgx_status_t sha_status, key_status;
 		// sgx_ec_key_128bit_t sk_key;/
