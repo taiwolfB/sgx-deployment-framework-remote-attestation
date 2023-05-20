@@ -837,7 +837,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		sgx_status_t ret = SGX_SUCCESS;
 		sgx_ec_key_128bit_t sk_key;
 
-		ret = sgx_ra_get_keys(ra_ctx, SGX_RA_KEY_SK, &sk_key);
+		ret = sgx_ra_get_keys2(ra_ctx, SGX_RA_KEY_SK, &sk_key);
         if(SGX_SUCCESS != ret)
         {
 			printf("FAIL AICI\n");
