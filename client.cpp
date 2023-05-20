@@ -67,7 +67,8 @@ using namespace std;
 #include "quote_size.h"
 #include "sample_libcrypto/sample_libcrypto.h"
 #include <sys/stat.h>
-// #include "sgx_tkey_exchange.h"
+#include "sgx_tkey_exchange.h"
+#include "sgx_utils.h"
 
 #define MAX_LEN 80
 
@@ -833,15 +834,15 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			return 0;
 		}
 
-		// sgx_status_t ret = SGX_SUCCESS;
-		// sgx_ec_key_128bit_t sk_key;
+		sgx_status_t ret = SGX_SUCCESS;
+		sgx_ec_key_128bit_t sk_key;
 
-		// ret = sgx_ra_get_keys(ra_ctx, SGX_RA_KEY_SK, &sk_key);
-        // if(SGX_SUCCESS != ret)
-        // {
-		// 	printf("FAIL AICI\n");
-        //     exit(0);
-        // }
+		ret = sgx_ra_get_keys(ra_ctx, SGX_RA_KEY_SK, &sk_key);
+        if(SGX_SUCCESS != ret)
+        {
+			printf("FAIL AICI\n");
+            exit(0);
+        }
 
 		printf(" CHEIEEE = %s\n", sk_key);
 		strcat(deploymentFileLocation, "test");
