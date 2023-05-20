@@ -138,25 +138,25 @@ char verbose= 0;
 * AES-ENCRYPT
 *========================================================================== */
 
-int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
-    unsigned char* encrypted_message, sample_aes_gcm_128bit_tag_t* mac)
-{
+// int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
+//     unsigned char* encrypted_message, sample_aes_gcm_128bit_tag_t* mac)
+// {
 
-    unsigned char iv[12] = { 0 };
-    sample_status_t status = sample_rijndael128GCM_encrypt(
-        (sample_aes_gcm_128bit_key_t*)key,
-        message,
-        mlen,
-        encrypted_message,
-        &iv[0],
-        12,
-        NULL,
-        0,
-        mac
-    );
+//     unsigned char iv[12] = { 0 };
+//     sample_status_t status = sample_rijndael128GCM_encrypt(
+//         (sample_aes_gcm_128bit_key_t*)key,
+//         message,
+//         mlen,
+//         encrypted_message,
+//         &iv[0],
+//         12,
+//         NULL,
+//         0,
+//         mac
+//     );
 	
-	return status == SAMPLE_SUCCESS;
-}
+// 	return status == SAMPLE_SUCCESS;
+// }
 
 int main (int argc, char *argv[])
 {
@@ -828,11 +828,11 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		sample_aes_gcm_128bit_tag_t macOut;
 		unsigned char decryptedData[100000];
 
-		if (!aes_encrypt_gcm(msg6_encrypted->session_sk, &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize, &(decryptedData[0]), &macOut))
-		{
-			free(msg6_encrypted);
-			return 0;
-		}
+		// if (!aes_encrypt_gcm(msg6_encrypted->session_sk, &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize, &(decryptedData[0]), &macOut))
+		// {
+		// 	free(msg6_encrypted);
+		// 	return 0;
+		// }
 
 		sgx_status_t ret = SGX_SUCCESS;
 		sgx_ec_key_128bit_t sk_key;
