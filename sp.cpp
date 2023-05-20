@@ -52,7 +52,7 @@ in the License.
 #include "logfile.h"
 #include "settings.h"
 #include "enclave_verify.h"
-#include "sample_libcrypto.h"
+// #include "sample_libcrypto.h"
 
 using namespace json;
 using namespace std;
@@ -703,27 +703,27 @@ disconnect:
 	return 0;
 }
 
-/*==========================================================================
-* AES-ENCRYPT
-*========================================================================== */
+// /*==========================================================================
+// * AES-ENCRYPT
+// *========================================================================== */
 
-int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
-    unsigned char* encrypted_message, sample_aes_gcm_128bit_tag_t* mac)
-{
-    unsigned char iv[12] = { 0 };
-    sample_status_t status = sample_rijndael128GCM_encrypt(
-        (sample_aes_gcm_128bit_key_t*)key,
-        message,
-        mlen,
-        encrypted_message,
-        &iv[0],
-        12,
-        NULL,
-        0,
-        mac
-    );
-	return status == SAMPLE_SUCCESS;
-}
+// int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
+//     unsigned char* encrypted_message, sample_aes_gcm_128bit_tag_t* mac)
+// {
+//     unsigned char iv[12] = { 0 };
+//     sample_status_t status = sample_rijndael128GCM_encrypt(
+//         (sample_aes_gcm_128bit_key_t*)key,
+//         message,
+//         mlen,
+//         encrypted_message,
+//         &iv[0],
+//         12,
+//         NULL,
+//         0,
+//         mac
+//     );
+// 	return status == SAMPLE_SUCCESS;
+// }
 
 
 int process_msg5(MsgIO *msg, ra_session_t *session)
@@ -798,11 +798,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		sample_aes_gcm_128bit_tag_t macOut;
 		//msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		unsigned char encryptedDataTest[100000];
-		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(encryptedDataTest[0]), &macOut))
-		{
-			free(msg6);
-			return 0;
+		// unsigned char encryptedDataTest[100000];
+		// if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(encryptedDataTest[0]), &macOut))
+		// {
+		// 	free(msg6);
+		// 	return 0;
 		}
 		printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
 		strcpy((char*)msg6->data, (char*)encryptedDataTest);
@@ -810,11 +810,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
 		unsigned char testData[100000];
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, &(testData[0]), &macOut))
-		{
-			free(msg6);
-			return 0;
-		}
+		// if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, &(testData[0]), &macOut))
+		// {
+		// 	free(msg6);
+		// 	return 0;
+		// }
 
 		// printf("DATA DECRYPTED = %s\n", decryptedData);
 		// printf("DATA DECRYPTED SIZE = %d\n", strlen((const char*)decryptedData));
