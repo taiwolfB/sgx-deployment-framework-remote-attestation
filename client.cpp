@@ -859,7 +859,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		fwrite(decryptedData, msg6_encrypted->encryptedDataSize, sizeof(unsigned char), fp);
 		fclose(fp);
 	
-		printf("Chmod result = %d", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
+		printf("Chmod result = %d\n", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
 
 
 	}
