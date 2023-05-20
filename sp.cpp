@@ -52,8 +52,6 @@ in the License.
 #include "logfile.h"
 #include "settings.h"
 #include "enclave_verify.h"
-#include "sample_libcrypto.h"
-#include "sgx_tkey_exchange.h"
 
 using namespace json;
 using namespace std;
@@ -796,13 +794,16 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("DA\n");
 			printf("SK copied  = %s\n", msg6->session_sk);
 		}
+		unsigned char digest[32];
+		int output_digest = sha256_digest (&session->sk[0], 16, digest);
+		printf("CRYPTO = %d\n", output_digest);
+		printf("DIGEST OUT = %s\n", digest);
+		// sample_sha256_hash_t hash;
+		// sgx_status_t sha_ret;
+		// sgx_ra_key_128_t k;
+		// sha_ret = sgx_sha256_msg((const uint8_t *) &session->sk[0], sizeof(session->sk), &hash); // Sigh.
 
-		sample_sha256_hash_t hash;
-		sgx_status_t sha_ret;
-		sgx_ra_key_128_t k;
-		sha_ret = sgx_sha256_msg((const uint8_t *) &session->sk[0], sizeof(session->sk), &hash); // Sigh.
-
-		printf("HASHED KEY = %s\n", hash);
+		// printf("HASHED KEY = %s\n", hash);
 
 		// sgx_status_t ret = SGX_SUCCESS;
 		// sgx_status_t sha_status, key_status;
