@@ -1,4 +1,5 @@
 #include "Enclave_u.h"
+#include "sgx_tkey_exchange.h"
 #include <errno.h>
 
 typedef struct ms_get_report_t {
