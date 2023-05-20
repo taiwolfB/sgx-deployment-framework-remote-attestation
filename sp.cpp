@@ -796,21 +796,21 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("SK copied  = %s\n", msg6->session_sk);
 		}
 
-		sample_aes_gcm_128bit_tag_t macOut;
+		// sample_aes_gcm_128bit_tag_t macOut;
 		//msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		// unsigned char encryptedDataTest[100000];
 		// if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(encryptedDataTest[0]), &macOut))
 		// {
 		// 	free(msg6);
 		// 	return 0;
-		}
-		printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
-		strcpy((char*)msg6->data, (char*)encryptedDataTest);
-		printf("DATA ENCRYTPED from data = %s\n", msg6->data);
-		// printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
-		unsigned char testData[100000];
-		unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		// if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, &(testData[0]), &macOut))
+		// }
+		// printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
+		// strcpy((char*)msg6->data, (char*)encryptedDataTest);
+		// printf("DATA ENCRYTPED from data = %s\n", msg6->data);
+		// // printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
+		// unsigned char testData[100000];
+		// unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
+		// // if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, &(testData[0]), &macOut))
 		// {
 		// 	free(msg6);
 		// 	return 0;
