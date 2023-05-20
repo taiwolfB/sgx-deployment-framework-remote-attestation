@@ -26,6 +26,7 @@ in the License.
 #endif
 #include <sgx_tkey_exchange.h>
 #include <sgx_tcrypto.h>
+#include <iostream>
 
 static const sgx_ec256_public_t def_service_public_key = {
     {
