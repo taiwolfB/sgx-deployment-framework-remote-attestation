@@ -855,7 +855,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
         //     exit(0);
         // }
 
-		printf(" CHEIEEE = %s\n", sk_key);
+		// printf(" CHEIEEE = %s\n", sk_key);
 		strcat(deploymentFileLocation, "test");
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
