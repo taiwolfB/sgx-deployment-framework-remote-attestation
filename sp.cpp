@@ -1184,7 +1184,7 @@ int process_msg01 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 	 */
 
 	fprintf(stderr, "Waiting for msg0||msg1\n");
-
+	printf("AICI\n");
 	rv= msgio->read((void **) &msg01, NULL);
 	if ( rv == -1 ) {
 		eprintf("system error reading msg0||msg1\n");
