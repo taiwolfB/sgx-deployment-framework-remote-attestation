@@ -834,15 +834,20 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// 	return 0;
 		// }
 
-		sgx_status_t ret = SGX_SUCCESS;
+		sgx_status ret = SGX_SUCCESS;
+		sgx_status_t sha_status, key_status
 		sgx_ec_key_128bit_t sk_key;
-		sgx_sha256_hash_t* hash;
+		sgx_sha256_hash_t skhash;
 		printf("RET BEFORE = %d\n", ret);
-		enclave_ra_get_key_hash(&ret, ra_ctx, SGX_RA_KEY_SK, hash);
-
+		ret = enclave_ra_get_key_hash(eid, &sha_status, &key_status, ra_ctx, SGX_RA_KEY_SK, &skhash);
 		printf("SGX RET AFTER = %d\n", ret);
 		printf("HASH = %s", hash);
 
+
+	
+		eprintf("SHA256(SK) = ");
+		print_hexstring(stderr, skhash, sizeof(skhash));
+		print_hexstring(fplog, skhash, sizeof(skhash));
 		// ret = sgx_ra_get_keys2(ra_ctx, SGX_RA_KEY_SK, &sk_key);
         // if(SGX_SUCCESS != ret)
         // {
