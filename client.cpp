@@ -839,9 +839,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		printf("SGX RET AFTER = %d\n", ret);
 		printf("HASH = %s\n", skhash);
 		
-
-
-	
+		// idea : ENCRYPT / DECRYPT with the hash itself
 		eprintf("SHA256(SK) = ");
 		print_hexstring(stderr, skhash, sizeof(skhash));
 		print_hexstring(fplog, skhash, sizeof(skhash));

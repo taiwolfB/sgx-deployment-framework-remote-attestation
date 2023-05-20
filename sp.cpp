@@ -796,6 +796,21 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("SK copied  = %s\n", msg6->session_sk);
 		}
 
+		sgx_status_t ret = SGX_SUCCESS;
+		sgx_status_t sha_status, key_status;
+		// sgx_ec_key_128bit_t sk_key;/
+		sgx_sha256_hash_t skhash;
+		printf("RET BEFORE = %d\n", ret);
+		ret = enclave_ra_get_key_hash(eid, &sha_status, &key_status, ra_ctx, SGX_RA_KEY_SK, &skhash);
+		printf("SGX RET AFTER = %d\n", ret);
+		printf("HASH = %s\n", skhash);
+		
+		// idea : ENCRYPT / DECRYPT with the hash itself
+		eprintf("SHA256(SK) = ");
+		print_hexstring(stderr, skhash, sizeof(skhash));
+		print_hexstring(fplog, skhash, sizeof(skhash));
+		eprintf("\n");
+
 		// sample_aes_gcm_128bit_tag_t macOut;
 		//msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		// unsigned char encryptedDataTest[100000];
