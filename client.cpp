@@ -838,7 +838,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		sgx_ec_key_128bit_t sk_key;
 		sgx_sha256_hash_t* hash;
 		printf("RET BEFORE = %d\n", ret);
-		enclave_ra_get_key_hash(&ret, ra_ctx, SGX_RA_KEYS_SK, hash);
+		enclave_ra_get_key_hash(&ret, ra_ctx, SGX_RA_KEY_SK, hash);
 
 		printf("SGX RET AFTER = %d\n", ret);
 		printf("HASH = %s", hash);
