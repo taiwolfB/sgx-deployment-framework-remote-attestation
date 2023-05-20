@@ -26,6 +26,7 @@ in the License.
 #endif
 #include <sgx_tkey_exchange.h>
 #include <sgx_tcrypto.h>
+#include <iostream>
 
 using namespace std;
 
