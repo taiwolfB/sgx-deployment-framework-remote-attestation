@@ -798,6 +798,10 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		int output_digest = sha256_digest (&session->sk[0], 16, digest);
 		printf("CRYPTO = %d\n", output_digest);
 		printf("DIGEST OUT = %s\n", digest);
+		eprintf("SHA256(SK) = ");
+		print_hexstring(stderr, skhash, sizeof(digest));
+		print_hexstring(fplog, skhash, sizeof(digest));
+		eprintf("\n");
 		// sample_sha256_hash_t hash;
 		// sgx_status_t sha_ret;
 		// sgx_ra_key_128_t k;
