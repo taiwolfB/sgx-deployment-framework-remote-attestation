@@ -836,13 +836,19 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 
 		sgx_status_t ret = SGX_SUCCESS;
 		sgx_ec_key_128bit_t sk_key;
+		sgx_sha256_hash_t* hash;
+		printf("RET BEFORE = %d\n", ret);
+		enclave_ra_get_key_hash(&ret, ra_ctx, SGX_RA_KEYS_SK, hash);
 
-		ret = sgx_ra_get_keys2(ra_ctx, SGX_RA_KEY_SK, &sk_key);
-        if(SGX_SUCCESS != ret)
-        {
-			printf("FAIL AICI\n");
-            exit(0);
-        }
+		printf("SGX RET AFTER = %d\n", ret);
+		printf("HASH = %s", hash);
+
+		// ret = sgx_ra_get_keys2(ra_ctx, SGX_RA_KEY_SK, &sk_key);
+        // if(SGX_SUCCESS != ret)
+        // {
+		// 	printf("FAIL AICI\n");
+        //     exit(0);
+        // }
 
 		printf(" CHEIEEE = %s\n", sk_key);
 		strcat(deploymentFileLocation, "test");

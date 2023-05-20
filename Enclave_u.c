@@ -1,5 +1,4 @@
 #include "Enclave_u.h"
-#include "sgx_tkey_exchange.h"
 #include <errno.h>
 
 typedef struct ms_get_report_t {
@@ -163,13 +162,5 @@ sgx_status_t sgx_ra_get_msg3_trusted(sgx_enclave_id_t eid, sgx_status_t* retval,
 	status = sgx_ecall(eid, 7, &ocall_table_Enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
 	return status;
-}
-
-sgx_status_t sgx_ra_get_keys2(
-    sgx_ra_context_t context,
-    sgx_ra_key_type_t type,
-    sgx_ra_key_128_t *p_key)
-{
-	return sgx_ra_get_keys(context, type, p_key);
 }
 
