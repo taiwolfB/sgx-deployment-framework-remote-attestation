@@ -53,6 +53,7 @@ in the License.
 #include "settings.h"
 #include "enclave_verify.h"
 #include "sample_libcrypto.h"
+#include "sgx_tkey_exchange.h"
 
 using namespace json;
 using namespace std;
