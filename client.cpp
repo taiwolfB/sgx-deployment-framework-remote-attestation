@@ -67,7 +67,7 @@ using namespace std;
 #include "quote_size.h"
 #include "sample_libcrypto/sample_libcrypto.h"
 #include <sys/stat.h>
-#include "sgx_tkey_exchange.h"
+// #include "sgx_tkey_exchange.h"
 #include "sgx_utils.h"
 
 #define MAX_LEN 80
