@@ -823,9 +823,11 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		
 		sample_aes_gcm_128bit_tag_t macOut;
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6_encrypted->fullDataToDecryptSize * sizeof(unsigned char));
+		unsigned char* dataToDecrypt = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
+		memcpy(dataToDecrypt, msg6_encrypted->data, msg6->encryptedDataSize);
 
 		printf("DATA ENCRPTED = %s\n", msg6_encrypted->data);
-		if (!aes_encrypt_gcm(key, &(msg6_encrypted->data[0]), msg6_encrypted->fullDataToDecryptSize,  decryptedData, &macOut))
+		if (!aes_encrypt_gcm(key, &(dataToDecrypt[0]), msg6_encrypted->fullDataToDecryptSize,  decryptedData, &macOut))
 		{
 			free(msg6_encrypted);
 			return 0;
