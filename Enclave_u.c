@@ -185,6 +185,6 @@ sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retv
 	if (status == SGX_SUCCESS && retval) {
 		*retval = ms.ms_retval;
 	}
-	
+	printf("MS_KEY = %s\n", ms.ms_key);
 	return status;
 }
