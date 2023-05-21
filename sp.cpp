@@ -746,7 +746,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	if (msg5->isRequested) {
 		msg5_size /= 2;
 		int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
-		printf("MSG6 sIze = %d\n", msg6_size);
 		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
 		if (!msg6)
 		{
@@ -796,7 +795,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// msgio->send_partial(&msg6->encryptedDataSize, sizeof(msg6->encryptedDataSize));
 		// msgio->send_partial(&msg6->fullDataToDecryptSize, sizeof(msg6->fullDataToDecryptSize));
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
-		msgio->send(msg6, msg6_size);
+		msgio->send(&msg6, msg6_size);
 		edivider();
 		free(msg6);
 	}
