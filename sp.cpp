@@ -858,11 +858,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
 		// fsend_msg(fplog, &msg6, msg6_size);
-		printf("AICI CRAPA2\n");
 		edivider();
-		printf("AICI CRAPA3\n");
 		free(msg6);
-		printf("AICI CRAPA4\n");
 	}
 
    
