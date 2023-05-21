@@ -786,7 +786,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	
 		printf("Data encrypted successfully.\n");
 
-		msg6->fullDataToDecryptSize = strlen((char*)encryptedData);
+		msg6->encryptedDataSize = strlen((char*)encryptedData);
 
 		printf("FULL SIZE BEFORE SEND = %d\n", msg6->fullDataToDecryptSize);
 		printf("ENCRYPTED SIZE BEFORE SEND = %d\n", msg6->encryptedDataSize);
