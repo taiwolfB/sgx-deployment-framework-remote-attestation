@@ -833,7 +833,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 	
 		// fsend_msg(fplog, &encryptedData, msg6->encryptedDataSize); 
 		
-		// msgio->send(msg6, msg6_size);
+		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&encryptedData, msg6->encryptedDataSize);
 		edivider();
 		free(msg6);
