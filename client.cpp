@@ -857,7 +857,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		printf("KEEEEEEEEEEY = %s\n", key);
 		unsigned char digest[32];
 
-		int output_digest = sha256_digest (&key, 16, digest);
+		int output_digest = sha256_digest (key, 16, digest);
 		printf("CRYPTO = %d\n", output_digest);
 		printf("DIGEST OUT = %s\n", digest);
 		eprintf("SHA256(SK) = ");
