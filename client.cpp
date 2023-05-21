@@ -817,11 +817,11 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		}
 
 		strcat(deploymentFileLocation, "testbad");
-		FILE* fp;
-		fp = fopen(deploymentFileLocation,"wb");
+		FILE* fpbad;
+		fpbad = fopen(deploymentFileLocation,"wb");
 
-		fwrite(msg6_encrypted->data, msg6_encrypted->encryptedDataSize, sizeof(unsigned char), fp);
-		fclose(fp);
+		fwrite(msg6_encrypted->data, msg6_encrypted->encryptedDataSize, sizeof(unsigned char), fpbad);
+		fclose(fpbad);
 
 		sgx_status_t get_signing_key_ret;
 		sgx_status_t get_signing_key_status;
