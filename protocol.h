@@ -57,7 +57,8 @@ typedef struct ra_msg5_encryption_request_t
 typedef struct _ra_msg6_encrypted_struct
 {
 	size_t fullDataToDecryptSize;
-	unsigned char data[100000];
+	size_t encryptedDataSize;
+	unsigned char data[];
 } ra_msg6_encrypted_t;
 
 #endif
