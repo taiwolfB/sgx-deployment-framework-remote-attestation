@@ -1,5 +1,6 @@
 #include "Enclave_u.h"
 #include <errno.h>
+#include <stdio.h>
 
 typedef struct ms_get_report_t {
 	sgx_status_t ms_retval;
