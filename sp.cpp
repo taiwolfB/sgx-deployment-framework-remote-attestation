@@ -792,6 +792,27 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// eprintf("Encrypted  data = %s\n", msg6->data);
 		// eprintf("Encrypted  from initial var = %s\n", encryptedData);
 		// eprintf("Data size array = %d\n", sizeof(msg6->data));
+		
+
+		// /*
+	 	// * sgx_ra_msg2_t is a struct with a flexible array member at the
+	 	// * end (defined as uint8_t sig_rl[]). We could go to all the 
+	 	// * trouble of building a byte array large enough to hold the
+	 	// * entire struct and then cast it as (sgx_ra_msg2_t) but that's
+	 	// * a lot of work for no gain when we can just send the fixed 
+	 	// * portion and the array portion by hand.
+	 	// */
+
+		// dividerWithText(stderr, "Copy/Paste Msg2 Below to Client");
+		// dividerWithText(fplog, "Msg2 (send to Client)");
+
+		// msgio->send_partial((void *) &msg2, sizeof(sgx_ra_msg2_t));
+		// fsend_msg_partial(fplog, (void *) &msg2, sizeof(sgx_ra_msg2_t));
+
+		// msgio->send(sigrl, msg2.sig_rl_size);
+		// fsend_msg(fplog, sigrl, msg2.sig_rl_size); 
+		
+		
 		msg6->encryptedDataSize = strlen((char*)encryptedData);
 		printf("ENCRYPTED AICI = %d\n", msg6->encryptedDataSize);
 		printf("fullDataToDecryptSize AICI = %d\n", msg6->fullDataToDecryptSize);
@@ -801,8 +822,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
 		fsend_msg_partial(fplog, (void *) &msg6, sizeof(ra_msg6_encrypted_t));
 
-		msgio->send(encryptedData, msg6->encryptedDataSize);
-		fsend_msg(fplog, encryptedData, msg6->encryptedDataSize); 
+		msgio->send(&encryptedData, msg6->encryptedDataSize);
+		fsend_msg(fplog, &encryptedData, msg6->encryptedDataSize); 
 		edivider();
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
 		// msgio->send(&msg6, msg6_size);
