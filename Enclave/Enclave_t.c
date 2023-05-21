@@ -6,7 +6,6 @@
 #include <errno.h>
 #include <mbusafecrt.h> /* for memcpy_s etc */
 #include <stdlib.h> /* for malloc/free etc */
-#include <stdio.h>
 
 #define CHECK_REF_POINTER(ptr, siz) do {	\
 	if (!(ptr) || ! sgx_is_outside_enclave((ptr), (siz)))	\
