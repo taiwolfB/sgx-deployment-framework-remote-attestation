@@ -789,7 +789,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		eprintf("Encrypted  data = %s\n", msg6->data);
 		eprintf("Encrypted  from initial var = %s\n", encryptedData);
-		eprintf("Data size array = %d\n", sizeof(msg6->data));
+		// eprintf("Data size array = %d\n", sizeof(msg6->data));
 		msgio->send_partial(&msg6->encryptedDataSize, sizeof(msg6->encryptedDataSize));
         msgio->send(&msg6->data, msg6->encryptedDataSize);
 		edivider();
