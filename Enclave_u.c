@@ -120,6 +120,7 @@ sgx_status_t enclave_ra_get_key_hash(sgx_enclave_id_t eid, sgx_status_t* retval,
 	ms.ms_hash = hash;
 	status = sgx_ecall(eid, 3, &ocall_table_Enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+	printf("AICI BROTHERMAN, status = %d\n", status);
 	return status;
 }
 
@@ -184,8 +185,6 @@ sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retv
 	status = sgx_ecall(eid, 8, &ocall_table_Enclave, &ms);
 	printf("STATUS_RETURN_ECALL = %d\n", status);
 	printf("BEFORE\n");
-	printf("STAUTS SUCCESS = %d\n", SGX_SUCCESS);
-	printf("STATUS UNEXPECTED = %d\n", SGX_ERROR_UNEXPECTED);
 	if (status == SGX_SUCCESS && retval) {
 		*retval = ms.ms_retval;
 		printf("AICI BA\n");
