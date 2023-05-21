@@ -850,13 +850,13 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		printf("RECEIVED SIZE = %d\n", msg6_encrypted->encryptedDataSize);
 		printf("DATA ENCRYPTEd = %s\n", msg6_encrypted->data);
 
-		// sgx_status_t get_signking_key_ret;
-		// sgx_status_t get_signking_key_status;
-		// sgx_status_t another_return_status;
-		// sgx_ra_key_128_t key;
-		// another_return_status =  enclave_ra_get_signing_key(eid, &get_signking_key_ret, &get_signking_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
+		sgx_status_t get_signking_key_ret;
+		sgx_status_t get_signking_key_status;
+		sgx_status_t another_return_status;
+		sgx_ra_key_128_t key;
+		another_return_status =  enclave_ra_get_signing_key(eid, &get_signking_key_ret, &get_signking_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
 		
-		// sample_aes_gcm_128bit_tag_t macOut;
+		sample_aes_gcm_128bit_tag_t macOut;
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
 		if (!aes_encrypt_gcm(key, &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize,  decryptedData, &macOut))
 		{
