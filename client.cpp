@@ -854,14 +854,14 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		sgx_ra_key_128_t key;
 		another_return_status =  enclave_ra_get_signing_key(eid, &get_signking_key_ret, &get_signking_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
 		
-		// sample_aes_gcm_128bit_tag_t macOut;
+		sample_aes_gcm_128bit_tag_t macOut;
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
-		// if (!aes_encrypt_gcm(key, msg6_encrypted->data, msg6_encrypted->encryptedDataSize,  decryptedData, &macOut))
-		// {
-		// 	free(msg6_encrypted);
-		// 	return 0;
-		// }
-		printf("ENCRYPTED DATA = %s\n", msg6_encrypted->data);
+		if (!aes_encrypt_gcm(key, &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize,  decryptedData, &macOut))
+		{
+			free(msg6_encrypted);
+			return 0;
+		}
+		// printf("ENCRYPTED DATA = %s\n", msg6_encrypted->data);
 		printf("DECRYPTED SUCCESSFULLY\n");
 		// printf("ANOTHER RETURN STATUS = %d\n", another_return_status);
 		// printf("KEEEEEEEEEEY = %s\n", key);
