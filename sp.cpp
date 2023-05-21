@@ -781,7 +781,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(encryptedData[0]), &macOut))
 		{
 			free(msg6);
-			printf("AICI BRO\n");
 			return 0;
 		}
 		printf("Encrypted data size = %d\n", strlen((char*)encryptedData));
@@ -790,10 +789,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		eprintf("Encrypted  data = %s\n", msg6->data);
 		eprintf("Encrypted  from initial var = %s\n", encryptedData);
-
-		msgio->send(msg6, msg6_size);
-		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
-        // msgio->send(&msg6->data, sizeof(msg6->data));
+		eprintf("Data size array = %d\n", sizeof(msg6->data));
+		msgio->send_partial(&msg6->encryptedDataSize, sizeof(msg6->encryptedDataSize));
+        msgio->send(&msg6->data, sizeof(msg6->data));
 		edivider();
 		free(msg6);
 	}
