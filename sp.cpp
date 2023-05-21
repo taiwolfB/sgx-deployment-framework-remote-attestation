@@ -796,7 +796,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 		memcpy(msg6->data, encryptedData, msg6->encryptedDataSize);
 		// msg6->encryptedDataSize++;
 		msg6->data[msg6->encryptedDataSize] = '\0';
-
+		msg6->encryptedDataSize++;
 			printf("ENCRYPTED DATAA = %s\n", msg6->data);
 		// strcpy((char*)msg6->data, (char*)encryptedData);
 
