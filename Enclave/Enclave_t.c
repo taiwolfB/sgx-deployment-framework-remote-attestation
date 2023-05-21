@@ -610,6 +610,7 @@ static sgx_status_t SGX_CDECL sgx_enclave_ra_get_signing_key(void* pms)
 	ms_enclave_ra_get_key_hash_t* ms = SGX_CAST(ms_enclave_ra_get_key_hash_t*, pms);
 	ms_enclave_ra_get_key_hash_t __in_ms;
 	
+	printf("AICI BRO\n");
 	return SGX_SUCCESS;
 // 	if (memcpy_s(&__in_ms, sizeof(ms_enclave_ra_get_key_hash_t), ms, sizeof(ms_enclave_ra_get_key_hash_t))) {
 // 		return SGX_ERROR_UNEXPECTED;
