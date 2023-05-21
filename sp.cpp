@@ -1165,7 +1165,7 @@ int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 				6, session->mk);
 			cmac128(session->kdk, (unsigned char *)("\x01SK\x00\x80\x00"),
 				6, session->sk);
-			printf("BEFORE DIGEST  %s\n", session->sk);
+				
 			sha256_digest(session->mk, 16, hashmk);
 			sha256_digest(session->sk, 16, hashsk);
 

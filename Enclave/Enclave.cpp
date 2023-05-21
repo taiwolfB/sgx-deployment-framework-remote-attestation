@@ -199,7 +199,6 @@ sgx_status_t enclave_ra_get_signing_key(sgx_status_t* get_signking_key_ret,
 	sgx_ra_context_t ctx, sgx_ra_key_type_t type, 
 	sgx_ra_key_128_t* key)
 {
-	sgx_status_t key_ret;
 	sgx_ra_key_128_t k;
 
 	// First get the requested key which is one of:
@@ -208,7 +207,7 @@ sgx_status_t enclave_ra_get_signing_key(sgx_status_t* get_signking_key_ret,
 	// per sgx_ra_get_keys().
 	// test
 
-	*get_signking_key_ret = sgx_ra_get_keys(ctx, type, key);
+	*get_signking_key_ret = sgx_ra_get_keys(ctx, type, (sgx_ra_key_128_t *)key);
 	return *get_signking_key_ret;
 
 	/* Now generate a SHA hash */
