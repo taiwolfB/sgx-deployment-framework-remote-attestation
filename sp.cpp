@@ -795,6 +795,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("SK copied  = %s\n", msg6->session_sk);
 		}
 		unsigned char digest[32];
+
+		printf("Encryption key in SP = %s\n", session->sk);
 	/*	int output_digest = sha256_digest (&session->sk[0], 16, digest);
 		printf("CRYPTO = %d\n", output_digest);
 		printf("DIGEST OUT = %s\n", digest);
