@@ -855,6 +855,17 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		
 		// printf("ANOTHER RETURN STATUS = %d\n", another_return_status);
 		printf("KEEEEEEEEEEY = %s\n", key);
+		unsigned char digest[32];
+
+		int output_digest = sha256_digest (&key, 16, digest);
+		printf("CRYPTO = %d\n", output_digest);
+		printf("DIGEST OUT = %s\n", digest);
+		eprintf("SHA256(SK) = ");
+		print_hexstring(stderr, digest, sizeof(digest));
+		print_hexstring(fplog, digest, sizeof(digest));
+		eprintf("\n");
+		eprintf("\n");
+
         // if(SGX_SUCCESS != ret)
         // {
 		// 	printf("FAIL AICI\n");
