@@ -812,9 +812,9 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
-		printf("AICI2\n");
-		printf("MSG 6 size = %d\n", msg6_sz);
 		printf("RECEIVED FULL DATA SIZE = %d\n", msg6_encrypted->fullDataToDecryptSize);
+		printf("RECEIVED ENCRYPTED DATA SIZE = %d\n", msg6_encrypted->encryptedDataSize);
+				printf("RECEIVED FULL DATA SIZE = %d\n", msg6_encrypted->fullDataToDecryptSize);
 		printf("RECEIVED ENCRYPTED DATA SIZE = %d\n", msg6_encrypted->encryptedDataSize);
 
 		sgx_status_t get_signing_key_ret;
