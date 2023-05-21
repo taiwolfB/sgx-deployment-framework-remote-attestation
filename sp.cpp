@@ -647,9 +647,8 @@ int main(int argc, char *argv[])
 		ra_session_t session;
 		sgx_ra_msg1_t msg1;
 		sgx_ra_msg2_t msg2;
-		ra_msg5_encryption_request_t msg5
-
 		ra_msg4_t msg4;
+		ra_msg5_encryption_request_t msg5;
 
 		memset(&session, 0, sizeof(ra_session_t));
 
@@ -828,7 +827,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 		// fsend_msg(fplog, encryptedData, msg6->encryptedDataSize); 
 		// edivider();
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
-		msg6_size = sizeof(ra_msg6_encrypted_t);
+		// msg6_size = sizeof(ra_msg6_encrypted_t);
 		msgio->send(msg6, msg6_size);
 		edivider();
 		free(msg6);
