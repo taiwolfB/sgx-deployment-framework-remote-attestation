@@ -778,7 +778,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		printf("Starting AES encryptiong algorithm for the data\n");
 		unsigned char* encryptedData = (unsigned char*)malloc(msg6->fullDataToDecryptSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->fullDataToDecryptSize,  &(msg6->data[0]), &macOut))
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->fullDataToDecryptSize,  msg6->data, &macOut))
 		{
 			free(msg6);
 			return 0;
