@@ -829,6 +829,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
 		// msg6_size = sizeof(ra_msg6_encrypted_t);
 		msgio->send(msg6, msg6_size);
+		msgio->send_partial(&encryptedData, msg6->encryptedDataSize);
+		// fsend_msg(fplog, &encryptedData, msg6->encryptedDataSize); 
 		edivider();
 		free(msg6);
 	}
