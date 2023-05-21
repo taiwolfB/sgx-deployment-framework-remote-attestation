@@ -796,9 +796,13 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
 		msgio->send_partial(&msg6->fullDataToDecryptSize, sizeof(msg6->fullDataToDecryptSize));
 		msgio->send(&msg6->encryptedDataSize, sizeof(msg6->encryptedDataSize));
+
+		fsend_msg_partial(fplog, &msg6->fullDataToDecryptSize, sizeof(msg6->fullDataToDecryptSize));
+		fsend_msg(fplog, &msg6->encryptedDataSize,
+		sizeof(msg6->encryptedDataSize));
+		edivider();
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
 		// msgio->send(&msg6, msg6_size);
-		edivider();
 		free(msg6);
 	}
 
@@ -1075,6 +1079,7 @@ int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 		/* Serialize the members of the Msg4 structure independently */
 		/* vs. the entire structure as one send_msg() */
 
+		// Bogdan Tailup Thesis : I had to manually set it because the Intel SGX VMs which are provided by Azure have a SW_HARDENING_NEEDED exit code. Check online for more details.
 		msg4->status = Trusted;
 		msgio->send_partial(&msg4->status, sizeof(msg4->status));
 		msgio->send(&msg4->platformInfoBlob, sizeof(msg4->platformInfoBlob));
