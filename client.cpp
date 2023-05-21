@@ -814,8 +814,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 
 		printf("RECEIVED FULL DATA SIZE = %d\n", msg6_encrypted->fullDataToDecryptSize);
 		printf("RECEIVED ENCRYPTED DATA SIZE = %d\n", msg6_encrypted->encryptedDataSize);
-				printf("RECEIVED FULL DATA SIZE = %d\n", msg6_encrypted->fullDataToDecryptSize);
-		printf("RECEIVED ENCRYPTED DATA SIZE = %d\n", msg6_encrypted->encryptedDataSize);
 
 		sgx_status_t get_signing_key_ret;
 		sgx_status_t get_signing_key_status;
