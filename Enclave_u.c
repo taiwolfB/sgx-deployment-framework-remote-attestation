@@ -183,6 +183,7 @@ sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retv
 	ms.ms_key = key;
 	status = sgx_ecall(eid, 8, &ocall_table_Enclave, &ms);
 	printf("STATUS_RETURN_ECALL = %d\n", status);
+	printf("BEFORE\n");
 	if (status == SGX_SUCCESS && retval) {
 		*retval = ms.ms_retval;
 		printf("AICI BA\n");
