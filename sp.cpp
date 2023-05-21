@@ -775,6 +775,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		sample_aes_gcm_128bit_tag_t macOut;
 		msg6->fullDataToDecryptSize = stats.st_size;
+		msg6->encryptedDataSize = 0;
 		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		printf("Starting AES encryptiong algorithm for the data\n");
 		// msg6->data = (unsigned char*)malloc(msg6->fullDataToDecryptSize * sizeof(unsigned char));
@@ -792,8 +793,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// eprintf("Encrypted  from initial var = %s\n", encryptedData);
 		// eprintf("Data size array = %d\n", sizeof(msg6->data));
 		// msg6->encryptedDataSize = strlen((char*)msg6->data);
-		msgio->send_partial(&msg6->encryptedDataSize, sizeof(msg6->encryptedDataSize));
-		msgio->send(&msg6->fullDataToDecryptSize, sizeof(msg6->fullDataToDecryptSize));
+		msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
 		// msgio->send(&msg6, msg6_size);
 		edivider();
