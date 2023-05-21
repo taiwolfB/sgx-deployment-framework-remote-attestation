@@ -777,8 +777,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 		msg6->fullDataToDecryptSize = stats.st_size;
 		
 		printf("Starting AES encryptiong algorithm for the data\n");
-		// unsigned char* encryptedData = (unsigned char*)malloc(msg6->fullDataToDecryptSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->fullDataToDecryptSize,  &(msg6->data[0]), &macOut))
+		unsigned char* encryptedData = (unsigned char*)malloc(msg6->fullDataToDecryptSize * sizeof(unsigned char));
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->fullDataToDecryptSize,  &(encryptedData[0]), &macOut))
 		{
 			free(msg6);
 			return 0;
@@ -786,7 +786,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 	
 		printf("Data encrypted successfully.\n");
 
-		msg6->encryptedDataSize = strlen((char*)msg6->data);
+		msg6->encryptedDataSize = strlen((char*)encryptedData);
 
 		printf("FULL SIZE BEFORE SEND = %d\n", msg6->fullDataToDecryptSize);
 		printf("ENCRYPTED SIZE BEFORE SEND = %d\n", msg6->encryptedDataSize);
@@ -820,15 +820,15 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 		// msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
 
 		
-		// msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
-		// fsend_msg_partial(fplog, (void *) &msg6, sizeof(ra_msg6_encrypted_t));
+		msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
+		fsend_msg_partial(fplog, (void *) &msg6, sizeof(ra_msg6_encrypted_t));
 
-		// msgio->send(encryptedData, msg6->encryptedDataSize);
-		// fsend_msg(fplog, encryptedData, msg6->encryptedDataSize); 
+		msgio->send(&encryptedData, msg6->encryptedDataSize);
+		fsend_msg(fplog, &encryptedData, msg6->encryptedDataSize); 
 		// edivider();
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
 		// msg6_size = sizeof(ra_msg6_encrypted_t);
-		msgio->send(msg6, msg6_size);
+		// msgio->send(msg6, msg6_size);
 		edivider();
 		free(msg6);
 	}
