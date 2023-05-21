@@ -845,7 +845,13 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		print_hexstring(stderr, skhash, sizeof(skhash));
 		print_hexstring(fplog, skhash, sizeof(skhash));
 		eprintf("\n");
-		// ret = sgx_ra_get_keys2(ra_ctx, SGX_RA_KEY_SK, &sk_key);
+
+
+		sgx_status_t* get_signking_key_ret;
+		sgx_status_t another_return_status;
+		sgx_ra_key_128_t key;
+		another_return_status =  enclave_ra_get_signing_key(get_signking_key_ret, ra_ctx, SGX_RA_KEY_SK, &key);
+		
         // if(SGX_SUCCESS != ret)
         // {
 		// 	printf("FAIL AICI\n");
