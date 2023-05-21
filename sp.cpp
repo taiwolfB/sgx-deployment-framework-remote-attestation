@@ -849,7 +849,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		//fwrite(decryptedData, msg6->encryptedDataSize, 1, fp1);
 		fclose(fp1);
 	
-		printf("Chmod result = %d", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
+		printf("Chmod result = %d\n", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
 		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
