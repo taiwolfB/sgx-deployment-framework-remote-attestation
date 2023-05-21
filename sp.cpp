@@ -794,7 +794,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// msgio->send_partial(&msg6->encryptedDataSize, sizeof(msg6->encryptedDataSize));
 		// msgio->send_partial(&msg6->fullDataToDecryptSize, sizeof(msg6->fullDataToDecryptSize));
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
-		msgio->send(msg6, msg6_size)
+		msgio->send(msg6, msg6_size);
 		edivider();
 		free(msg6);
 	}
