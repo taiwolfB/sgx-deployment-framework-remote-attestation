@@ -824,15 +824,14 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		unsigned char encryptedData[100000];
 		sample_aes_gcm_128bit_tag_t macOut;
 		msg6->encryptedDataSize = stats.st_size;
-		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
+		msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		printf("AICI\n");
-		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(encryptedData[0]), &macOut))
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  msg6->data, &macOut))
 		{
 			free(msg6);
 			return 0;
 		}
 		printf("ENCRYPTED SUCCESSFULLY\n");
-		printf("ENCRYPOTED DATA = %s\n", encryptedData);
 		// printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
 		// strcpy((char*)msg6->data, (char*)encryptedDataTest);
 		// printf("DATA ENCRYTPED from data = %s\n", msg6->data);

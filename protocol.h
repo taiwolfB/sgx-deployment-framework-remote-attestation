@@ -58,7 +58,7 @@ typedef struct _ra_msg6_encrypted_struct
 {
     // sample_aes_gcm_128bit_tag_t mac;
 	size_t encryptedDataSize;
-	unsigned char data[];
+	unsigned char* data;
 } ra_msg6_encrypted_t;
 
 #endif
