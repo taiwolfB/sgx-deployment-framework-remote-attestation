@@ -119,7 +119,7 @@ int process_msg01 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 int process_msg3 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 	ra_msg4_t *msg4, config_t *config, ra_session_t *session);
 
-int process_msg5(MsgIO *msg, ra_session_t *session);
+int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t* msg5);
 
 int get_sigrl (IAS_Connection *ias, int version, sgx_epid_group_id_t gid,
 	char **sigrl, uint32_t *msg2);
