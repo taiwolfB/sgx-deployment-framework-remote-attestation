@@ -778,16 +778,16 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		msg6->encryptedDataSize = stats.st_size;
 		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		printf("Starting AES encryptiong algorithm for the data\n");
-
-		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(msg6->data[0]), &macOut))
+		unsigned char* encryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(encryptedData[0]), &macOut))
 		{
 			free(msg6);
 			printf("AICI BRO\n");
 			return 0;
 		}
-		
+		printf("Encrypted data size = %d\n", strlen((char*)encryptedData));
 		printf("Data encrypted successfully.\n");
-		
+
 		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
