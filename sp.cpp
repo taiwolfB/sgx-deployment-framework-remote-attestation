@@ -803,9 +803,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		print_hexstring(fplog, digest, sizeof(digest));
 		eprintf("\n");
 		eprintf("\n");*/
-		sgx_status_t* get_signking_key_ret;
-		sgx_status_t another_return_status;
-		another_return_status =  enclave_ra_get_signing_key(get_signking_key_ret, sgx_ra_context_t ctx, sgx_ra_key_type_t type, sgx_ra_key_128_t * key);
+		// sgx_status_t* get_signking_key_ret;
+		// sgx_status_t another_return_status;
+		// another_return_status =  enclave_ra_get_signing_key(get_signking_key_ret, sgx_ra_context_t ctx, sgx_ra_key_type_t type, sgx_ra_key_128_t * key);
 		// sample_sha256_hash_t hash;
 		// sgx_status_t sha_ret;
 		// sgx_ra_key_128_t k;
