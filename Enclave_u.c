@@ -186,8 +186,5 @@ sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retv
 		*retval = ms.ms_retval;
 	}
 	printf("MS_KEY = %s\n", ms.ms_key);
-	size_t _len_key = sizeof(sgx_ra_key_128_t);
-	printf("LE NKEY = %d\n", _len_key);
-	printf("MS CONTEXt =%d\n", ctx);
 	return status;
 }
