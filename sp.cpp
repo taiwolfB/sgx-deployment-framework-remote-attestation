@@ -647,6 +647,8 @@ int main(int argc, char *argv[])
 		ra_session_t session;
 		sgx_ra_msg1_t msg1;
 		sgx_ra_msg2_t msg2;
+		ra_msg5_encryption_request_t msg5
+
 		ra_msg4_t msg4;
 
 		memset(&session, 0, sizeof(ra_session_t));
@@ -689,7 +691,7 @@ int main(int argc, char *argv[])
 			goto disconnect;
 		}
 
-		if (!process_msg5(msgio, &session)) {
+		if (!process_msg5(msgio, &session, &msg5)) {
             eprintf("error processing msg5\n");
             goto disconnect;
         }
@@ -726,9 +728,8 @@ int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
 }
 
 
-int process_msg5(MsgIO *msg, ra_session_t *session)
+int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t* msg5)
 {
-    ra_msg5_encryption_request_t* msg5;
     size_t msg5_size;
 
     int rv = msgio->read((void**)&msg5, &msg5_size);
@@ -746,7 +747,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	if (msg5->isRequested) {
 		msg5_size /= 2;
 		int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
-		ra_msg6_encrypted_t msg6 = (ra_msg6_encrypted_t)malloc(msg6_size);
+		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
 		if (!msg6)
 		{
 		return 0;
