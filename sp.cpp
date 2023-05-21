@@ -790,6 +790,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 
 		printf("FULL SIZE BEFORE SEND = %d\n", msg6->fullDataToDecryptSize);
 		printf("ENCRYPTED SIZE BEFORE SEND = %d\n", msg6->encryptedDataSize);
+
+		printf("ENCRYPTED DATAA = %s\n", encryptedData);
 		// // printf("Encrypted data size = %d\n", strlen((char*)encryptedData));
 		// memcpy(msg6->data, encryptedData, strlen((char*)encryptedData));
 		// strcpy((char*)msg6->data, (char*)encryptedData);
