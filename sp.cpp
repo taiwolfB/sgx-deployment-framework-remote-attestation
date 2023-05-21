@@ -793,9 +793,12 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// eprintf("Encrypted  from initial var = %s\n", encryptedData);
 		// eprintf("Data size array = %d\n", sizeof(msg6->data));
 		// msg6->encryptedDataSize = strlen((char*)msg6->data);
+		printf("ENCRYPTED AICI = %d\n", msg6->encryptedDataSize);
+		printf("fullDataToDecryptSize AICI = %d\n", msg6->fullDataToDecryptSize);
 		// msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
 		msgio->send_partial(&msg6->fullDataToDecryptSize, sizeof(msg6->fullDataToDecryptSize));
 		msgio->send(&msg6->encryptedDataSize, sizeof(msg6->encryptedDataSize));
+
 
 		fsend_msg_partial(fplog, &msg6->fullDataToDecryptSize, sizeof(msg6->fullDataToDecryptSize));
 		fsend_msg(fplog, &msg6->encryptedDataSize,
