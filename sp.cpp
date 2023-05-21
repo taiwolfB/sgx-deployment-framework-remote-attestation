@@ -750,12 +750,12 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
 		if (!msg6)
 		{
-		return 0;
+			return 0;
 		}
 
 		struct stat stats;
 		if (stat(msg5->deploymentFileLocation, &stats) == 0) {
-			printf(" FILE SIZE = %d\n", stats.st_size);
+			printf("FILE SIZE = %d\n", stats.st_size);
 		}
 
 		FILE* fp;
@@ -824,8 +824,8 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 		msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
 		fsend_msg_partial(fplog, (void *) &msg6, sizeof(ra_msg6_encrypted_t));
 
-		msgio->send(encryptedData, msg6->encryptedDataSize);
-		fsend_msg(fplog, encryptedData, msg6->encryptedDataSize); 
+		// msgio->send(encryptedData, msg6->encryptedDataSize);
+		// fsend_msg(fplog, encryptedData, msg6->encryptedDataSize); 
 		// edivider();
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
 		// msgio->send(msg6, msg6_size);
