@@ -773,7 +773,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 		fclose(fp);
 
-		unsigned char encryptedData[100000];
 		sample_aes_gcm_128bit_tag_t macOut;
 		msg6->encryptedDataSize = stats.st_size;
 		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
