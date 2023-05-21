@@ -812,10 +812,30 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
+		
+
 		printf("AICI2\n");
 		printf("MSG 6 size = %d\n", msg6_sz);
 		printf("RECEIVED FULL DATA SIZE = %d\n", msg6_encrypted->fullDataToDecryptSize);
 		printf("RECEIVED ENCRYPTED DATA SIZE = %d\n", msg6_encrypted->encryptedDataSize);
+
+		unsigned char* individualData;
+		size_t individual_sz;
+
+		rv = msgio->read((void **)&individualData, &individual_sz);
+		if ( rv == 0 ) {
+			enclave_ra_close(eid, &sgxrv, ra_ctx);
+			fprintf(stderr, "protocol error while reading encrypted individualData\n");
+			delete msgio;
+			exit(1);
+		} else if ( rv == -1 ) {
+			enclave_ra_close(eid, &sgxrv, ra_ctx);
+			fprintf(stderr, "system error occurred while reading encrypted individualData\n");
+			delete msgio;
+			exit(1);
+		}
+
+		printf("ENCRYPTED DATA = %s\n", individualData);
 
 		sgx_status_t get_signing_key_ret;
 		sgx_status_t get_signing_key_status;
