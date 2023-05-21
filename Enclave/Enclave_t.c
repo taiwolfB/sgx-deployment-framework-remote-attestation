@@ -603,72 +603,73 @@ err:
 
 static sgx_status_t SGX_CDECL sgx_enclave_ra_get_signing_key(void* pms)
 {
-	CHECK_REF_POINTER(pms, sizeof(ms_enclave_ra_get_signing_key_t));
-	//
-	// fence after pointer checks
-	//
-	sgx_lfence();
-	ms_enclave_ra_get_signing_key_t* ms = SGX_CAST(ms_enclave_ra_get_signing_key_t*, pms);
-	ms_enclave_ra_get_signing_key_t __in_ms;
-;
-	if (memcpy_s(&__in_ms, sizeof(ms_enclave_ra_get_key_hash_t), ms, sizeof(ms_enclave_ra_get_key_hash_t))) {
-		return SGX_ERROR_UNEXPECTED;
-	}
-	sgx_status_t status = SGX_SUCCESS;
-	sgx_status_t* _tmp_get_signing_key_status = __in_ms.ms_get_signing_key_status;
-	size_t _len_get_signing_key_status = sizeof(sgx_status_t);
-	sgx_status_t* _in_get_signing_key_status = NULL;
-	sgx_ra_key_128_t* _tmp_key = __in_ms.ms_key;
-	size_t _len_key = sizeof(sgx_ra_key_128_t);
-	sgx_ra_key_128_t* _in_key = NULL;
-	sgx_status_t _in_retval;
+	return SGX_ERROR_UNEXPECTED;
+// 	CHECK_REF_POINTER(pms, sizeof(ms_enclave_ra_get_signing_key_t));
+// 	//
+// 	// fence after pointer checks
+// 	//
+// 	sgx_lfence();
+// 	ms_enclave_ra_get_signing_key_t* ms = SGX_CAST(ms_enclave_ra_get_signing_key_t*, pms);
+// 	ms_enclave_ra_get_signing_key_t __in_ms;
+// ;
+// 	if (memcpy_s(&__in_ms, sizeof(ms_enclave_ra_get_key_hash_t), ms, sizeof(ms_enclave_ra_get_key_hash_t))) {
+// 		return SGX_ERROR_UNEXPECTED;
+// 	}
+// 	sgx_status_t status = SGX_SUCCESS;
+// 	sgx_status_t* _tmp_get_signing_key_status = __in_ms.ms_get_signing_key_status;
+// 	size_t _len_get_signing_key_status = sizeof(sgx_status_t);
+// 	sgx_status_t* _in_get_signing_key_status = NULL;
+// 	sgx_ra_key_128_t* _tmp_key = __in_ms.ms_key;
+// 	size_t _len_key = sizeof(sgx_ra_key_128_t);
+// 	sgx_ra_key_128_t* _in_key = NULL;
+// 	sgx_status_t _in_retval;
 
-	CHECK_UNIQUE_POINTER(_tmp_get_signing_key_status, _len_get_signing_key_status);
-	CHECK_UNIQUE_POINTER(_tmp_key, _len_key);
+// 	CHECK_UNIQUE_POINTER(_tmp_get_signing_key_status, _len_get_signing_key_status);
+// 	CHECK_UNIQUE_POINTER(_tmp_key, _len_key);
 
-	//
-	// fence after pointer checks
-	//
-	sgx_lfence();
+// 	//
+// 	// fence after pointer checks
+// 	//
+// 	sgx_lfence();
 
-	if (_tmp_get_signing_key_status != NULL && _len_get_signing_key_status != 0) {
-		if ((_in_get_signing_key_status = (sgx_status_t*)malloc(_len_get_signing_key_status)) == NULL) {
-			status = SGX_ERROR_OUT_OF_MEMORY;
-			goto err;
-		}
+// 	if (_tmp_get_signing_key_status != NULL && _len_get_signing_key_status != 0) {
+// 		if ((_in_get_signing_key_status = (sgx_status_t*)malloc(_len_get_signing_key_status)) == NULL) {
+// 			status = SGX_ERROR_OUT_OF_MEMORY;
+// 			goto err;
+// 		}
 
-		memset((void*)_in_get_signing_key_status, 0, _len_get_signing_key_status);
-	}
-	if (_tmp_key != NULL && _len_key != 0) {
-		if ((_in_key = (sgx_ra_key_128_t*)malloc(_len_key)) == NULL) {
-			status = SGX_ERROR_OUT_OF_MEMORY;
-			goto err;
-		}
+// 		memset((void*)_in_get_signing_key_status, 0, _len_get_signing_key_status);
+// 	}
+// 	if (_tmp_key != NULL && _len_key != 0) {
+// 		if ((_in_key = (sgx_ra_key_128_t*)malloc(_len_key)) == NULL) {
+// 			status = SGX_ERROR_OUT_OF_MEMORY;
+// 			goto err;
+// 		}
 
-		memset((void*)_in_key, 0, _len_key);
-	}
-	_in_retval = enclave_ra_get_signing_key(_in_get_signing_key_status, __in_ms.ms_ctx, __in_ms.ms_type, _in_key);
-	if (memcpy_verw_s(&ms->ms_retval, sizeof(ms->ms_retval), &_in_retval, sizeof(_in_retval))) {
-		status = SGX_ERROR_UNEXPECTED;
-		goto err;
-	}
-	if (_in_get_signing_key_status) {
-		if (memcpy_verw_s(_tmp_get_signing_key_status, _len_get_signing_key_status, _in_get_signing_key_status, _len_get_signing_key_status)) {
-			status = SGX_ERROR_UNEXPECTED;
-			goto err;
-		}
-	}
-	if (_in_key) {
-		if (memcpy_verw_s(_tmp_key, _len_key, _in_key, _len_key)) {
-			status = SGX_ERROR_UNEXPECTED;
-			goto err;
-		}
-	}
+// 		memset((void*)_in_key, 0, _len_key);
+// 	}
+// 	_in_retval = enclave_ra_get_signing_key(_in_get_signing_key_status, __in_ms.ms_ctx, __in_ms.ms_type, _in_key);
+// 	if (memcpy_verw_s(&ms->ms_retval, sizeof(ms->ms_retval), &_in_retval, sizeof(_in_retval))) {
+// 		status = SGX_ERROR_UNEXPECTED;
+// 		goto err;
+// 	}
+// 	if (_in_get_signing_key_status) {
+// 		if (memcpy_verw_s(_tmp_get_signing_key_status, _len_get_signing_key_status, _in_get_signing_key_status, _len_get_signing_key_status)) {
+// 			status = SGX_ERROR_UNEXPECTED;
+// 			goto err;
+// 		}
+// 	}
+// 	if (_in_key) {
+// 		if (memcpy_verw_s(_tmp_key, _len_key, _in_key, _len_key)) {
+// 			status = SGX_ERROR_UNEXPECTED;
+// 			goto err;
+// 		}
+// 	}
 
-err:
-	if (_in_get_signing_key_status) free(_in_get_signing_key_status);
-	if (_in_key) free(_in_key);
-	return status;
+// err:
+// 	if (_in_get_signing_key_status) free(_in_get_signing_key_status);
+// 	if (_in_key) free(_in_key);
+// 	return status;
 }
 
 SGX_EXTERNC const struct {
