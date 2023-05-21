@@ -140,11 +140,8 @@ client.o: client.cpp /usr/include/stdc-predef.h config.h Enclave_u.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/unistd_ext.h \
- /opt/intel/sgxsdk/include/sgx_uae_service.h \
- /opt/intel/sgxsdk/include/sgx_uae_launch.h \
- /opt/intel/sgxsdk/include/sgx_urts.h \
  /opt/intel/sgxsdk/include/sgx_uae_epid.h \
- /opt/intel/sgxsdk/include/sgx_uae_quote_ex.h \
+ /opt/intel/sgxsdk/include/sgx_urts.h \
  /opt/intel/sgxsdk/include/sgx_ukey_exchange.h \
  /opt/intel/sgxsdk/include/sgx_uae_quote_ex.h /usr/include/c++/9/string \
  /usr/include/c++/9/bits/stringfwd.h /usr/include/c++/9/bits/memoryfwd.h \
@@ -220,7 +217,7 @@ client.o: client.cpp /usr/include/stdc-predef.h config.h Enclave_u.h \
  /opt/openssl/1.1.1i/include/openssl/pkcs7.h \
  /opt/openssl/1.1.1i/include/openssl/pkcs7err.h \
  /opt/openssl/1.1.1i/include/openssl/pemerr.h msgio.h logfile.h \
- quote_size.h
+ quote_size.h sample_libcrypto/sample_libcrypto.h
 
 /usr/include/stdc-predef.h:
 
@@ -554,15 +551,9 @@ sgx_stub.h:
 
 /usr/include/x86_64-linux-gnu/bits/unistd_ext.h:
 
-/opt/intel/sgxsdk/include/sgx_uae_service.h:
-
-/opt/intel/sgxsdk/include/sgx_uae_launch.h:
-
-/opt/intel/sgxsdk/include/sgx_urts.h:
-
 /opt/intel/sgxsdk/include/sgx_uae_epid.h:
 
-/opt/intel/sgxsdk/include/sgx_uae_quote_ex.h:
+/opt/intel/sgxsdk/include/sgx_urts.h:
 
 /opt/intel/sgxsdk/include/sgx_ukey_exchange.h:
 
@@ -767,3 +758,5 @@ msgio.h:
 logfile.h:
 
 quote_size.h:
+
+sample_libcrypto/sample_libcrypto.h:
