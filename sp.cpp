@@ -819,7 +819,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 		
 		// msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
 
-		printf("SIZE OF MSG 6 = %d\n", sizeof(msg6));
+		// printf("SIZE OF MSG 6 = %d\n", sizeof(msg6));
 		// msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
 		// fsend_msg_partial(fplog, (void *) &msg6, sizeof(ra_msg6_encrypted_t));
 
