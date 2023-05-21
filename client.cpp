@@ -829,7 +829,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		
 		printf("Decryption succesfull\n");
 		
-		strcat(deploymentFileLocation, "test2");
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
 
