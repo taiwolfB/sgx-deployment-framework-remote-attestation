@@ -784,7 +784,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 			printf("AICI BRO\n");
 			return 0;
 		}
-		printf("Encrypted data size = %d\n", );
+		printf("Encrypted data size = %d\n", strlen((char*)encryptedData));
 		memcpy(msg6->data, encryptedData, strlen((char*)encryptedData));
 		printf("Data encrypted successfully.\n");
 
