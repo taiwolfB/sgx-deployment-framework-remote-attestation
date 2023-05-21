@@ -853,7 +853,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		sgx_ra_key_128_t key;
 		another_return_status =  enclave_ra_get_signing_key(eid, &get_signking_key_ret, &get_signking_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
 		
-		printf("ANOTHER RETURN STATUS = %d\n", another_return_status);
+		// printf("ANOTHER RETURN STATUS = %d\n", another_return_status);
 		printf("KEEEEEEEEEEY = %s\n", key);
         // if(SGX_SUCCESS != ret)
         // {
