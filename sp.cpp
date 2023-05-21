@@ -773,54 +773,6 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		}
 		fclose(fp);
 
-		// // msg6->session_sk = &(session->sk[0]);
-		// int i = 0;
-		// while (session->sk[i] != '\0') {
-		// 	msg6->session_sk[i] = session->sk[i];
-		// 	i++;
-		// }
-		// msg6->session_sk[i] = '\0';
-		// i++;
-		// msg6->session_sk_size = i;
-
-		// printf("session sk size = %d\n", i);
-		
-		// if (verbose) {
-		// 	printf("Encryption key = %s\n", session->sk);
-		// 	printf("SK copied  = %s\n", msg6->session_sk);
-		// 	printf("DA\n");
-		// 	printf("SK copied  = %s\n", msg6->session_sk);
-		// }
-		// unsigned char digest[32];
-
-		// printf("Encryption key in SP = %s\n", session->sk);
-		// int output_digest = sha256_digest (&session->sk[0], 16, digest);
-		// printf("CRYPTO = %d\n", output_digest);
-		// printf("DIGEST OUT = %s\n", digest);
-		// eprintf("SHA256(SK) = ");
-		// print_hexstring(stderr, digest, sizeof(digest));
-		// print_hexstring(fplog, digest, sizeof(digest));
-		// eprintf("\n");
-		// eprintf("\n");
-
-		// sgx_status_t ret = SGX_SUCCESS;
-		// sgx_status_t sha_status, key_status;
-		// sgx_ec_key_128bit_t sk_key;/
-		// sgx_sha256_hash_t skhash;
-		// // printf("RET BEFORE = %d\n", ret);
-		// // ret = enclave_ra_get_key_hash(eid, &sha_status, &key_status, ra_ctx, SGX_RA_KEY_SK, &skhash);
-		// // printf("SGX RET AFTER = %d\n", ret);
-		// // printf("HASH = %s\n", skhash);
-		
-		// // // idea : ENCRYPT / DECRYPT with the hash itself
-		// // eprintf("SHA256(SK) = ");
-		// // print_hexstring(stderr, skhash, sizeof(skhash));
-		// // print_hexstring(fplog, skhash, sizeof(skhash));
-		// // eprintf("\n");
-
-
-		
-		// unsigned char encryptedDataTest[100000];
 		unsigned char encryptedData[100000];
 		sample_aes_gcm_128bit_tag_t macOut;
 		msg6->encryptedDataSize = stats.st_size;
@@ -855,10 +807,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// fclose(fp1);
 	
 		// printf("Chmod result = %d\n", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
+		fsend_msg(fplog, &msg6, msg6_size);
 		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
-		// fsend_msg(fplog, &msg6, msg6_size);
+		
 		edivider();
 		free(msg6);
 	}
