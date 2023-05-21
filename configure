@@ -5132,7 +5132,7 @@ for ac_lib in '' crypto; do
   if test -z "$ac_lib"; then
     ac_res="none required"
   else
-    ac_res=-l$ac_lib
+    ac_res="-l$ac_lib -lsample_libcrypto"
     LIBS="-l$ac_lib  $ac_func_search_save_LIBS"
   fi
   if ac_fn_c_try_link "$LINENO"; then :

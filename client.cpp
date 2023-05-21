@@ -51,7 +51,7 @@ using namespace std;
 #include <getopt.h>
 #include <unistd.h>
 #endif
-#include <sgx_uae_service.h>
+#include <sgx_uae_epid.h>
 #include <sgx_ukey_exchange.h>
 #include <sgx_uae_quote_ex.h>
 #include <string>
@@ -65,6 +65,8 @@ using namespace std;
 #include "msgio.h"
 #include "logfile.h"
 #include "quote_size.h"
+#include <sys/stat.h>
+#include "sample_libcrypto/sample_libcrypto.h"
 
 #define MAX_LEN 80
 
@@ -104,7 +106,7 @@ sgx_status_t sgx_create_enclave_search (
 
 void usage();
 int do_quote(sgx_enclave_id_t eid, config_t *config);
-int do_attestation(sgx_enclave_id_t eid, config_t *config);
+int do_attestation(sgx_enclave_id_t eid, config_t *config, char* deploymentFileLocation);
 
 char debug= 0;
 char verbose= 0;
@@ -130,6 +132,30 @@ char verbose= 0;
 # define ENCLAVE_NAME "Enclave.signed.so"
 #endif
 
+/*==========================================================================
+* AES-ENCRYPT
+*========================================================================== */
+
+int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
+    unsigned char* encrypted_message, sample_aes_gcm_128bit_tag_t* mac)
+{
+
+    unsigned char iv[12] = { 0 };
+    sample_status_t status = sample_rijndael128GCM_encrypt(
+        (sample_aes_gcm_128bit_key_t*)key,
+        message,
+        mlen,
+        encrypted_message,
+        &iv[0],
+        12,
+        NULL,
+        0,
+        mac
+    );
+	
+	return status == SAMPLE_SUCCESS;
+}
+
 int main (int argc, char *argv[])
 {
 	config_t config;
@@ -142,7 +168,7 @@ int main (int argc, char *argv[])
 	EVP_PKEY *service_public_key= NULL;
 	char have_spid= 0;
 	char flag_stdio= 0;
-
+	char* deploymentFileLocation = (char*)malloc(100000 * sizeof(char));
 	/* Create a logfile to capture debug output and actual msg data */
 	fplog = create_logfile("client.log");
 	dividerWithText(fplog, "Client Log Timestamp");
@@ -194,6 +220,7 @@ int main (int argc, char *argv[])
 		{"quote",		no_argument,		0, 'q'},
 		{"verbose",		no_argument,		0, 'v'},
 		{"stdio",		no_argument,		0, 'z'},
+		{"deploy-file", required_argument,  0, 'a'},
 		{ 0, 0, 0, 0 }
 	};
 
@@ -204,7 +231,7 @@ int main (int argc, char *argv[])
 		int opt_index= 0;
 		unsigned char keyin[64];
 
-		c= getopt_long(argc, argv, "N:P:S:dehlmn:p:qrs:vz", long_opt,
+		c= getopt_long(argc, argv, "N:P:S:dehlmn:p:qrs:a:vz", long_opt,
 			&opt_index);
 		if ( c == -1 ) break;
 
@@ -324,6 +351,10 @@ int main (int argc, char *argv[])
 		case 'z':
 			flag_stdio= 1;
 			break;
+		case 'a':
+			if (optarg == NULL) usage();
+			strcpy(deploymentFileLocation, optarg);
+			break;
 		case 'h':
 		case '?':
 		default:
@@ -415,7 +446,7 @@ int main (int argc, char *argv[])
 	/* Are we attesting, or just spitting out a quote? */
 
 	if ( config.mode == MODE_ATTEST ) {
-		do_attestation(eid, &config);
+		do_attestation(eid, &config, deploymentFileLocation);
 	} else if ( config.mode == MODE_EPID || config.mode == MODE_QUOTE ) {
 		do_quote(eid, &config);
 	} else {
@@ -429,7 +460,7 @@ int main (int argc, char *argv[])
 	return 0;
 }
 
-int do_attestation (sgx_enclave_id_t eid, config_t *config)
+int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFileLocation)
 {
 	sgx_status_t status, sgxrv, pse_status;
 	sgx_ra_msg1_t msg1;
@@ -505,7 +536,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 	}
 
 	/* Generate msg0 */
-
 	status = sgx_get_extended_epid_group_id(&msg0_extended_epid_group_id);
 	if ( status != SGX_SUCCESS ) {
 		enclave_ra_close(eid, &sgxrv, ra_ctx); 
@@ -572,7 +602,8 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 	 * amount of time generating keys that won't be used.
 	 */
 
-	dividerWithText(fplog, "Msg0||Msg1 ==> SP");
+	dividerWithText(fplog, "Msg0||Msg1 ==> SP"); 
+
 	fsend_msg_partial(fplog, &msg0_extended_epid_group_id,
 		sizeof(msg0_extended_epid_group_id));
 	fsend_msg(fplog, &msg1, sizeof(msg1));
@@ -748,9 +779,63 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config)
 
 	edividerWithText("Enclave Trust Status from Service Provider");
 
-	enclaveTrusted= msg4->status;
-	if ( enclaveTrusted == Trusted ) {
+	enclaveTrusted = msg4->status;
+	if ( enclaveTrusted == Trusted && deploymentFileLocation != NULL) {
 		eprintf("Enclave TRUSTED\n");
+		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
+		msg5_encryption_request->isRequested = true;
+		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
+		size_t msg5_sz = 10;
+		dividerWithText(stderr, "Copy/Paste Msg5 Below to SP");
+		// msgio->send(msg5_encryption_request, msg5_sz);
+		msgio->send_partial(&msg5_encryption_request->isRequested, sizeof(msg5_encryption_request->isRequested));
+        msgio->send(&msg5_encryption_request->deploymentFileLocation, sizeof(msg5_encryption_request->deploymentFileLocation));
+		divider(stderr);
+
+		dividerWithText(fplog, "Msg5 ==> SP");
+		fsend_msg(fplog, msg5_encryption_request, msg5_sz);
+		divider(fplog);
+
+		ra_msg6_encrypted_t* msg6_encrypted;
+		size_t msg6_sz;
+
+		rv= msgio->read((void **)&msg6_encrypted, &msg6_sz);
+		if ( rv == 0 ) {
+			enclave_ra_close(eid, &sgxrv, ra_ctx);
+			fprintf(stderr, "protocol error while reading encrypted msg6\n");
+			delete msgio;
+			exit(1);
+		} else if ( rv == -1 ) {
+			enclave_ra_close(eid, &sgxrv, ra_ctx);
+			fprintf(stderr, "system error occurred while reading encrypted msg6\n");
+			delete msgio;
+			exit(1);
+		}
+
+		sgx_status_t get_signing_key_ret;
+		sgx_status_t get_signing_key_status;
+		sgx_status_t another_return_status;
+		sgx_ra_key_128_t key;
+		another_return_status =  enclave_ra_get_signing_key(eid, &get_signing_key_ret, &get_signing_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
+		
+		printf("Started decryption process using the previously retrieved signing key.\n");
+		sample_aes_gcm_128bit_tag_t macOut;
+		unsigned char* decryptedData = (unsigned char*)malloc(msg6_encrypted->fullDataToDecryptSize * sizeof(unsigned char));
+		if (!aes_encrypt_gcm(key, &(msg6_encrypted->data[0]), msg6_encrypted->fullDataToDecryptSize,  decryptedData, &macOut))
+		{
+			free(msg6_encrypted);
+			return 0;
+		}
+		
+		printf("Decryption succesfull\n");
+		
+		FILE* fp;
+		fp = fopen(deploymentFileLocation,"wb");
+
+		fwrite(decryptedData, msg6_encrypted->fullDataToDecryptSize, sizeof(unsigned char), fp);
+		fclose(fp);
+	
+		printf("Chmod result = %d\n", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
 		eprintf("Enclave NOT TRUSTED\n");
@@ -1200,7 +1285,8 @@ void usage ()
 	fprintf(stderr, "  -s, --spid=HEXSTRING     Set the SPID from a 32-byte ASCII hex string\n");
 	fprintf(stderr, "  -v, --verbose            Print decoded RA messages to stderr\n");
 	fprintf(stderr, "  -z                       Read from stdin and write to stdout instead\n");
-	fprintf(stderr, "                             connecting to a server.\n");
+	fprintf(stderr, "  -a,  --stdio             Input the file name for deployment purposes \n"
+	"                                            - Bogdan Tailup Thesis Usage.\n");
 	fprintf(stderr, "\nOne of --spid OR --spid-file is required for generating a quote or doing\nremote attestation.\n");
 	exit(1);
 }

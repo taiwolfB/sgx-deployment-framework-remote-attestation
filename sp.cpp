@@ -52,6 +52,7 @@ in the License.
 #include "logfile.h"
 #include "settings.h"
 #include "enclave_verify.h"
+#include "sample_libcrypto/sample_libcrypto.h"
 
 using namespace json;
 using namespace std;
@@ -117,6 +118,8 @@ int process_msg01 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 
 int process_msg3 (MsgIO *msg, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 	ra_msg4_t *msg4, config_t *config, ra_session_t *session);
+
+int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t* msg5);
 
 int get_sigrl (IAS_Connection *ias, int version, sgx_epid_group_id_t gid,
 	char **sigrl, uint32_t *msg2);
@@ -184,6 +187,7 @@ int main(int argc, char *argv[])
 		{"verbose",					no_argument,		0, 'v'},
 		{"no-proxy",				no_argument,		0, 'x'},
 		{"stdio",					no_argument,		0, 'z'},
+		{"app-file",				required_argument,	0, 'a'},
 		{ 0, 0, 0, 0 }
 	};
 
@@ -215,7 +219,7 @@ int main(int argc, char *argv[])
 		unsigned long val;
 
 		c = getopt_long(argc, argv,
-			"A:B:DGI:J:K:N:PR:S:V:X:dg:hk:lp:r:s:i:j:vxz",
+			"A:B:DGI:J:K:N:PR:S:V:X:dg:hk:lp:r:s:i:j:a:vxz",
 			long_opt, &opt_index);
 		if (c == -1) break;
 
@@ -445,8 +449,6 @@ int main(int argc, char *argv[])
 		case 'z':
 			flag_stdio= 1;
 			break;
-
-		case 'h':
 		case '?':
 		default:
 			usage();
@@ -646,6 +648,7 @@ int main(int argc, char *argv[])
 		sgx_ra_msg1_t msg1;
 		sgx_ra_msg2_t msg2;
 		ra_msg4_t msg4;
+		ra_msg5_encryption_request_t msg5;
 
 		memset(&session, 0, sizeof(ra_session_t));
 
@@ -687,6 +690,11 @@ int main(int argc, char *argv[])
 			goto disconnect;
 		}
 
+		if (!process_msg5(msgio, &session, &msg5)) {
+            eprintf("error processing msg5\n");
+            goto disconnect;
+        }
+
 disconnect:
 		msgio->disconnect();
 	}
@@ -694,6 +702,95 @@ disconnect:
 	crypto_destroy();
 
 	return 0;
+}
+
+// /*==========================================================================
+// * AES-ENCRYPT
+// *========================================================================== */
+
+int aes_encrypt_gcm(unsigned char* key, unsigned char* message, size_t mlen,
+    unsigned char* encrypted_message, sample_aes_gcm_128bit_tag_t* mac)
+{
+    unsigned char iv[12] = { 0 };
+    sample_status_t status = sample_rijndael128GCM_encrypt(
+        (sample_aes_gcm_128bit_key_t*)key,
+        message,
+        mlen,
+        encrypted_message,
+        &iv[0],
+        12,
+        NULL,
+        0,
+        mac
+    );
+	return status == SAMPLE_SUCCESS;
+}
+
+
+int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t* msg5)
+{
+    size_t msg5_size;
+
+    int rv = msgio->read((void**)&msg5, &msg5_size);
+    if (rv == -1)
+    {
+        eprintf("system error reading msg5\n");
+        return 0;
+    }
+    else if (rv == 0)
+    {
+        eprintf("protocol error reading msg5\n");
+        return 0;
+    }
+
+	if (msg5->isRequested) {
+		msg5_size /= 2;
+		int msg6_size = msg5_size + sizeof(ra_msg6_encrypted_t);
+		ra_msg6_encrypted_t* msg6 = (ra_msg6_encrypted_t*)malloc(msg6_size);
+		if (!msg6)
+		{
+			return 0;
+		}
+
+		struct stat stats;
+		if (stat(msg5->deploymentFileLocation, &stats) == 0) {
+			printf("FILE SIZE = %d\n", stats.st_size);
+		}
+
+		FILE* fp;
+		if ( (fp = fopen(msg5->deploymentFileLocation, "rb")) == NULL ) {
+			fprintf(stderr, "fopen: ");
+		}
+		
+		unsigned char read_data[stats.st_size];
+		unsigned char byte;
+		size_t size_read = fread((unsigned char*)read_data, sizeof(unsigned char), stats.st_size, fp);
+
+		if (verbose) {
+			printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
+			printf("READ DATA = %s\n", read_data);
+			printf("READ DATA SIZE FROM STRLEN= %d\n", strlen((const char*)read_data));
+		}
+		fclose(fp);
+
+		sample_aes_gcm_128bit_tag_t macOut;
+		msg6->fullDataToDecryptSize = stats.st_size;
+		
+		printf("Starting AES encryptiong algorithm for the data\n");
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->fullDataToDecryptSize,  &(msg6->data[0]), &macOut))
+		{
+			free(msg6);
+			return 0;
+		}
+		printf("Data encrypted successfully.\n");
+	
+		msgio->send(msg6, msg6_size);
+		edivider();
+		free(msg6);
+	}
+
+   
+    return 1;
 }
 
 int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
@@ -965,6 +1062,7 @@ int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 		/* Serialize the members of the Msg4 structure independently */
 		/* vs. the entire structure as one send_msg() */
 
+		// Bogdan Tailup Thesis : I had to manually set it because the Intel SGX VMs which are provided by Azure have a SW_HARDENING_NEEDED exit code. Check online for more details.
 		msg4->status = Trusted;
 		msgio->send_partial(&msg4->status, sizeof(msg4->status));
 		msgio->send(&msg4->platformInfoBlob, sizeof(msg4->platformInfoBlob));
@@ -990,7 +1088,7 @@ int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 				6, session->mk);
 			cmac128(session->kdk, (unsigned char *)("\x01SK\x00\x80\x00"),
 				6, session->sk);
-
+			
 			sha256_digest(session->mk, 16, hashmk);
 			sha256_digest(session->sk, 16, hashsk);
 
@@ -1043,7 +1141,6 @@ int process_msg01 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 	 */
 
 	fprintf(stderr, "Waiting for msg0||msg1\n");
-
 	rv= msgio->read((void **) &msg01, NULL);
 	if ( rv == -1 ) {
 		eprintf("system error reading msg0||msg1\n");
@@ -1716,7 +1813,7 @@ void usage ()
 "  -x, --no-proxy           Do not use a proxy (force a direct connection), " NL
 "                           overriding environment." NNL
 "  -z  --stdio              Read from stdin and write to stdout instead of" NL
-"                           running as a network server." <<endl;
+"                           running as a network server." << endl;
 
 	::exit(1);
 }

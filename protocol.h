@@ -20,6 +20,7 @@ in the License.
 
 #include <inttypes.h>
 #include <sgx_quote.h>
+// #include "sample_libcrypto/sample_libcrypto.h"
 
 /*
  * Define a structure to be used to transfer the Attestation Status 
@@ -46,6 +47,19 @@ typedef struct _ra_msg4_struct {
 	attestation_status_t status;
 	sgx_platform_info_t platformInfoBlob;
 } ra_msg4_t;
+
+typedef struct ra_msg5_encryption_request_t
+{
+    bool isRequested;
+	char deploymentFileLocation[1000];
+} ra_msg5_encryption_request_t;
+
+typedef struct _ra_msg6_encrypted_struct
+{
+	size_t fullDataToDecryptSize;
+	// size_t encryptedDataSize;
+	unsigned char data[100000];
+} ra_msg6_encrypted_t;
 
 #endif
 
