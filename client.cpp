@@ -812,6 +812,8 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
+		printf("RECEIVED ENCRYPTED DATA = %s\n", msg6_encrypted->data);
+
 		sgx_status_t get_signing_key_ret;
 		sgx_status_t get_signing_key_status;
 		sgx_status_t another_return_status;
