@@ -609,8 +609,8 @@ static sgx_status_t SGX_CDECL sgx_enclave_ra_get_signing_key(void* pms)
 	// fence after pointer checks
 	//
 	sgx_lfence();
-	ms_enclave_ra_get_signing_key_t* ms = SGX_CAST(ms_enclave_ra_get_key_hash_t*, pms);
-	ms_enclave_ra_get_key_hash_t __in_ms;
+	ms_enclave_ra_get_signing_key_t* ms = SGX_CAST(ms_enclave_ra_get_signing_key_t*, pms);
+	ms_enclave_ra_get_signing_key_t __in_ms;
 	
 	return SGX_SUCCESS;
 // 	if (memcpy_s(&__in_ms, sizeof(ms_enclave_ra_get_key_hash_t), ms, sizeof(ms_enclave_ra_get_key_hash_t))) {
