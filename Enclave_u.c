@@ -185,7 +185,7 @@ sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retv
 	printf("STATUS_RETURN_ECALL = %d\n", status);
 	printf("BEFORE\n");
 	printf("STAUTS SUCCESS = %d\n", SGX_SUCCESS);
-	printf("STATUS UNEXPECTED = %d\n", SGX_ERROR_UNEXPECTED)
+	printf("STATUS UNEXPECTED = %d\n", SGX_ERROR_UNEXPECTED);
 	if (status == SGX_SUCCESS && retval) {
 		*retval = ms.ms_retval;
 		printf("AICI BA\n");
