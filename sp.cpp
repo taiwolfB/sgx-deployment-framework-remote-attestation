@@ -789,6 +789,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		printf("Data encrypted successfully.\n");
 
 		eprintf("Encrypted  data = %s\n", msg6->data);
+		eprintf("Encrypted  from initial var = %s\n", encryptedData);
 
 		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
