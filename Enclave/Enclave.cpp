@@ -195,7 +195,7 @@ sgx_status_t enclave_ra_get_key_hash(sgx_status_t *get_keys_ret,
 	return sha_ret;
 }
 
-sgx_status_t enclave_ra_get_signking_key(sgx_status_t* get_signking_key_ret, sgx_ra_context_t ctx, sgx_ra_key_type_t type, sgx_ra_key_128_t* key)
+sgx_status_t enclave_ra_get_signing_key(sgx_status_t* get_signking_key_ret, sgx_ra_context_t ctx, sgx_ra_key_type_t type, sgx_ra_key_128_t* key)
 {
 	sgx_status_t key_ret;
 	sgx_ra_key_128_t k;
