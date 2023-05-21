@@ -765,16 +765,15 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		unsigned char byte;
 		size_t size_read = fread((unsigned char*)read_data, sizeof(unsigned char), stats.st_size, fp);
 
-		// if (verbose) {
-		// 	printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
-		// 	printf("READ DATA = %s\n", read_data);
-		// 	printf("READ DATA SIZE FROM STRLEN= %d\n", strlen((const char*)read_data));
-		// }
-		// fclose(fp);
+		if (verbose) {
+			printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
+			printf("READ DATA = %s\n", read_data);
+			printf("READ DATA SIZE FROM STRLEN= %d\n", strlen((const char*)read_data));
+		}
+		fclose(fp);
 
 		
-		// unsigned char encryptedData[100000];
-		// msg6->encryptedDataSize = stats.st_size;
+
 
 		// // msg6->session_sk = &(session->sk[0]);
 		// int i = 0;
@@ -794,17 +793,17 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// 	printf("DA\n");
 		// 	printf("SK copied  = %s\n", msg6->session_sk);
 		// }
-		unsigned char digest[32];
+		// unsigned char digest[32];
 
-		printf("Encryption key in SP = %s\n", session->sk);
-		int output_digest = sha256_digest (&session->sk[0], 16, digest);
-		printf("CRYPTO = %d\n", output_digest);
-		printf("DIGEST OUT = %s\n", digest);
-		eprintf("SHA256(SK) = ");
-		print_hexstring(stderr, digest, sizeof(digest));
-		print_hexstring(fplog, digest, sizeof(digest));
-		eprintf("\n");
-		eprintf("\n");
+		// printf("Encryption key in SP = %s\n", session->sk);
+		// int output_digest = sha256_digest (&session->sk[0], 16, digest);
+		// printf("CRYPTO = %d\n", output_digest);
+		// printf("DIGEST OUT = %s\n", digest);
+		// eprintf("SHA256(SK) = ");
+		// print_hexstring(stderr, digest, sizeof(digest));
+		// print_hexstring(fplog, digest, sizeof(digest));
+		// eprintf("\n");
+		// eprintf("\n");
 
 		// sgx_status_t ret = SGX_SUCCESS;
 		// sgx_status_t sha_status, key_status;
@@ -821,21 +820,26 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// // print_hexstring(fplog, skhash, sizeof(skhash));
 		// // eprintf("\n");
 
-		// sample_aes_gcm_128bit_tag_t macOut;
-		//msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
+
+		
 		// unsigned char encryptedDataTest[100000];
-		// if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(encryptedDataTest[0]), &macOut))
-		// {
-		// 	free(msg6);
-		// 	return 0;
-		// }
+		unsigned char encryptedData[100000];
+		sample_aes_gcm_128bit_tag_t macOut;
+		msg6->encryptedDataSize = stats.st_size;
+		msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  msg6->data, &macOut))
+		{
+			free(msg6);
+			return 0;
+		}
+		printf("ENCRYPTED SUCCESSFULLY\n");
 		// printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
 		// strcpy((char*)msg6->data, (char*)encryptedDataTest);
 		// printf("DATA ENCRYTPED from data = %s\n", msg6->data);
 		// // printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
 		// unsigned char testData[100000];
 		// unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		// // if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, &(testData[0]), &macOut))
+		// if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, &(testData[0]), &macOut))
 		// {
 		// 	free(msg6);
 		// 	return 0;
@@ -843,13 +847,13 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 
 		// printf("DATA DECRYPTED = %s\n", decryptedData);
 		// printf("DATA DECRYPTED SIZE = %d\n", strlen((const char*)decryptedData));
-		FILE* fp1;
-		fp1 = fopen("test.bin","wb");
+		// FILE* fp1;
+		// fp1 = fopen("test.bin","wb");
 
-		//fwrite(decryptedData, msg6->encryptedDataSize, 1, fp1);
-		fclose(fp1);
+		// //fwrite(decryptedData, msg6->encryptedDataSize, 1, fp1);
+		// fclose(fp1);
 	
-		printf("Chmod result = %d\n", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
+		// printf("Chmod result = %d\n", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
 		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));

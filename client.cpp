@@ -822,7 +822,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		// printf("SK RECEIVED  = %s\n", msg6_encrypted->session_sk);
 		// printf("SK SIZE RECEIVED = %d\n", msg6_encrypted->session_sk_size);
 		// sample_aes_gcm_128bit_tag_t macOut;
-		unsigned char decryptedData[100000];
+		// unsigned char decryptedData[100000];
 
 		// if (!aes_encrypt_gcm(msg6_encrypted->session_sk, &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize, &(decryptedData[0]), &macOut))
 		// {
@@ -853,18 +853,27 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		sgx_ra_key_128_t key;
 		another_return_status =  enclave_ra_get_signing_key(eid, &get_signking_key_ret, &get_signking_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
 		
+		sample_aes_gcm_128bit_tag_t macOut;
+		msg6->encryptedDataSize = stats.st_size;
+		unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
+		if (!aes_encrypt_gcm(key, msg6->data, msg6->encryptedDataSize,  decryptedData, &macOut))
+		{
+			free(msg6);
+			return 0;
+		}
+		printf("DECRYPTED SUCCESSFULLY\n");
 		// printf("ANOTHER RETURN STATUS = %d\n", another_return_status);
-		printf("KEEEEEEEEEEY = %s\n", key);
-		unsigned char digest[32];
+		// printf("KEEEEEEEEEEY = %s\n", key);
+		// unsigned char digest[32];
 
-		int output_digest = sha256_digest (key, 16, digest);
-		printf("CRYPTO = %d\n", output_digest);
-		printf("DIGEST OUT = %s\n", digest);
-		eprintf("SHA256(SK) = ");
-		print_hexstring(stderr, digest, sizeof(digest));
-		print_hexstring(fplog, digest, sizeof(digest));
-		eprintf("\n");
-		eprintf("\n");
+		// int output_digest = sha256_digest (key, 16, digest);
+		// printf("CRYPTO = %d\n", output_digest);
+		// printf("DIGEST OUT = %s\n", digest);
+		// eprintf("SHA256(SK) = ");
+		// print_hexstring(stderr, digest, sizeof(digest));
+		// print_hexstring(fplog, digest, sizeof(digest));
+		// eprintf("\n");
+		// eprintf("\n");
 
         // if(SGX_SUCCESS != ret)
         // {
