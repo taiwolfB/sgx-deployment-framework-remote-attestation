@@ -826,11 +826,11 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		msg6->encryptedDataSize = stats.st_size;
 		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		printf("AICI\n");
-		// if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(msg6->data[0]), &macOut))
-		// {
-		// 	free(msg6);
-		// 	return 0;
-		// }
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(msg6->data[0]), &macOut))
+		{
+			free(msg6);
+			return 0;
+		}
 		printf("ENCRYPTED SUCCESSFULLY\n");
 		printf("SIZE = %d\n", msg6->encryptedDataSize);
 		// printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
@@ -855,11 +855,15 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	
 		// printf("Chmod result = %d\n", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
 		msgio->send(msg6, msg6_size);
+		printf("AICI CRAPA\n");
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
 		fsend_msg(fplog, &msg6, msg6_size);
+		printf("AICI CRAPA2\n");
 		edivider();
+		printf("AICI CRAPA3\n");
 		free(msg6);
+		printf("AICI CRAPA4\n");
 	}
 
    
