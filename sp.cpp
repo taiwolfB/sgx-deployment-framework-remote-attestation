@@ -820,17 +820,19 @@ int process_msg5(MsgIO *msg, ra_session_t *session, ra_msg5_encryption_request_t
 		// msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
 
 		// printf("SIZE OF MSG 6 = %d\n", sizeof(msg6));
-		// msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
-		// fsend_msg_partial(fplog, (void *) &msg6, sizeof(ra_msg6_encrypted_t));
+		msgio->send_partial((void *) &msg6, sizeof(ra_msg6_encrypted_t));
+		fsend_msg_partial(fplog, (void *) &msg6, sizeof(ra_msg6_encrypted_t));
 
-		// msgio->send(&encryptedData, msg6->encryptedDataSize);
-		// fsend_msg(fplog, &encryptedData, msg6->encryptedDataSize); 
+		msgio->send(encryptedData, msg6->encryptedDataSize);
+		fsend_msg(fplog, encryptedData, msg6->encryptedDataSize); 
 		// edivider();
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
 		// msg6_size = sizeof(ra_msg6_encrypted_t);
-		msgio->send(msg6, msg6_size);
-		msgio->send_partial(&encryptedData, msg6->encryptedDataSize);
+	
 		// fsend_msg(fplog, &encryptedData, msg6->encryptedDataSize); 
+		
+		// msgio->send(msg6, msg6_size);
+		// msgio->send_partial(&encryptedData, msg6->encryptedDataSize);
 		edivider();
 		free(msg6);
 	}
