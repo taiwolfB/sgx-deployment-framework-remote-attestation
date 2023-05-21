@@ -50,6 +50,10 @@ enclave {
 			[out] sgx_status_t *get_keys_status, sgx_ra_context_t ctx,
 			sgx_ra_key_type_t type, [out] sgx_sha256_hash_t *hash);
 
+		public sgx_status_t enclave_ra_get_signing_key(
+			[out] sgx_status_t *get_signking_key_status, sgx_ra_context_t ctx,
+			sgx_ra_key_type_t type, [out] sgx_ra_key_128_t* k);
+
 		public sgx_status_t enclave_ra_close(sgx_ra_context_t ctx);
 
 	};

@@ -593,7 +593,7 @@ err:
 
 SGX_EXTERNC const struct {
 	size_t nr_ecall;
-	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[8];
+	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[9];
 } g_ecall_table = {
 	8,
 	{
@@ -605,6 +605,7 @@ SGX_EXTERNC const struct {
 		{(void*)(uintptr_t)sgx_sgx_ra_get_ga, 0, 0},
 		{(void*)(uintptr_t)sgx_sgx_ra_proc_msg2_trusted, 0, 0},
 		{(void*)(uintptr_t)sgx_sgx_ra_get_msg3_trusted, 0, 0},
+		{(void*)(uintptr_t)enclave_ra_get_signing_key, 0, 0},
 	}
 };
 
