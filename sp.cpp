@@ -794,17 +794,17 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// 	printf("DA\n");
 		// 	printf("SK copied  = %s\n", msg6->session_sk);
 		// }
-		// unsigned char digest[32];
+		unsigned char digest[32];
 
 		printf("Encryption key in SP = %s\n", session->sk);
-	/*	int output_digest = sha256_digest (&session->sk[0], 16, digest);
+		int output_digest = sha256_digest (&session->sk[0], 16, digest);
 		printf("CRYPTO = %d\n", output_digest);
 		printf("DIGEST OUT = %s\n", digest);
 		eprintf("SHA256(SK) = ");
 		print_hexstring(stderr, digest, sizeof(digest));
 		print_hexstring(fplog, digest, sizeof(digest));
 		eprintf("\n");
-		eprintf("\n");*/
+		eprintf("\n");
 		// sgx_status_t* get_signking_key_ret;
 		// sgx_status_t another_return_status;
 		// another_return_status =  enclave_ra_get_signing_key(get_signking_key_ret, sgx_ra_context_t ctx, sgx_ra_key_type_t type, sgx_ra_key_128_t * key);
@@ -1165,7 +1165,7 @@ int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 				6, session->mk);
 			cmac128(session->kdk, (unsigned char *)("\x01SK\x00\x80\x00"),
 				6, session->sk);
-				
+			
 			sha256_digest(session->mk, 16, hashmk);
 			sha256_digest(session->sk, 16, hashsk);
 
