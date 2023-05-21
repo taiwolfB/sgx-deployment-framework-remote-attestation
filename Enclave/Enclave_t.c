@@ -608,7 +608,7 @@ static sgx_status_t SGX_CDECL sgx_enclave_ra_get_signing_key(void* pms)
 	//
 	sgx_lfence();
 	printf("AICI BRO\n");
-	return STATUS_SUCCESS;
+	return SGX_SUCCESS;
 // 	ms_enclave_ra_get_key_hash_t* ms = SGX_CAST(ms_enclave_ra_get_key_hash_t*, pms);
 // 	ms_enclave_ra_get_key_hash_t __in_ms;
 // 	if (memcpy_s(&__in_ms, sizeof(ms_enclave_ra_get_key_hash_t), ms, sizeof(ms_enclave_ra_get_key_hash_t))) {
