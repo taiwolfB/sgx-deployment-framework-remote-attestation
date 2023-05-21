@@ -675,7 +675,7 @@ SGX_EXTERNC const struct {
 	size_t nr_ecall;
 	struct {void* ecall_addr; uint8_t is_priv; uint8_t is_switchless;} ecall_table[9];
 } g_ecall_table = {
-	8,
+	9,
 	{
 		{(void*)(uintptr_t)sgx_get_report, 0, 0},
 		{(void*)(uintptr_t)sgx_enclave_ra_init, 0, 0},

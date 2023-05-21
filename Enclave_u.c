@@ -190,7 +190,6 @@ sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retv
 	}
 	
 	printf("KEY RETVAL = %s\n", ms.ms_key);
-	printf("MS RETVAL = %s\n", ms.ms_get_signing_key_status);
 
 	return status;
 }
