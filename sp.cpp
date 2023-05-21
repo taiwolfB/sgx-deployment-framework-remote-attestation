@@ -1165,7 +1165,7 @@ int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 				6, session->mk);
 			cmac128(session->kdk, (unsigned char *)("\x01SK\x00\x80\x00"),
 				6, session->sk);
-
+			printf("BEFORE DIGEST  %s\n", sesion->sk);
 			sha256_digest(session->mk, 16, hashmk);
 			sha256_digest(session->sk, 16, hashsk);
 
@@ -1173,7 +1173,6 @@ int process_msg3 (MsgIO *msgio, IAS_Connection *ias, sgx_ra_msg1_t *msg1,
 				if ( debug ) {
 					eprintf("MK         = %s\n", hexstring(session->mk, 16));
 					eprintf("SK         = %s\n", hexstring(session->sk, 16));
-					eprintf("SK         = %s\n", session->sk);
 				}
 				eprintf("SHA256(MK) = %s\n", hexstring(hashmk, 32));
 				eprintf("SHA256(SK) = %s\n", hexstring(hashsk, 32));
