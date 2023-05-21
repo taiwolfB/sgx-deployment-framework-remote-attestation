@@ -180,7 +180,7 @@ sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retv
 	ms.ms_get_keys_status = get_keys_status;
 	ms.ms_ctx = ctx;
 	ms.ms_type = type;
-	ms.key = key;
+	ms.ms_key = key;
 	status = sgx_ecall(eid, 8, &ocall_table_Enclave, &ms);
 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
 	return status;
