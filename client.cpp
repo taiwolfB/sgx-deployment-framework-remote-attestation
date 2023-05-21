@@ -855,7 +855,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		another_return_status =  enclave_ra_get_signing_key(eid, &get_signking_key_ret, &get_signking_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
 		
 		sample_aes_gcm_128bit_tag_t macOut;
-		msg6->encryptedDataSize = stats.st_size;
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		if (!aes_encrypt_gcm(key, msg6->data, msg6->encryptedDataSize,  decryptedData, &macOut))
 		{
