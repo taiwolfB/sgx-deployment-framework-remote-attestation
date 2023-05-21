@@ -778,20 +778,20 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
 		printf("Starting AES encryptiong algorithm for the data\n");
 		unsigned char* encryptedData = (unsigned char*)malloc(msg6->fullDataToDecryptSize * sizeof(unsigned char));
-		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->fullDataToDecryptSize,  &(encryptedData[0]), &macOut))
+		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->fullDataToDecryptSize,  &(msg6->data[0]), &macOut))
 		{
 			free(msg6);
 			return 0;
 		}
-		printf("Encrypted data size = %d\n", strlen((char*)encryptedData));
+		// printf("Encrypted data size = %d\n", strlen((char*)encryptedData));
 		// memcpy(msg6->data, encryptedData, strlen((char*)encryptedData));
-		strcpy((char*)msg6->data, (char*)encryptedData);
+		// strcpy((char*)msg6->data, (char*)encryptedData);
 		printf("Data encrypted successfully.\n");
 
 		eprintf("Encrypted  data = %s\n", msg6->data);
-		eprintf("Encrypted  from initial var = %s\n", encryptedData);
+		// eprintf("Encrypted  from initial var = %s\n", encryptedData);
 		// eprintf("Data size array = %d\n", sizeof(msg6->data));
-		msg6->encryptedDataSize = strlen((char*)encryptedData);
+		msg6->encryptedDataSize = strlen((char*)msg6->data);
 		// msgio->send_partial(&msg6->encryptedDataSize, sizeof(msg6->encryptedDataSize));
 		// msgio->send_partial(&msg6->fullDataToDecryptSize, sizeof(msg6->fullDataToDecryptSize));
         // msgio->send(&msg6->data, msg6->encryptedDataSize);
