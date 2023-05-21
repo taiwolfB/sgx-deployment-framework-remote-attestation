@@ -855,10 +855,9 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 	
 		// printf("Chmod result = %d\n", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
 		msgio->send(msg6, msg6_size);
-		printf("AICI CRAPA\n");
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
-		fsend_msg(fplog, &msg6, msg6_size);
+		// fsend_msg(fplog, &msg6, msg6_size);
 		printf("AICI CRAPA2\n");
 		edivider();
 		printf("AICI CRAPA3\n");
