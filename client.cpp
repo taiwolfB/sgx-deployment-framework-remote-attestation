@@ -782,6 +782,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 	enclaveTrusted = msg4->status;
 	if ( enclaveTrusted == Trusted && deploymentFileLocation != NULL) {
 		eprintf("Enclave TRUSTED\n");
+		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
 		msg5_encryption_request->isRequested = true;
 		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
 		size_t msg5_sz = 10;
@@ -825,10 +826,8 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			return 0;
 		}
 		
-		if (verbose) {
-			printf("DECRYPTED SUCCESSFULLY\n");
-		}
-
+		printf("DECRYPTED SUCCESSFULLY\n");
+		
 		strcat(deploymentFileLocation, "test2");
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
