@@ -812,6 +812,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
+		printf("AICI2\n");
 		printf("RECEIVED ENCRYPTED DATA SIZE = %s\n", msg6_encrypted->fullDataToDecryptSize);
 
 		sgx_status_t get_signing_key_ret;
