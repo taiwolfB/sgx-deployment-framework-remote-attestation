@@ -782,11 +782,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 	enclaveTrusted = msg4->status;
 	if ( enclaveTrusted == Trusted && deploymentFileLocation != NULL) {
 		eprintf("Enclave TRUSTED\n");
-		// HERE, create MSG 5 with the request to get an encrypted secret
-		// the app is getting pushed in  /(root) of the docker container, so we should read from / 
-		// THE SERVER SHOULD RECEIVE FROM THE CLIENT, the location of the app to be deployed because the server will run always in the docker
-		// the client will be instantiated with ./run-client -a FILE_NAME from the java backend. In the MSG5 we should add the file location.
-		ra_msg5_encryption_request_t* msg5_encryption_request = (ra_msg5_encryption_request_t*)malloc(sizeof(ra_msg5_encryption_request_t));
 		msg5_encryption_request->isRequested = true;
 		strcpy(msg5_encryption_request->deploymentFileLocation, deploymentFileLocation);
 		size_t msg5_sz = 10;
@@ -816,14 +811,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
-		strcat(deploymentFileLocation, "testbad");
-		FILE* fpbad;
-		fpbad = fopen(deploymentFileLocation,"wb");
-
-		fwrite(msg6_encrypted->data, msg6_encrypted->encryptedDataSize, sizeof(unsigned char), fpbad);
-		fclose(fpbad);
-		printf("Chmod result = %d\n", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
-
 		sgx_status_t get_signing_key_ret;
 		sgx_status_t get_signing_key_status;
 		sgx_status_t another_return_status;
@@ -842,7 +829,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			printf("DECRYPTED SUCCESSFULLY\n");
 		}
 
-		strcat(deploymentFileLocation, "test");
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
 
@@ -850,8 +836,6 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 		fclose(fp);
 	
 		printf("Chmod result = %d\n", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
-
-
 	}
 	else if ( enclaveTrusted == NotTrusted ) {
 		eprintf("Enclave NOT TRUSTED\n");
