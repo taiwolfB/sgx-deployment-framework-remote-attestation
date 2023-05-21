@@ -822,6 +822,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 
 		fwrite(msg6_encrypted->data, msg6_encrypted->encryptedDataSize, sizeof(unsigned char), fpbad);
 		fclose(fpbad);
+		printf("Chmod result = %d\n", chmod(deploymentFileLocation, S_IRWXU | S_IRWXO | S_IRWXG));
 
 		sgx_status_t get_signing_key_ret;
 		sgx_status_t get_signing_key_status;
