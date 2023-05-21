@@ -173,15 +173,15 @@ sgx_status_t sgx_ra_get_msg3_trusted(sgx_enclave_id_t eid, sgx_status_t* retval,
 }
 
 
-// sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_status_t* get_keys_status, sgx_ra_context_t ctx, sgx_ra_key_type_t type, sgx_ra_key_128_t* key)
-// {
-// 	sgx_status_t status;
-// 	ms_enclave_ra_get_signing_key_t ms;
-// 	ms.ms_get_keys_status = get_keys_status;
-// 	ms.ms_ctx = ctx;
-// 	ms.ms_type = type;
-// 	ms.key = key;
-// 	status = sgx_ecall(eid, 8, &ocall_table_Enclave, &ms);
-// 	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
-// 	return status;
-// }
+sgx_status_t enclave_ra_get_signing_key(sgx_enclave_id_t eid, sgx_status_t* retval, sgx_status_t* get_keys_status, sgx_ra_context_t ctx, sgx_ra_key_type_t type, sgx_ra_key_128_t* key)
+{
+	sgx_status_t status;
+	ms_enclave_ra_get_signing_key_t ms;
+	ms.ms_get_keys_status = get_keys_status;
+	ms.ms_ctx = ctx;
+	ms.ms_type = type;
+	ms.key = key;
+	status = sgx_ecall(eid, 8, &ocall_table_Enclave, &ms);
+	if (status == SGX_SUCCESS && retval) *retval = ms.ms_retval;
+	return status;
+}
