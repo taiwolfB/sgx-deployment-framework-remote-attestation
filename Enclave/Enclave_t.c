@@ -615,7 +615,7 @@ static sgx_status_t SGX_CDECL sgx_enclave_ra_get_signing_key(void* pms)
 		return SGX_ERROR_UNEXPECTED;
 	}
 	sgx_status_t status = SGX_SUCCESS;
-	sgx_status_t* _tmp_get_signking_key_status = __in_ms.ms_get_signing_key_status;
+	sgx_status_t* _tmp_get_signing_key_status = __in_ms.ms_get_signing_key_status;
 	size_t _len_get_signing_key_status = sizeof(sgx_status_t);
 	sgx_status_t* _in_get_signing_key_status = NULL;
 	sgx_ra_key_128_t* _tmp_key = __in_ms.ms_key;
