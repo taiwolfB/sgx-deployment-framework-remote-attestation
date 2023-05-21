@@ -765,36 +765,36 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		unsigned char byte;
 		size_t size_read = fread((unsigned char*)read_data, sizeof(unsigned char), stats.st_size, fp);
 
-		if (verbose) {
-			printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
-			printf("READ DATA = %s\n", read_data);
-			printf("READ DATA SIZE FROM STRLEN= %d\n", strlen((const char*)read_data));
-		}
-		fclose(fp);
+		// if (verbose) {
+		// 	printf("Size from stat = %d  Size after file_read = %d\n", stats.st_size, size_read);
+		// 	printf("READ DATA = %s\n", read_data);
+		// 	printf("READ DATA SIZE FROM STRLEN= %d\n", strlen((const char*)read_data));
+		// }
+		// fclose(fp);
 
 		
-		unsigned char encryptedData[100000];
-		msg6->encryptedDataSize = stats.st_size;
+		// unsigned char encryptedData[100000];
+		// msg6->encryptedDataSize = stats.st_size;
 
-		// msg6->session_sk = &(session->sk[0]);
-		int i = 0;
-		while (session->sk[i] != '\0') {
-			msg6->session_sk[i] = session->sk[i];
-			i++;
-		}
-		msg6->session_sk[i] = '\0';
-		i++;
-		msg6->session_sk_size = i;
+		// // msg6->session_sk = &(session->sk[0]);
+		// int i = 0;
+		// while (session->sk[i] != '\0') {
+		// 	msg6->session_sk[i] = session->sk[i];
+		// 	i++;
+		// }
+		// msg6->session_sk[i] = '\0';
+		// i++;
+		// msg6->session_sk_size = i;
 
-		printf("session sk size = %d\n", i);
+		// printf("session sk size = %d\n", i);
 		
-		if (verbose) {
-			printf("Encryption key = %s\n", session->sk);
-			printf("SK copied  = %s\n", msg6->session_sk);
-			printf("DA\n");
-			printf("SK copied  = %s\n", msg6->session_sk);
-		}
-		unsigned char digest[32];
+		// if (verbose) {
+		// 	printf("Encryption key = %s\n", session->sk);
+		// 	printf("SK copied  = %s\n", msg6->session_sk);
+		// 	printf("DA\n");
+		// 	printf("SK copied  = %s\n", msg6->session_sk);
+		// }
+		// unsigned char digest[32];
 
 		printf("Encryption key in SP = %s\n", session->sk);
 	/*	int output_digest = sha256_digest (&session->sk[0], 16, digest);
