@@ -774,7 +774,7 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		fclose(fp);
 
 		
-
+		printf("READ DATA = %s\n", read_data);
 
 		// // msg6->session_sk = &(session->sk[0]);
 		// int i = 0;
