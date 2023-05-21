@@ -812,6 +812,7 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
+		printf("MS G6 size = %ld\n", msg6_sz);
 		printf("RECEIVED ENCRYPTED DATA = %s\n", msg6_encrypted->data);
 		printf("RECEIVED FULL DATA SIZE = %s\n", msg6_encrypted->fullDataToDecryptSize);
 		printf("RECEIVED ENCRYPTED DATA SIZE = %s\n", msg6_encrypted->encryptedDataSize);
