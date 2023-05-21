@@ -777,41 +777,22 @@ int process_msg5(MsgIO *msg, ra_session_t *session)
 		sample_aes_gcm_128bit_tag_t macOut;
 		msg6->encryptedDataSize = stats.st_size;
 		// msg6->data = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		printf("AICI\n");
+		if (verbose) {
+			printf("Starting AES encryptiong algorithm for the data\n");
+		}
+
 		if (!aes_encrypt_gcm(&session->sk[0], read_data, msg6->encryptedDataSize,  &(msg6->data[0]), &macOut))
 		{
 			free(msg6);
 			return 0;
 		}
-		// printf("ENCRYPTED SUCCESSFULLY\n");
-		// printf("SIZE = %d\n", msg6->encryptedDataSize);
-		// printf("ENCRYPTED DATA = %s\n", msg6->data);
-		// printf("DATA ENCRYTPED = %s\n", encryptedDataTest);
-		// strcpy((char*)msg6->data, (char*)encryptedDataTest);
-		// printf("DATA ENCRYTPED from data = %s\n", msg6->data);
-		// // printf("ENCRYPTED DATA SIZE = %d\n", strlen((const char*)msg6->data));
-		// unsigned char testData[100000];
-		// unsigned char* decryptedData = (unsigned char*)malloc(msg6->encryptedDataSize * sizeof(unsigned char));
-		// if (!aes_encrypt_gcm(&(session->sk[0]), msg6->data, msg6->encryptedDataSize, &(testData[0]), &macOut))
-		// {
-		// 	free(msg6);
-		// 	return 0;
-		// }
-
-		// printf("DATA DECRYPTED = %s\n", decryptedData);
-		// printf("DATA DECRYPTED SIZE = %d\n", strlen((const char*)decryptedData));
-		// FILE* fp1;
-		// fp1 = fopen("test.bin","wb");
-
-		// //fwrite(decryptedData, msg6->encryptedDataSize, 1, fp1);
-		// fclose(fp1);
-	
-		// printf("Chmod result = %d\n", chmod("test.bin", S_IRWXU | S_IRWXO | S_IRWXG));
-		fsend_msg(fplog, &msg6, msg6_size);
+		
+		if (verbose) {
+			printf("Data encrypted successfully.\n");
+		}
 		msgio->send(msg6, msg6_size);
 		// msgio->send_partial(&msg6->mac, sizeof(msg6->mac));
         // msgio->send(&msg6->data, sizeof(msg6->data));
-		
 		edivider();
 		free(msg6);
 	}

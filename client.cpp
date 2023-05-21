@@ -816,45 +816,11 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			exit(1);
 		}
 
-		// printf("Encrpted data size received = %d\n", msg6_encrypted->encryptedDataSize);
-		// printf("Encrypted data received = %s\n", msg6_encrypted->data);
-		// printf("MSG6 SZ = %d\n", msg6_sz);
-		// printf("SIZE RECEIVED  = %d\n", msg6_encrypted->encryptedDataSize);
-		// printf("SK RECEIVED  = %s\n", msg6_encrypted->session_sk);
-		// printf("SK SIZE RECEIVED = %d\n", msg6_encrypted->session_sk_size);
-		// sample_aes_gcm_128bit_tag_t macOut;
-		// unsigned char decryptedData[100000];
-
-		// if (!aes_encrypt_gcm(msg6_encrypted->session_sk, &(msg6_encrypted->data[0]), msg6_encrypted->encryptedDataSize, &(decryptedData[0]), &macOut))
-		// {
-		// 	free(msg6_encrypted);
-		// 	return 0;
-		// }
-
-		// sgx_status_t ret = SGX_SUCCESS;
-		// sgx_status_t sha_status, key_status;
-		// // sgx_ec_key_128bit_t sk_key;/
-		// sgx_sha256_hash_t skhash;
-		// printf("RET BEFORE = %d\n", ret);
-		// ret = enclave_ra_get_key_hash(eid, &sha_status, &key_status, ra_ctx, SGX_RA_KEY_SK, &skhash);
-		// printf("SGX RET AFTER = %d\n", ret);
-		// printf("HASH = %s\n", skhash);
-
-		
-		// // idea : ENCRYPT / DECRYPT with the hash itself
-		// eprintf("SHA256(SK) = ");
-		// print_hexstring(stderr, skhash, sizeof(skhash));
-		// print_hexstring(fplog, skhash, sizeof(skhash));
-		// eprintf("\n");
-
-		printf("RECEIVED SIZE = %d\n", msg6_encrypted->encryptedDataSize);
-		printf("DATA ENCRYPTEd = %s\n", msg6_encrypted->data);
-
-		sgx_status_t get_signking_key_ret;
-		sgx_status_t get_signking_key_status;
+		sgx_status_t get_signing_key_ret;
+		sgx_status_t get_signing_key_status;
 		sgx_status_t another_return_status;
 		sgx_ra_key_128_t key;
-		another_return_status =  enclave_ra_get_signing_key(eid, &get_signking_key_ret, &get_signking_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
+		another_return_status =  enclave_ra_get_signing_key(eid, &get_signing_key_ret, &get_signing_key_status, ra_ctx, SGX_RA_KEY_SK, &key);
 		
 		sample_aes_gcm_128bit_tag_t macOut;
 		unsigned char* decryptedData = (unsigned char*)malloc(msg6_encrypted->encryptedDataSize * sizeof(unsigned char));
@@ -863,29 +829,13 @@ int do_attestation (sgx_enclave_id_t eid, config_t *config, char* deploymentFile
 			free(msg6_encrypted);
 			return 0;
 		}
-		// printf("ENCRYPTED DATA = %s\n", msg6_encrypted->data);
-		printf("DECRYPTED SUCCESSFULLY\n");
+		
+		if (verbose) {
+			printf("DECRYPTED SUCCESSFULLY\n");
+		}
+
 		printf("DECRYPTED DATA = %s\n", decryptedData);
-		// printf("ANOTHER RETURN STATUS = %d\n", another_return_status);
-		// printf("KEEEEEEEEEEY = %s\n", key);
-		// unsigned char digest[32];
 
-		// int output_digest = sha256_digest (key, 16, digest);
-		// printf("CRYPTO = %d\n", output_digest);
-		// printf("DIGEST OUT = %s\n", digest);
-		// eprintf("SHA256(SK) = ");
-		// print_hexstring(stderr, digest, sizeof(digest));
-		// print_hexstring(fplog, digest, sizeof(digest));
-		// eprintf("\n");
-		// eprintf("\n");
-
-        // if(SGX_SUCCESS != ret)
-        // {
-		// 	printf("FAIL AICI\n");
-        //     exit(0);
-        // }
-
-		// printf(" CHEIEEE = %s\n", sk_key);
 		strcat(deploymentFileLocation, "test");
 		FILE* fp;
 		fp = fopen(deploymentFileLocation,"wb");
